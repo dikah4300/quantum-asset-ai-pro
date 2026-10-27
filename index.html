@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <!-- Safari & Mobile Viewport Optimization -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QuantumAssetAI">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="theme-color" content="#060913">
+  
+  <title>Quantum Asset AI Pro - Intelijen Crypto, Meme Coins, Saham & Forex XAU/USD</title>
+  <meta name="description" content="Platform asisten intelijen pasar lengkap: Analisis Forex XAU/USD akurasi tinggi, pemantauan Koin Meme & Kripto lengkap, kalender berita PPI, FOMC, NFP, CPI, serta chart live TradingView interaktif.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- TradingView Library for High Performance Interactive Candlestick Charts -->
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- TOP TICKER TAPE (REAL-TIME MARQUEE) -->
+  <header class="ticker-wrapper" id="tickerWrapper">
+    <div class="ticker-label">
+      <span class="live-pulse"></span>
+      <span class="ticker-title"><i class="fa-solid fa-bolt"></i> PASAR LIVE</span>
+    </div>
+    <div class="ticker-track-container">
+      <div class="ticker-track" id="tickerTrack">
+        <span class="ticker-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> Menghubungkan ke bursa pasar real-time & koin meme...</span>
+      </div>
+    </div>
+    <div class="ticker-controls">
+      <button id="btnRefresh" title="Perbarui Data Sekarang" class="btn-icon">
+        <i class="fa-solid fa-arrows-rotate"></i>
+      </button>
+      <span class="refresh-countdown" id="refreshTimer">45s</span>
+    </div>
+  </header>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <div class="brand-logo">
+        <i class="fa-solid fa-brain-circuit"></i>
+      </div>
+      <div class="brand-text">
+        <div class="brand-name">QUANTUM<span class="accent-text">ASSET</span> <span class="badge-ai">AI PRO</span></div>
+        <div class="brand-tagline">Intelijen Crypto, Meme Coins, Forex XAU/USD & Saham</div>
+      </div>
+    </div>
+
+    <!-- Quick Market Status Summary Bar -->
+    <div class="nav-metrics">
+      <div class="metric-pill" id="goldPill" title="Emas Dunia (XAU/USD)">
+        <i class="fa-solid fa-crown text-gold"></i>
+        <span>XAU/USD: <strong id="goldNavPrice" class="text-gold">--</strong></span>
+      </div>
+      <div class="metric-pill" id="fngPill" title="Indeks Ketakutan & Keserakahan Kripto">
+        <i class="fa-solid fa-gauge-high"></i>
+        <span>Fear & Greed: <strong id="fngValueDisplay">--</strong></span>
+      </div>
+      <div class="metric-pill" id="ihsgPill" title="Indeks Harga Saham Gabungan">
+        <i class="fa-solid fa-chart-line text-cyan"></i>
+        <span>IHSG: <strong id="ihsgNavPrice">--</strong></span>
+      </div>
+      <div class="metric-pill" id="usdidrPill" title="Kurs Dolar AS ke Rupiah">
+        <i class="fa-solid fa-money-bill-transfer text-emerald"></i>
+        <span>USD/IDR: <strong id="usdidrNavPrice">--</strong></span>
+      </div>
+    </div>
+
+    <div class="nav-actions">
+      <a href="#chartSection" class="btn-pill btn-nav-action" title="Buka Live Chart TradingView">
+        <i class="fa-solid fa-chart-candlestick"></i> Chart Live
+      </a>
+      <a href="#forexAnalysisSection" class="btn-pill btn-nav-action text-gold" title="Analisis Forex XAU/USD">
+        <i class="fa-solid fa-crosshairs"></i> XAU/USD Signal
+      </a>
+      <a href="#forexCalendarSection" class="btn-pill btn-nav-action text-cyan" title="Kalender Berita PPI, FOMC, NFP">
+        <i class="fa-solid fa-calendar-days"></i> Kalender Makro
+      </a>
+      <button class="btn-pill" id="btnOpenCalculator" title="Kalkulator Konversi Aset & Kripto">
+        <i class="fa-solid fa-calculator"></i> Konverter
+      </button>
+      <button class="btn-pill" id="btnSettings" title="Pengaturan API & Asisten">
+        <i class="fa-solid fa-gear"></i> Konfigurasi
+      </button>
+      <button class="btn-pill btn-primary" id="btnToggleChatMobile">
+        <i class="fa-solid fa-robot"></i> Asisten AI
+      </button>
+    </div>
+  </nav>
+
+  <!-- MAIN APP CONTAINER -->
+  <main class="app-layout">
+
+    <!-- LEFT COLUMN: Market Overviews, Charts, Forex Analysis & News Feed -->
+    <section class="content-stream">
+
+      <!-- HERO STATS CARDS -->
+      <div class="hero-cards-grid">
+        <!-- Card 1: Emas XAU/USD & Safe Haven Status -->
+        <div class="stat-card glass-panel gold-glow" id="cardPrecious">
+          <div class="stat-card-header">
+            <span class="stat-category"><i class="fa-solid fa-crown text-gold"></i> FOREX EMAS (XAU/USD)</span>
+            <span class="badge-status gold-badge" id="goldSignalBadge">Sinyal: STRONG BUY</span>
+          </div>
+          <div class="stat-main">
+            <div class="stat-big-value text-gold" id="goldPriceCard">$0.00 / oz</div>
+            <div class="stat-change" id="goldChangeCard">--%</div>
+          </div>
+          <div class="stat-sub-info">
+            <div class="sub-item">
+              <span class="sub-label">Est. Emas Fisik:</span>
+              <span class="sub-val text-gold font-bold" id="goldGramCard">Rp -- /gr</span>
+            </div>
+            <div class="sub-item">
+              <span class="sub-label">Perak (Silver):</span>
+              <span class="sub-val" id="silverPriceCard">--</span>
+            </div>
+          </div>
+          <div class="stat-sub-info mt-1">
+            <div class="sub-item">
+              <span class="sub-label">Minyak WTI:</span>
+              <span class="sub-val" id="oilPriceCard">--</span>
+            </div>
+            <div class="sub-item">
+              <span class="sub-label">USD/IDR:</span>
+              <span class="sub-val" id="usdidrCard">--</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Crypto & Koin Meme Sentiment -->
+        <div class="stat-card glass-panel" id="cardCrypto">
+          <div class="stat-card-header">
+            <span class="stat-category"><i class="fa-brands fa-bitcoin text-cyan"></i> KRIPTO & KOIN MEME</span>
+            <span class="badge-status badge-pulse" id="cryptoStatusBadge">Greed Phase</span>
+          </div>
+          <div class="stat-main">
+            <div class="stat-big-value" id="btcPriceCard">$0.00</div>
+            <div class="stat-change" id="btcChangeCard">--%</div>
+          </div>
+          <div class="stat-sub-info">
+            <div class="sub-item">
+              <span class="sub-label">🐸 Pepe (PEPE):</span>
+              <span class="sub-val text-emerald font-bold" id="pepePriceCard">--</span>
+            </div>
+            <div class="sub-item">
+              <span class="sub-label">🐕 Dogecoin:</span>
+              <span class="sub-val font-bold" id="dogePriceCard">--</span>
+            </div>
+          </div>
+          <div class="stat-sub-info mt-1">
+            <div class="sub-item">
+              <span class="sub-label">Ethereum:</span>
+              <span class="sub-val" id="ethPriceCard">--</span>
+            </div>
+            <div class="sub-item">
+              <span class="sub-label">Solana:</span>
+              <span class="sub-val" id="solPriceCard">--</span>
+            </div>
+          </div>
+          <div class="fng-meter-bar mt-2">
+            <div class="fng-meter-fill" id="fngFill" style="width: 60%;"></div>
+          </div>
+          <div class="fng-meta">
+            <span id="fngSentimentText">Sentiment: Greed</span>
+            <span id="fngScoreText">62 / 100</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Saham IHSG & Bursa Global -->
+        <div class="stat-card glass-panel" id="cardStocks">
+          <div class="stat-card-header">
+            <span class="stat-category"><i class="fa-solid fa-chart-pie text-cyan"></i> SAHAM & BURSA</span>
+            <span class="badge-status" id="stockStatusBadge">BEI & Wall St</span>
+          </div>
+          <div class="stat-main">
+            <div class="stat-big-value text-cyan" id="ihsgPriceCard">0.00</div>
+            <div class="stat-change" id="ihsgChangeCard">--%</div>
+          </div>
+          <div class="stat-sub-info">
+            <div class="sub-item">
+              <span class="sub-label">S&P 500:</span>
+              <span class="sub-val" id="sp500PriceCard">--</span>
+            </div>
+            <div class="sub-item">
+              <span class="sub-label">Nvidia (NVDA):</span>
+              <span class="sub-val" id="nvdaPriceCard">--</span>
+            </div>
+          </div>
+          <div class="stat-sub-info mt-1">
+            <div class="sub-item">
+              <span class="sub-label">BBCA:</span>
+              <span class="sub-val" id="bbcaPriceCard">--</span>
+            </div>
+            <div class="sub-item">
+              <span class="sub-label">BBRI:</span>
+              <span class="sub-val" id="bbriPriceCard">--</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: AI Sentiment & Berita Makro -->
+        <div class="stat-card glass-panel" id="cardAiSentiment">
+          <div class="stat-card-header">
+            <span class="stat-category"><i class="fa-solid fa-brain"></i> SENTIMEN BERITA AI</span>
+            <span class="badge-status badge-pulse">NLP Real-time</span>
+          </div>
+          <div class="sentiment-summary-box">
+            <div class="sentiment-bar-multi">
+              <div class="bar-bullish" id="barBullish" style="width: 50%;" title="Bullish"></div>
+              <div class="bar-neutral" id="barNeutral" style="width: 30%;" title="Netral"></div>
+              <div class="bar-bearish" id="barBearish" style="width: 20%;" title="Bearish"></div>
+            </div>
+            <div class="sentiment-legend">
+              <span class="legend-item"><span class="dot bull-dot"></span> Bullish: <b id="pctBullish">0%</b></span>
+              <span class="legend-item"><span class="dot neutral-dot"></span> Netral: <b id="pctNeutral">0%</b></span>
+              <span class="legend-item"><span class="dot bear-dot"></span> Bearish: <b id="pctBearish">0%</b></span>
+            </div>
+            <p class="ai-digest-text" id="aiDigestSnippet">
+              Menganalisis katalis rilis inflasi CPI/PPI, suku bunga The Fed (FOMC), serta pergerakan likuiditas koin meme dan emas...
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================== -->
+      <!-- SECTION 1: LIVE INTERACTIVE TRADINGVIEW CANDLESTICK CHARTS -->
+      <!-- ========================================================== -->
+      <div class="chart-section glass-panel" id="chartSection">
+        <div class="chart-section-header">
+          <div class="chart-title-group">
+            <div class="chart-badge-live"><span class="live-pulse"></span> LIVE CHART</div>
+            <h2><i class="fa-solid fa-chart-candlestick text-gradient"></i> Chart Interaktif Real-Time</h2>
+            <span class="current-symbol-label" id="currentSymbolDisplay">XAUUSD (Emas Spot)</span>
+          </div>
+
+          <!-- Market Category Filter for Charts -->
+          <div class="chart-category-tabs" id="chartCategoryTabs">
+            <button class="c-tab active" data-chart-cat="forex"><i class="fa-solid fa-crown text-gold"></i> Forex & Emas</button>
+            <button class="c-tab" data-chart-cat="crypto"><i class="fa-brands fa-bitcoin text-cyan"></i> Crypto & Meme</button>
+            <button class="c-tab" data-chart-cat="stocks"><i class="fa-solid fa-chart-line text-emerald"></i> Saham BEI & US</button>
+          </div>
+        </div>
+
+        <!-- Quick Symbol Selector Pills -->
+        <div class="symbol-pills-bar" id="symbolPillsBar">
+          <!-- Populated dynamically based on category -->
+        </div>
+
+        <!-- TradingView Embedded Container -->
+        <div class="tradingview-container-wrapper">
+          <div id="tradingview_widget_box" class="tradingview-widget-box">
+            <!-- TradingView Widget injected via JS -->
+            <div class="chart-loading-placeholder">
+              <i class="fa-solid fa-circle-notch fa-spin fa-2x"></i>
+              <p>Memuat chart TradingView interaktif...</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-footer-bar">
+          <div class="chart-tip">
+            <i class="fa-solid fa-lightbulb text-gold"></i>
+            <span>Gunakan scroll mouse atau cubit layar (Safari/iOS) untuk zoom-in & zoom-out candlestick. Mendukung indikator teknikal lengkap.</span>
+          </div>
+          <div class="chart-timeframes">
+            <span class="tf-label">Interval:</span>
+            <button class="tf-btn" data-interval="5">5m</button>
+            <button class="tf-btn" data-interval="15">15m</button>
+            <button class="tf-btn active" data-interval="60">1 Jam</button>
+            <button class="tf-btn" data-interval="240">4 Jam</button>
+            <button class="tf-btn" data-interval="D">1 Hari</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================== -->
+      <!-- SECTION 2: DEDICATED XAU/USD INSTITUTIONAL CONFLUENCE ENGINE -->
+      <!-- ========================================================== -->
+      <div class="forex-analysis-section glass-panel gold-glow" id="forexAnalysisSection">
+        <div class="f-section-header">
+          <div class="f-title-left">
+            <div class="f-badge-gold"><i class="fa-solid fa-crosshairs"></i> INSTITUTIONAL CONFLUENCE MODEL</div>
+            <h2>Analisis Forex XAU/USD (Emas Spot)</h2>
+            <p class="f-subtitle">Multi-Timeframe Confluence, Smart Money Concepts (SMC) & Sinyal Probabilitas Tinggi</p>
+          </div>
+
+          <div class="confluence-meter-card">
+            <div class="confluence-meter-value">
+              <span class="c-pct" id="xauConfluenceScore">92%</span>
+              <span class="c-text">Confluence Score</span>
+            </div>
+            <div class="confluence-signal-tag" id="xauSignalTag">
+              <i class="fa-solid fa-circle-check"></i> STRONG BUY
+            </div>
+          </div>
+        </div>
+
+        <!-- 3-Column Trading Terminal Grid for Gold -->
+        <div class="xau-grid">
+          
+          <!-- Column 1: Actionable High-Winrate Trade Setup ("Pasti Bener" Plan) -->
+          <div class="xau-card setup-card glass-panel-inner">
+            <div class="xau-card-title">
+              <i class="fa-solid fa-bullseye text-emerald"></i>
+              <span>Plan Trading Konfirmasi Tinggi (Institutional Setup)</span>
+            </div>
+            
+            <div class="setup-main-badge" id="setupActionType">BUY LIMIT / BUY ON PULLBACK</div>
+            <div class="setup-name" id="setupName">Order Block Retest + Golden EMA Alignment</div>
+
+            <div class="setup-levels-list">
+              <div class="s-level-row entry-row">
+                <span class="s-label"><i class="fa-solid fa-arrow-right-to-bracket text-cyan"></i> Zona Beli (Entry Zone):</span>
+                <span class="s-val text-cyan font-bold" id="setupEntryZone">$2,736.00 - $2,740.00</span>
+              </div>
+              <div class="s-level-row sl-row">
+                <span class="s-label"><i class="fa-solid fa-shield-xmark text-crimson"></i> Stop Loss Proteksi:</span>
+                <span class="s-val text-crimson font-bold" id="setupSL">$2,724.50</span>
+              </div>
+              <div class="s-level-row tp-row">
+                <span class="s-label"><i class="fa-solid fa-flag-checkered text-emerald"></i> Take Profit 1 (Scalp 40%):</span>
+                <span class="s-val text-emerald font-bold" id="setupTP1">$2,752.00</span>
+              </div>
+              <div class="s-level-row tp-row">
+                <span class="s-label"><i class="fa-solid fa-flag-checkered text-emerald"></i> Take Profit 2 (Intraday R1):</span>
+                <span class="s-val text-emerald font-bold" id="setupTP2">$2,764.00</span>
+              </div>
+              <div class="s-level-row tp-row">
+                <span class="s-label"><i class="fa-solid fa-trophy text-gold"></i> Take Profit 3 (Swing R2):</span>
+                <span class="s-val text-gold font-bold" id="setupTP3">$2,785.00</span>
+              </div>
+            </div>
+
+            <div class="setup-meta-bar">
+              <div class="meta-item">
+                <span class="m-lbl">Risk:Reward</span>
+                <span class="m-val text-emerald" id="setupRR">1 : 3.2</span>
+              </div>
+              <div class="meta-item">
+                <span class="m-lbl">ATR Harian (14)</span>
+                <span class="m-val" id="setupATR">$28.40</span>
+              </div>
+              <div class="meta-item">
+                <span class="m-lbl">Money Mgmt</span>
+                <span class="m-val text-gold">1% - 2% Risk</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2: Multi-Timeframe Status & SMC Zones -->
+          <div class="xau-card glass-panel-inner">
+            <div class="xau-card-title">
+              <i class="fa-solid fa-layer-group text-cyan"></i>
+              <span>Multi-Timeframe Bias & Smart Money Concepts</span>
+            </div>
+
+            <!-- Timeframe Grid -->
+            <div class="tf-status-grid" id="tfStatusGrid">
+              <div class="tf-card tf-bull">
+                <div class="tf-name">D1 (Daily)</div>
+                <div class="tf-badge">Strong Bullish</div>
+                <div class="tf-desc">Di atas EMA 50 & 200, Channel Naik Utuh</div>
+              </div>
+              <div class="tf-card tf-bull">
+                <div class="tf-name">H4 (4 Jam)</div>
+                <div class="tf-badge">Bullish Accumulation</div>
+                <div class="tf-desc">Rebound dari Order Block demand zone</div>
+              </div>
+              <div class="tf-card tf-bull">
+                <div class="tf-name">H1 (1 Jam)</div>
+                <div class="tf-badge">Bullish Momentum</div>
+                <div class="tf-desc">RSI 59.4, ekspansi momentum Golden Cross</div>
+              </div>
+              <div class="tf-card tf-neutral">
+                <div class="tf-name">M15 (Scalping)</div>
+                <div class="tf-badge">Retest FVG</div>
+                <div class="tf-desc">Menguji fair value gap untuk konfirmasi entry</div>
+              </div>
+            </div>
+
+            <!-- SMC Key Zones -->
+            <div class="smc-zones-box mt-3">
+              <div class="smc-item">
+                <span class="smc-label"><i class="fa-solid fa-square-parking text-emerald"></i> Bullish Order Block (Demand):</span>
+                <span class="smc-val text-emerald font-bold" id="smcDemand">$2,720.00 - $2,728.50</span>
+              </div>
+              <div class="smc-item">
+                <span class="smc-label"><i class="fa-solid fa-triangle-exclamation text-crimson"></i> Bearish Order Block (Supply):</span>
+                <span class="smc-val text-crimson font-bold" id="smcSupply">$2,770.00 - $2,778.00</span>
+              </div>
+              <div class="smc-item">
+                <span class="smc-label"><i class="fa-solid fa-water-ladder text-cyan"></i> Fair Value Gap (FVG):</span>
+                <span class="smc-val" id="smcFVG">$2,734.00 - $2,737.50</span>
+              </div>
+              <div class="smc-item">
+                <span class="smc-label"><i class="fa-solid fa-magnet text-gold"></i> Target Likuiditas:</span>
+                <span class="smc-val text-gold" id="smcLiquidity">Buy-side Liquidity di atas high kemarin</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 3: Pivot Points Classic & Fibonacci Table -->
+          <div class="xau-card glass-panel-inner">
+            <div class="xau-card-title">
+              <i class="fa-solid fa-table-list text-gold"></i>
+              <span>Pivot Points Intraday & Fibonacci</span>
+            </div>
+
+            <div class="pivot-tables-wrapper">
+              <table class="pivot-table">
+                <thead>
+                  <tr>
+                    <th>Level</th>
+                    <th>Classic Pivot</th>
+                    <th>Fibonacci</th>
+                  </tr>
+                </thead>
+                <tbody id="pivotTableBody">
+                  <tr class="res-row">
+                    <td><span class="p-badge res">R3</span></td>
+                    <td id="pvR3">$2,785.00</td>
+                    <td id="fibR3">$2,772.40</td>
+                  </tr>
+                  <tr class="res-row">
+                    <td><span class="p-badge res">R2</span></td>
+                    <td id="pvR2">$2,768.50</td>
+                    <td id="fibR2">$2,760.10</td>
+                  </tr>
+                  <tr class="res-row">
+                    <td><span class="p-badge res">R1</span></td>
+                    <td id="pvR1">$2,755.00</td>
+                    <td id="fibR1">$2,751.50</td>
+                  </tr>
+                  <tr class="pivot-main-row">
+                    <td><span class="p-badge pp">PIVOT</span></td>
+                    <td id="pvPP" class="font-bold text-cyan">$2,740.00</td>
+                    <td id="fibPP" class="font-bold text-cyan">$2,740.00</td>
+                  </tr>
+                  <tr class="sup-row">
+                    <td><span class="p-badge sup">S1</span></td>
+                    <td id="pvS1">$2,728.50</td>
+                    <td id="fibS1">$2,728.50</td>
+                  </tr>
+                  <tr class="sup-row">
+                    <td><span class="p-badge sup">S2</span></td>
+                    <td id="pvS2">$2,715.00</td>
+                    <td id="fibS2">$2,719.90</td>
+                  </tr>
+                  <tr class="sup-row">
+                    <td><span class="p-badge sup">S3</span></td>
+                    <td id="pvS3">$2,698.00</td>
+                    <td id="fibS3">$2,707.60</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Macro Drivers Note -->
+            <div class="macro-driver-footer" id="macroDriverNote">
+              <i class="fa-solid fa-scale-balanced text-gold"></i>
+              <span><strong>Katalis Makro:</strong> Pelemahan DXY (103.80) & imbal hasil obligasi AS 10Y stabil di 4.18% menopang reli kenaikan emas.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================== -->
+      <!-- SECTION 3: FOREX ECONOMIC CALENDAR (PPI, FOMC, NFP, CPI) -->
+      <!-- ========================================================== -->
+      <div class="forex-calendar-section glass-panel" id="forexCalendarSection">
+        <div class="calendar-header">
+          <div class="cal-title-group">
+            <div class="section-title">
+              <i class="fa-solid fa-calendar-check text-cyan"></i>
+              <h2>Kalender Berita Forex Makro & Panduan Reaksi Emas</h2>
+            </div>
+            <p class="cal-subtitle">Jadwal & panduan reaksi rilis inflasi PPI, suku bunga FOMC, ketenagakerjaan NFP, CPI, PCE, dan GDP dunia.</p>
+          </div>
+
+          <!-- Calendar Filters -->
+          <div class="cal-filters" id="calFilters">
+            <button class="cal-filter-btn active" data-filter="all">Semua Rilis</button>
+            <button class="cal-filter-btn text-crimson font-bold" data-filter="high">🔥 High Impact</button>
+            <button class="cal-filter-btn" data-filter="fomc">🏛️ FOMC The Fed</button>
+            <button class="cal-filter-btn" data-filter="inflation">📈 CPI & PPI</button>
+            <button class="cal-filter-btn" data-filter="nfp">💼 NFP Lap. Kerja</button>
+            <button class="cal-filter-btn" data-filter="gdp">📊 PDB & PMI</button>
+          </div>
+        </div>
+
+        <!-- Economic Events Cards Stream -->
+        <div class="cal-events-grid" id="calEventsGrid">
+          <!-- Populated by JavaScript -->
+          <div class="loading-state">
+            <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
+            <p>Memuat kalender ekonomi makro forex...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================== -->
+      <!-- SECTION 4: ASSET PRICE MATRIX & EXPANDED MEME COINS -->
+      <!-- ========================================================== -->
+      <div class="market-matrix-section glass-panel" id="matrixSection">
+        <div class="matrix-header">
+          <div class="matrix-title-group">
+            <div class="matrix-title">
+              <i class="fa-solid fa-table-cells text-cyan"></i>
+              <span>Katalog Aset Komprehensif & Koin Meme</span>
+            </div>
+            <div class="matrix-search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="searchCoinInput" placeholder="Cari koin meme, crypto, atau saham (cth: PEPE, DOGE, SOL, NVDA)...">
+            </div>
+          </div>
+          
+          <div class="matrix-pills" id="matrixPills">
+            <button class="m-pill active" data-target="m-meme">🔥 Koin Meme Populer</button>
+            <button class="m-pill" data-target="m-crypto-all">🪙 Semua Kripto</button>
+            <button class="m-pill" data-target="m-crypto-major">⭐ Kripto Utama</button>
+            <button class="m-pill" data-target="m-crypto-ai">🤖 AI & DePIN</button>
+            <button class="m-pill" data-target="m-stocks">📈 Saham RI & US</button>
+            <button class="m-pill" data-target="m-commodities">🏅 Logam & Energi</button>
+            <button class="m-pill" data-target="m-forex">💱 Kurs Valuta</button>
+          </div>
+        </div>
+        <div class="matrix-body" id="matrixContent">
+          <!-- Populated by JavaScript -->
+          <div class="matrix-grid" id="matrixGrid"></div>
+        </div>
+      </div>
+
+      <!-- ========================================================== -->
+      <!-- SECTION 5: FINANCIAL NEWS STREAM -->
+      <!-- ========================================================== -->
+      <div class="news-section glass-panel" id="newsSection">
+        <!-- News Filter Toolbar -->
+        <div class="news-toolbar">
+          <div class="toolbar-top">
+            <div class="section-title">
+              <i class="fa-solid fa-newspaper text-gradient"></i>
+              <h2>Warta & Analisis Berita Finansial</h2>
+              <span class="item-count-badge" id="newsCountBadge">0 Berita</span>
+            </div>
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="searchNewsInput" placeholder="Cari warta (cth: The Fed, PPI, Bitcoin, Emas, IHSG)...">
+              <button id="btnClearSearch" class="btn-clear" style="display:none;"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+          </div>
+
+          <div class="toolbar-bottom">
+            <!-- Category Tabs -->
+            <div class="category-tabs" id="categoryTabs">
+              <button class="tab-btn active" data-cat="all">Semua Pasar</button>
+              <button class="tab-btn" data-cat="forex"><i class="fa-solid fa-money-bill-trend-up"></i> Forex & Makro</button>
+              <button class="tab-btn" data-cat="crypto"><i class="fa-brands fa-bitcoin"></i> Crypto & Meme</button>
+              <button class="tab-btn" data-cat="stocks"><i class="fa-solid fa-chart-line"></i> Saham & BEI</button>
+              <button class="tab-btn" data-cat="precious"><i class="fa-solid fa-coins"></i> Emas & Logam</button>
+              <button class="tab-btn" data-cat="bookmarks"><i class="fa-solid fa-bookmark"></i> Disimpan (<span id="bookmarkCount">0</span>)</button>
+            </div>
+
+            <!-- Sentiment Filter Buttons -->
+            <div class="sentiment-filters">
+              <span class="filter-label">Sentimen AI:</span>
+              <button class="sent-btn active" data-sent="all">Semua</button>
+              <button class="sent-btn sent-bullish" data-sent="Bullish"><i class="fa-solid fa-arrow-trend-up"></i> Bullish</button>
+              <button class="sent-btn sent-neutral" data-sent="Netral"><i class="fa-solid fa-minus"></i> Netral</button>
+              <button class="sent-btn sent-bearish" data-sent="Bearish"><i class="fa-solid fa-arrow-trend-down"></i> Bearish</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- News Feed List -->
+        <div class="news-feed-container" id="newsFeedList">
+          <div class="loading-state">
+            <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
+            <p>Mengambil dan menganalisis berita real-time...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT COLUMN: Interactive Financial AI Assistant -->
+    <aside class="chat-assistant-sidebar glass-panel" id="chatSidebar">
+      <!-- Assistant Header -->
+      <div class="assistant-header">
+        <div class="bot-info">
+          <div class="bot-avatar">
+            <i class="fa-solid fa-robot"></i>
+            <span class="online-indicator"></span>
+          </div>
+          <div>
+            <div class="bot-name">Quantum FinAI Pro</div>
+            <div class="bot-status">Asisten Finansial & Forex XAU/USD</div>
+          </div>
+        </div>
+        <div class="assistant-controls">
+          <button id="btnVoiceRead" class="btn-icon" title="Bacakan Ringkasan Terkini (Suara)">
+            <i class="fa-solid fa-volume-high"></i>
+          </button>
+          <button id="btnClearChat" class="btn-icon" title="Bersihkan Riwayat Percakapan">
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+          <button id="btnCloseMobileChat" class="btn-icon mobile-only" title="Tutup Chat">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Action Prompt Chips -->
+      <div class="quick-prompts-wrapper">
+        <div class="quick-prompts-label"><i class="fa-solid fa-wand-magic-sparkles"></i> Tanya Cepat:</div>
+        <div class="prompt-chips" id="promptChips">
+          <button class="chip" data-prompt="Berikan analisa forex XAU/USD emas hari ini pasti bener lengkap dengan level entry, stop loss, dan take profit!">🏅 Analisa Forex XAU/USD</button>
+          <button class="chip" data-prompt="Jelaskan pengaruh rilis berita ekonomi seperti PPI, FOMC, NFP, dan CPI terhadap pergerakan harga emas XAU/USD.">📊 Efek PPI, FOMC, NFP & CPI</button>
+          <button class="chip" data-prompt="Bagaimana prospek koin meme seperti PEPE, Dogecoin, Shiba Inu, dan WIF saat ini?">🔥 Prospek Koin Meme</button>
+          <button class="chip" data-prompt="Bagaimana analisis sentimen pasar crypto dan prediksi pergerakan Bitcoin hari ini?">🪙 Sentimen Crypto & BTC</button>
+          <button class="chip" data-prompt="Berikan rangkuman kondisi IHSG dan saham perbankan unggulan (BBCA, BBRI) terkini.">📈 Kondisi IHSG & Saham</button>
+          <button class="chip" data-prompt="Jelaskan strategi diversifikasi aset terbaik antara Saham, Crypto, dan Emas untuk menghadapi volatilitas.">⚖️ Strategi Portofolio</button>
+        </div>
+      </div>
+
+      <!-- Messages Stream -->
+      <div class="chat-messages-container" id="chatMessages">
+        <!-- Welcome Message -->
+        <div class="chat-message bot-msg">
+          <div class="msg-avatar"><i class="fa-solid fa-robot"></i></div>
+          <div class="msg-bubble">
+            <div class="msg-content">
+              <p>Halo! Saya <strong>Quantum FinAI Pro</strong>, asisten analis keuangan pribadi Anda.</p>
+              <p>Saya telah diperbarui dengan kapabilitas tingkat institusional untuk:</p>
+              <ul>
+                <li><strong>🏅 Analisis Forex XAU/USD (Emas):</strong> Confluence skor akurasi tinggi, Smart Money Concepts (Order Block, FVG), Pivot Points, dan setup trade presisi.</li>
+                <li><strong>🌐 Kalender Makro:</strong> Dampak rilis berita ekonomi krusial (PPI, FOMC, NFP, CPI, GDP, Jobless Claims).</li>
+                <li><strong>🔥 Koin Meme & Kripto:</strong> PEPE, DOGE, SHIB, WIF, BONK, FLOKI, BOME, Bitcoin, Ethereum, Solana, dan puluhan altcoins lainnya.</li>
+                <li><strong>📈 Saham & Komoditas:</strong> IHSG, BBCA, BBRI, Wall Street (Nvidia, S&P 500), Minyak & Perak.</li>
+              </ul>
+              <p>Klik tombol cepat di atas atau tanyakan analisis apa pun yang Anda perlukan!</p>
+            </div>
+            <div class="msg-time" id="welcomeTime">Baru saja</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Input Area -->
+      <div class="chat-input-area">
+        <form id="chatForm" class="chat-form">
+          <textarea id="chatInput" rows="2" placeholder="Tanyakan analisa forex emas XAU/USD, koin meme, berita PPI/FOMC/NFP, atau saham... (Enter untuk kirim)" required></textarea>
+          <button type="submit" id="btnSendChat" class="btn-send" title="Kirim Pesan">
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </form>
+        <div class="chat-disclaimer">
+          <i class="fa-solid fa-shield-halved"></i> Data edukasi & intelijen kuantitatif. Disiplin Money Management risiko 1-2% (DYOR).
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- MODAL: ASSET CALCULATOR & CONVERTER -->
+  <div class="modal-backdrop" id="calcModal">
+    <div class="modal-dialog glass-panel">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-calculator text-gold"></i> Kalkulator & Konverter Aset Berharga</div>
+        <button class="btn-close-modal" id="btnCloseCalc"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="calc-tabs">
+          <button class="calc-tab active" data-tab="tab-gold">Konversi Emas</button>
+          <button class="calc-tab" data-tab="tab-crypto">Konversi Kripto & Meme</button>
+          <button class="calc-tab" data-tab="tab-dca">Simulasi DCA</button>
+        </div>
+
+        <!-- TAB 1: Gold Calculator -->
+        <div class="calc-content active" id="tab-gold">
+          <div class="form-group">
+            <label>Jumlah Emas (Gram):</label>
+            <input type="number" id="goldGramInput" value="10" min="0.1" step="0.1">
+          </div>
+          <div class="calc-result-box">
+            <div class="calc-res-label">Estimasi Nilai Total (Rupiah):</div>
+            <div class="calc-res-val text-gold" id="goldTotalRupiah">Rp --</div>
+            <div class="calc-res-sub" id="goldRateInfo">Berdasarkan kurs USD/IDR dan harga XAU/USD live</div>
+          </div>
+        </div>
+
+        <!-- TAB 2: Crypto Calculator -->
+        <div class="calc-content" id="tab-crypto">
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Pilih Koin:</label>
+              <select id="cryptoSelect">
+                <!-- Dynamically populated including Meme coins -->
+                <option value="bitcoin">Bitcoin (BTC)</option>
+                <option value="ethereum">Ethereum (ETH)</option>
+                <option value="solana">Solana (SOL)</option>
+                <option value="pepe">🐸 Pepe (PEPE)</option>
+                <option value="dogecoin">🐕 Dogecoin (DOGE)</option>
+                <option value="shiba-inu">🐶 Shiba Inu (SHIB)</option>
+                <option value="dogwifcoin">🧢 dogwifhat (WIF)</option>
+                <option value="bonk">🔨 Bonk (BONK)</option>
+                <option value="floki">⚔️ FLOKI (FLOKI)</option>
+              </select>
+            </div>
+            <div class="form-group flex-1">
+              <label>Jumlah Koin:</label>
+              <input type="number" id="cryptoAmountInput" value="1" min="0.00000001" step="any">
+            </div>
+          </div>
+          <div class="calc-result-box">
+            <div class="calc-res-label">Estimasi Nilai Total:</div>
+            <div class="calc-res-val text-emerald" id="cryptoTotalRupiah">Rp --</div>
+            <div class="calc-res-sub" id="cryptoTotalUSD">$ --</div>
+          </div>
+        </div>
+
+        <!-- TAB 3: DCA Simulator -->
+        <div class="calc-content" id="tab-dca">
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Investasi Rutin Bulanan (Rp):</label>
+              <input type="number" id="dcaAmount" value="1000000" step="100000">
+            </div>
+            <div class="form-group flex-1">
+              <label>Jangka Waktu (Tahun):</label>
+              <input type="number" id="dcaYears" value="3" min="1" max="20">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Estimasi Return Tahunan (%):</label>
+            <input type="number" id="dcaReturnRate" value="15" min="1" max="100">
+          </div>
+          <button class="btn-pill btn-primary w-full mt-2" id="btnRunDCA">Hitung Proyeksi</button>
+          <div class="calc-result-box mt-2">
+            <div class="calc-res-label">Total Modal Disetor:</div>
+            <div class="calc-res-sub text-white" id="dcaPrincipal">Rp 36.000.000</div>
+            <div class="calc-res-label mt-1">Estimasi Akumulasi Nilai:</div>
+            <div class="calc-res-val text-cyan" id="dcaResultTotal">Rp --</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: SETTINGS & API CONFIGURATION -->
+  <div class="modal-backdrop" id="settingsModal">
+    <div class="modal-dialog glass-panel">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-gear text-cyan"></i> Konfigurasi Asisten & API</div>
+        <button class="btn-close-modal" id="btnCloseSettings"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="info-alert">
+          <i class="fa-solid fa-circle-info"></i>
+          <div>
+            <strong>Mode Standar Aktif:</strong> Asisten cerdas FinAI Engine lokal bekerja secara otomatis 100% tanpa memerlukan API key eksternal. Jika Anda ingin menghubungkan model LLM cloud lanjutan (seperti Google Gemini), Anda dapat memasukkan kuncinya di bawah ini.
+          </div>
+        </div>
+
+        <div class="form-group mt-3">
+          <label>Google Gemini API Key (Opsional):</label>
+          <input type="password" id="geminiApiKeyInput" placeholder="AIzaSy...">
+          <small class="helper-text">Disimpan secara aman di browser lokal Anda.</small>
+        </div>
+
+        <div class="form-group mt-3">
+          <label>Interval Auto-Refresh Pasar:</label>
+          <select id="autoRefreshSelect">
+            <option value="30">Setiap 30 Detik</option>
+            <option value="45" selected>Setiap 45 Detik (Direkomendasikan)</option>
+            <option value="60">Setiap 1 Menit</option>
+            <option value="120">Setiap 2 Menit</option>
+          </select>
+        </div>
+
+        <div class="form-group mt-3">
+          <label>Pilihan Suara Asisten (Speech Synthesis):</label>
+          <select id="voiceSelect">
+            <option value="id-ID">Bahasa Indonesia (Default)</option>
+            <option value="en-US">English (US)</option>
+          </select>
+        </div>
+
+        <button class="btn-pill btn-primary w-full mt-4" id="btnSaveSettings">
+          <i class="fa-solid fa-floppy-disk"></i> Simpan Pengaturan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT APP LOGIC -->
+  <script src="app.js"></script>
+</body>
+</html>
