@@ -596,7 +596,10 @@
     </section>
 
     <!-- RIGHT COLUMN: Interactive Financial AI Assistant -->
-    <aside class="chat-assistant-sidebar glass-panel" id="chatSidebar">
+    
+    <!-- Mobile Chat Backdrop -->
+    <div class="chat-backdrop" id="chatBackdrop"></div>
+<aside class="chat-assistant-sidebar glass-panel" id="chatSidebar">
       <!-- Assistant Header -->
       <div class="assistant-header">
         <div class="bot-info">
@@ -670,7 +673,13 @@
         </div>
       </div>
     </aside>
-  </main>
+  
+  <!-- Floating Action Button for Mobile Chat Assistant -->
+  <button class="mobile-chat-fab" id="mobileChatFab" title="Buka Asisten FinAI">
+    <i class="fa-solid fa-robot"></i>
+    <span class="fab-badge"></span>
+  </button>
+</main>
 
   <!-- MODAL: ASSET CALCULATOR & CONVERTER -->
   <div class="modal-backdrop" id="calcModal">

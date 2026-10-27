@@ -340,6 +340,8 @@ const el = {
   btnClearChat: document.getElementById('btnClearChat'),
   btnVoiceRead: document.getElementById('btnVoiceRead'),
   chatSidebar: document.getElementById('chatSidebar'),
+  mobileChatFab: document.getElementById('mobileChatFab'),
+  chatBackdrop: document.getElementById('chatBackdrop'),
   btnToggleChatMobile: document.getElementById('btnToggleChatMobile'),
   btnCloseMobileChat: document.getElementById('btnCloseMobileChat'),
   welcomeTime: document.getElementById('welcomeTime'),
@@ -545,13 +547,23 @@ function initEventListeners() {
     el.btnVoiceRead.addEventListener('click', handleVoiceSummary);
   }
 
-  // Mobile Chat Drawer
-  if (el.btnToggleChatMobile && el.chatSidebar) {
-    el.btnToggleChatMobile.addEventListener('click', () => el.chatSidebar.classList.add('open'));
-  }
-  if (el.btnCloseMobileChat && el.chatSidebar) {
-    el.btnCloseMobileChat.addEventListener('click', () => el.chatSidebar.classList.remove('open'));
-  }
+  // Mobile Chat Drawer & Backdrop Controller
+  const openMobileChat = () => {
+    if (el.chatSidebar) el.chatSidebar.classList.add('open');
+    if (el.chatBackdrop) el.chatBackdrop.classList.add('active');
+    document.body.style.overflow = window.innerWidth <= 768 ? 'hidden' : '';
+  };
+
+  const closeMobileChat = () => {
+    if (el.chatSidebar) el.chatSidebar.classList.remove('open');
+    if (el.chatBackdrop) el.chatBackdrop.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  if (el.btnToggleChatMobile) el.btnToggleChatMobile.addEventListener('click', openMobileChat);
+  if (el.mobileChatFab) el.mobileChatFab.addEventListener('click', openMobileChat);
+  if (el.btnCloseMobileChat) el.btnCloseMobileChat.addEventListener('click', closeMobileChat);
+  if (el.chatBackdrop) el.chatBackdrop.addEventListener('click', closeMobileChat);
 
   // Modals Handling
   if (el.btnOpenCalculator && el.calcModal) {
