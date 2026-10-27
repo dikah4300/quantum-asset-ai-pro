@@ -1466,6 +1466,756 @@ body {
 }
 
 /* ===================================================================
+   SECTION 1: LIVE INTERACTIVE TRADINGVIEW CANDLESTICK CHARTS
+   =================================================================== */
+.chart-section {
+  padding: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.chart-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.chart-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.chart-title-group h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chart-badge-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: var(--accent-emerald);
+  padding: 3px 9px;
+  border-radius: 12px;
+}
+
+.current-symbol-label {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--accent-cyan);
+  background: rgba(6, 182, 212, 0.1);
+  padding: 3px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(6, 182, 212, 0.25);
+}
+
+.chart-category-tabs {
+  display: flex;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid var(--border-subtle);
+}
+
+.c-tab {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition);
+}
+
+.c-tab:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.c-tab.active {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text-primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.symbol-pills-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+}
+
+.symbol-pills-bar::-webkit-scrollbar {
+  height: 4px;
+}
+
+.symbol-pills-bar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.s-pill {
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 5px 12px;
+  border-radius: 14px;
+  font-size: 0.78rem;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.s-pill:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.s-pill.active {
+  background: rgba(6, 182, 212, 0.18);
+  border-color: var(--accent-cyan);
+  color: #a5f3fc;
+  font-weight: 700;
+}
+
+.tradingview-container-wrapper {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #0d1322;
+  border: 1px solid var(--border-subtle);
+}
+
+.tradingview-widget-box {
+  width: 100%;
+  height: 100%;
+}
+
+.chart-loading-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 12px;
+  color: var(--text-secondary);
+}
+
+.chart-footer-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.chart-tip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.chart-timeframes {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tf-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-right: 4px;
+}
+
+.tf-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.tf-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+.tf-btn.active {
+  background: var(--accent-gold);
+  border-color: var(--accent-gold);
+  color: #030712;
+  font-weight: 700;
+}
+
+/* ===================================================================
+   SECTION 2: DEDICATED XAU/USD INSTITUTIONAL CONFLUENCE ENGINE
+   =================================================================== */
+.forex-analysis-section {
+  padding: 22px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.f-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.f-badge-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--accent-gold);
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 3px 9px;
+  border-radius: 12px;
+  margin-bottom: 6px;
+}
+
+.f-title-left h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.f-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.confluence-meter-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
+}
+
+.confluence-meter-value {
+  display: flex;
+  flex-direction: column;
+}
+
+.c-pct {
+  font-family: var(--font-mono);
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--accent-gold);
+  line-height: 1;
+}
+
+.c-text {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+}
+
+.confluence-signal-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-emerald-glow);
+  border: 1px solid var(--accent-emerald);
+  color: var(--accent-emerald);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+
+.xau-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.glass-panel-inner {
+  background: rgba(11, 17, 32, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  transition: var(--transition);
+}
+
+.glass-panel-inner:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.xau-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Column 1: Setup Card */
+.setup-main-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2));
+  border: 1px solid var(--accent-emerald);
+  color: var(--accent-emerald);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.setup-name {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+}
+
+.setup-levels-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.s-level-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.s-level-row.entry-row {
+  border-left: 3px solid var(--accent-cyan);
+}
+
+.s-level-row.sl-row {
+  border-left: 3px solid var(--accent-crimson);
+  background: rgba(244, 63, 94, 0.05);
+}
+
+.s-level-row.tp-row {
+  border-left: 3px solid var(--accent-emerald);
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.s-label {
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.s-val {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+}
+
+.setup-meta-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  text-align: center;
+}
+
+.meta-item .m-lbl {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.meta-item .m-val {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* Column 2: Multi-Timeframe Status */
+.tf-status-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.tf-card {
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.tf-card.tf-bull {
+  border-top: 2px solid var(--accent-emerald);
+}
+
+.tf-card.tf-neutral {
+  border-top: 2px solid var(--accent-gold);
+}
+
+.tf-card.tf-bear {
+  border-top: 2px solid var(--accent-crimson);
+}
+
+.tf-name {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.tf-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin: 3px 0;
+  color: var(--accent-emerald);
+}
+
+.tf-neutral .tf-badge { color: var(--accent-gold); }
+.tf-bear .tf-badge { color: var(--accent-crimson); }
+
+.tf-desc {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+.smc-zones-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.smc-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  font-size: 0.75rem;
+}
+
+.smc-label {
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.smc-val {
+  font-family: var(--font-mono);
+}
+
+/* Column 3: Pivot Table */
+.pivot-tables-wrapper {
+  overflow-x: auto;
+}
+
+.pivot-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.pivot-table th, .pivot-table td {
+  padding: 6px 10px;
+  text-align: right;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.pivot-table th:first-child, .pivot-table td:first-child {
+  text-align: left;
+}
+
+.pivot-table th {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  padding-bottom: 8px;
+}
+
+.p-badge {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.p-badge.res { background: rgba(244, 63, 94, 0.15); color: var(--accent-crimson); }
+.p-badge.pp { background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan); }
+.p-badge.sup { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); }
+
+.pivot-main-row td {
+  background: rgba(6, 182, 212, 0.05);
+  font-weight: 700;
+}
+
+.macro-driver-footer {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-top: 14px;
+  line-height: 1.4;
+}
+
+/* ===================================================================
+   SECTION 3: FOREX ECONOMIC CALENDAR (PPI, FOMC, NFP, CPI)
+   =================================================================== */
+.forex-calendar-section {
+  padding: 22px;
+  margin-bottom: 20px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.cal-title-group .section-title {
+  margin-bottom: 4px;
+}
+
+.cal-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.cal-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cal-filter-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 5px 12px;
+  border-radius: 16px;
+  font-size: 0.76rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.cal-filter-btn:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: var(--text-primary);
+}
+
+.cal-filter-btn.active {
+  background: rgba(6, 182, 212, 0.2);
+  border-color: var(--accent-cyan);
+  color: #a5f3fc;
+  font-weight: 600;
+}
+
+.cal-events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 14px;
+}
+
+.cal-event-card {
+  background: rgba(11, 17, 32, 0.75);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: var(--transition);
+}
+
+.cal-event-card:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.cal-event-card.high-impact {
+  border-left: 3px solid var(--accent-crimson);
+}
+
+.cal-event-card.medium-impact {
+  border-left: 3px solid var(--accent-gold);
+}
+
+.cal-event-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cal-event-time {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.impact-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.impact-badge.high {
+  background: rgba(244, 63, 94, 0.15);
+  color: var(--accent-crimson);
+}
+
+.impact-badge.medium {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--accent-gold);
+}
+
+.cal-event-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.cal-event-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 8px;
+  border-radius: 6px;
+  text-align: center;
+  font-family: var(--font-mono);
+}
+
+.cal-m-item .cal-m-lbl {
+  display: block;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+}
+
+.cal-m-item .cal-m-val {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.cal-reaction-guide {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 0.74rem;
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+
+.cal-reaction-guide strong {
+  color: var(--accent-gold);
+}
+
+/* ===================================================================
+   SEARCH BOX IN MATRIX
+   =================================================================== */
+.matrix-search-box {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  padding: 6px 14px;
+  gap: 8px;
+  min-width: 280px;
+}
+
+.matrix-search-box:focus-within {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
+}
+
+.matrix-search-box i {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.matrix-search-box input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+/* ===================================================================
    RESPONSIVE DESIGN (MOBILE & TABLET ADAPTATION)
    =================================================================== */
 .mobile-only {
@@ -1517,5 +2267,26 @@ body {
 
   .hero-cards-grid {
     grid-template-columns: 1fr;
+  }
+
+  .tradingview-container-wrapper {
+    height: 380px;
+  }
+
+  .chart-section-header, .f-section-header, .calendar-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .xau-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tf-status-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .matrix-search-box {
+    min-width: 100%;
   }
 }
