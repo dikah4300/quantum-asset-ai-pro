@@ -27,61 +27,61 @@ const state = {
 
 // Catalogs for Standalone Execution (Vercel Deployments)
 const CRYPTO_CATALOG = {
-  "pepe": { sym: "PEPE", name: "Pepe", cat: "meme", usd: 0.00000985, chg: 6.8, icon: "🐸" },
-  "dogecoin": { sym: "DOGE", name: "Dogecoin", cat: "meme", usd: 0.165, chg: 4.2, icon: "🐕" },
-  "shiba-inu": { sym: "SHIB", name: "Shiba Inu", cat: "meme", usd: 0.0000185, chg: 3.1, icon: "🐶" },
-  "dogwifcoin": { sym: "WIF", name: "dogwifhat", cat: "meme", usd: 2.45, chg: 5.7, icon: "🧢" },
-  "bonk": { sym: "BONK", name: "Bonk", cat: "meme", usd: 0.0000215, chg: 7.2, icon: "🔨" },
-  "floki": { sym: "FLOKI", name: "FLOKI", cat: "meme", usd: 0.000148, chg: 3.9, icon: "⚔️" },
-  "brett": { sym: "BRETT", name: "Brett (Base)", cat: "meme", usd: 0.092, chg: 8.5, icon: "🔵" },
-  "popcat": { sym: "POPCAT", name: "Popcat (SOL)", cat: "meme", usd: 1.38, chg: 9.4, icon: "🐱" },
-  "book-of-meme": { sym: "BOME", name: "BOOK OF MEME", cat: "meme", usd: 0.0089, chg: 4.1, icon: "📖" },
-  "cat-in-a-dogs-world": { sym: "MEW", name: "cat in dogs world", cat: "meme", usd: 0.0092, chg: 6.5, icon: "😼" },
-  "neiro-ethereum": { sym: "NEIRO", name: "First Neiro ETH", cat: "meme", usd: 0.00185, chg: 12.4, icon: "🐾" },
-  "turbo": { sym: "TURBO", name: "Turbo (AI Meme)", cat: "meme", usd: 0.0088, chg: 5.2, icon: "🐌" },
-  "baby-doge-coin": { sym: "BABYDOGE", name: "Baby Doge Coin", cat: "meme", usd: 0.0000000021, chg: 2.8, icon: "🍼" },
-  "mog-coin": { sym: "MOG", name: "Mog Coin", cat: "meme", usd: 0.0000019, chg: 4.9, icon: "🕶️" },
-  "goatseus-maximus": { sym: "GOAT", name: "Goatseus Maximus", cat: "meme", usd: 0.72, chg: 14.2, icon: "🐐" },
-  "memecoin": { sym: "MEME", name: "Memecoin (Memeland)", cat: "meme", usd: 0.0128, chg: 2.7, icon: "🏴‍☠️" },
-  "bitcoin": { sym: "BTC", name: "Bitcoin", cat: "major", usd: 83250, chg: 2.1, icon: "₿" },
-  "ethereum": { sym: "ETH", name: "Ethereum", cat: "major", usd: 2910, chg: 2.8, icon: "Ξ" },
-  "solana": { sym: "SOL", name: "Solana", cat: "major", usd: 172.5, chg: 4.9, icon: "◎" },
-  "binancecoin": { sym: "BNB", name: "BNB", cat: "major", usd: 618, chg: 1.5, icon: "🟡" },
-  "ripple": { sym: "XRP", name: "XRP (Ripple)", cat: "major", usd: 0.548, chg: 1.2, icon: "✕" },
-  "cardano": { sym: "ADA", name: "Cardano", cat: "major", usd: 0.365, chg: 2.3, icon: "₳" },
-  "avalanche-2": { sym: "AVAX", name: "Avalanche", cat: "major", usd: 28.4, chg: 3.8, icon: "🔺" },
-  "chainlink": { sym: "LINK", name: "Chainlink", cat: "major", usd: 12.6, chg: 3.2, icon: "🔗" },
-  "sui": { sym: "SUI", name: "Sui Network", cat: "major", usd: 2.18, chg: 6.9, icon: "💧" },
-  "near": { sym: "NEAR", name: "NEAR Protocol", cat: "major", usd: 5.05, chg: 4.1, icon: "🌐" },
-  "toncoin": { sym: "TON", name: "Toncoin", cat: "major", usd: 5.32, chg: 1.8, icon: "💎" },
-  "bittensor": { sym: "TAO", name: "Bittensor (AI)", cat: "ai", usd: 548, chg: 6.5, icon: "🧠" },
-  "artificial-superintelligence-alliance": { sym: "FET", name: "ASI / Fetch.ai", cat: "ai", usd: 1.45, chg: 5.1, icon: "🤖" },
-  "render-token": { sym: "RENDER", name: "Render Network", cat: "ai", usd: 5.92, chg: 4.4, icon: "🎨" }
+  "pepe": { sym: "PEPE", name: "Pepe", cat: "meme", usd: 0.00000490, chg: 14.14, icon: "🐸" },
+  "dogecoin": { sym: "DOGE", name: "Dogecoin", cat: "meme", usd: 0.07914, chg: 2.01, icon: "🐕" },
+  "shiba-inu": { sym: "SHIB", name: "Shiba Inu", cat: "meme", usd: 0.00000494, chg: 1.91, icon: "🐶" },
+  "dogwifcoin": { sym: "WIF", name: "dogwifhat", cat: "meme", usd: 0.1819, chg: 1.19, icon: "🧢" },
+  "bonk": { sym: "BONK", name: "Bonk", cat: "meme", usd: 0.00000309, chg: 2.19, icon: "🔨" },
+  "floki": { sym: "FLOKI", name: "FLOKI", cat: "meme", usd: 0.0000238, chg: 4.04, icon: "⚔️" },
+  "brett": { sym: "BRETT", name: "Brett (Base)", cat: "meme", usd: 0.0001005, chg: 1.20, icon: "🔵" },
+  "popcat": { sym: "POPCAT", name: "Popcat (SOL)", cat: "meme", usd: 0.04378, chg: 2.27, icon: "🐱" },
+  "book-of-meme": { sym: "BOME", name: "BOOK OF MEME", cat: "meme", usd: 0.000650, chg: 4.79, icon: "📖" },
+  "cat-in-a-dogs-world": { sym: "MEW", name: "cat in dogs world", cat: "meme", usd: 0.000436, chg: -0.83, icon: "😼" },
+  "neiro": { sym: "NEIRO", name: "First Neiro ETH", cat: "meme", usd: 0.0000686, chg: 3.40, icon: "🐾" },
+  "turbo": { sym: "TURBO", name: "Turbo (AI Meme)", cat: "meme", usd: 0.000829, chg: 1.46, icon: "🐌" },
+  "baby-doge-coin": { sym: "BABYDOGE", name: "Baby Doge Coin", cat: "meme", usd: 0.000000000349, chg: 0.27, icon: "🍼" },
+  "mog-coin": { sym: "MOG", name: "Mog Coin", cat: "meme", usd: 0.0000000998, chg: -0.35, icon: "🕶️" },
+  "goatseus-maximus": { sym: "GOAT", name: "Goatseus Maximus", cat: "meme", usd: 0.0141, chg: 2.21, icon: "🐐" },
+  "memecoin": { sym: "MEME", name: "Memecoin (Memeland)", cat: "meme", usd: 0.0000000451, chg: 0.00, icon: "🏴‍☠️" },
+  "bitcoin": { sym: "BTC", name: "Bitcoin", cat: "major", usd: 80817, chg: 1.15, icon: "₿" },
+  "ethereum": { sym: "ETH", name: "Ethereum", cat: "major", usd: 2353.08, chg: 1.58, icon: "Ξ" },
+  "solana": { sym: "SOL", name: "Solana", cat: "major", usd: 101.58, chg: 1.16, icon: "◎" },
+  "binancecoin": { sym: "BNB", name: "BNB", cat: "major", usd: 744.44, chg: 0.31, icon: "🟡" },
+  "ripple": { sym: "XRP", name: "XRP (Ripple)", cat: "major", usd: 1.34, chg: 2.90, icon: "✕" },
+  "cardano": { sym: "ADA", name: "Cardano", cat: "major", usd: 0.2069, chg: 1.03, icon: "₳" },
+  "avalanche-2": { sym: "AVAX", name: "Avalanche", cat: "major", usd: 9.01, chg: 1.52, icon: "🔺" },
+  "chainlink": { sym: "LINK", name: "Chainlink", cat: "major", usd: 11.66, chg: 3.07, icon: "🔗" },
+  "sui": { sym: "SUI", name: "Sui Network", cat: "major", usd: 0.9363, chg: 2.76, icon: "💧" },
+  "near": { sym: "NEAR", name: "NEAR Protocol", cat: "major", usd: 4.74, chg: 6.19, icon: "🌐" },
+  "the-open-network": { sym: "TON", name: "Toncoin", cat: "major", usd: 1.23, chg: 2.61, icon: "💎" },
+  "bittensor": { sym: "TAO", name: "Bittensor (AI)", cat: "ai", usd: 257.54, chg: 3.25, icon: "🧠" },
+  "fetch-ai": { sym: "FET", name: "ASI / Fetch.ai", cat: "ai", usd: 0.1831, chg: 5.59, icon: "🤖" },
+  "render-token": { sym: "RENDER", name: "Render Network", cat: "ai", usd: 1.71, chg: 0.98, icon: "🎨" }
 };
 
 const STOCKS_CATALOG = {
-  "ihsg": { name: "IHSG (BEI)", symbol: "^JKSE", price: 7725.50, change_pct: 0.42 },
-  "bbca": { name: "Bank Central Asia", symbol: "BBCA.JK", price: 10450, change_pct: 0.72 },
-  "bbri": { name: "Bank Rakyat Indonesia", symbol: "BBRI.JK", price: 4860, change_pct: -0.41 },
-  "bmri": { name: "Bank Mandiri", symbol: "BMRI.JK", price: 6800, change_pct: 0.37 },
-  "tlkm": { name: "Telkom Indonesia", symbol: "TLKM.JK", price: 3080, change_pct: 0.65 },
-  "asii": { name: "Astra International", symbol: "ASII.JK", price: 5150, change_pct: -0.19 },
-  "sp500": { name: "S&P 500 Index", symbol: "^GSPC", price: 5864.20, change_pct: 0.38 },
-  "nvda": { name: "Nvidia Corporation", symbol: "NVDA", price: 141.25, change_pct: 2.15 },
-  "aapl": { name: "Apple Inc.", symbol: "AAPL", price: 232.10, change_pct: 0.45 }
+  "ihsg": { name: "IHSG (BEI)", symbol: "^JKSE", price: 5266.13, change_pct: 0.00 },
+  "bbca": { name: "Bank Central Asia", symbol: "BBCA.JK", price: 4900, change_pct: 0.00 },
+  "bbri": { name: "Bank Rakyat Indonesia", symbol: "BBRI.JK", price: 2900, change_pct: 0.00 },
+  "bmri": { name: "Bank Mandiri", symbol: "BMRI.JK", price: 3870, change_pct: 0.00 },
+  "tlkm": { name: "Telkom Indonesia", symbol: "TLKM.JK", price: 2140, change_pct: 0.00 },
+  "asii": { name: "Astra International", symbol: "ASII.JK", price: 4630, change_pct: 0.00 },
+  "sp500": { name: "S&P 500 Index", symbol: "^GSPC", price: 7722.60, change_pct: 1.30 },
+  "nvda": { name: "Nvidia Corporation", symbol: "NVDA", price: 217.94, change_pct: 3.31 },
+  "aapl": { name: "Apple Inc.", symbol: "AAPL", price: 347.10, change_pct: -0.18 }
 };
 
 const PRECIOUS_CATALOG = {
-  "gold": { name: "Emas Dunia (Spot)", symbol: "XAU/USD", price: 2742.50, change_pct: 0.68, unit: "USD / troy oz" },
-  "silver": { name: "Perak (Spot)", symbol: "XAG/USD", price: 33.85, change_pct: 1.15, unit: "USD / troy oz" },
-  "crude_oil": { name: "Minyak Mentah WTI", symbol: "CL=F", price: 71.40, change_pct: -0.52, unit: "USD / barel" }
+  "gold": { name: "Emas Dunia (Spot)", symbol: "XAU/USD", price: 4059.40, change_pct: 0.52, unit: "USD / troy oz" },
+  "silver": { name: "Perak (Spot)", symbol: "XAG/USD", price: 54.19, change_pct: 0.14, unit: "USD / troy oz" },
+  "crude_oil": { name: "Minyak Mentah WTI", symbol: "CL=F", price: 101.33, change_pct: -0.42, unit: "USD / barel" }
 };
 
 const FOREX_CATALOG = {
-  "usd_idr": { name: "Dolar AS ke Rupiah", symbol: "USD/IDR", price: 15850, change_pct: -0.15 },
-  "eur_usd": { name: "Euro ke Dolar", symbol: "EUR/USD", price: 1.0825, change_pct: 0.18 },
-  "gbp_usd": { name: "Pound ke Dolar", symbol: "GBP/USD", price: 1.2980, change_pct: 0.22 },
-  "usd_jpy": { name: "Dolar ke Yen", symbol: "USD/JPY", price: 152.40, change_pct: -0.32 }
+  "usd_idr": { name: "Dolar AS ke Rupiah", symbol: "USD/IDR", price: 18025, change_pct: -0.66 },
+  "eur_usd": { name: "Euro ke Dolar", symbol: "EUR/USD", price: 1.1126, change_pct: -0.43 },
+  "gbp_usd": { name: "Pound ke Dolar", symbol: "GBP/USD", price: 1.3302, change_pct: -0.32 },
+  "usd_jpy": { name: "Dolar ke Yen", symbol: "USD/JPY", price: 157.93, change_pct: 0.26 }
 };
 
 const ECONOMIC_CALENDAR = [
@@ -162,7 +162,7 @@ const ECONOMIC_CALENDAR = [
 const INITIAL_NEWS = [
   {
     id: "news-1",
-    title: "Emas Dunia Cetak Titik Akumulasi Institusional Baru di Kisaran $2,740 Jelang Rilis Data Makro AS",
+    title: "Emas Dunia Cetak Titik Akumulasi Institusional Baru di Kisaran $4,059 Jelang Rilis Data Makro AS",
     description: "Permintaan safe haven dari bank sentral global serta ekspektasi siklus pelonggaran suku bunga The Fed terus menopang tren bullish struktural komoditas emas (XAU/USD).",
     source: "CNBC Finansial",
     category: "forex",
@@ -175,7 +175,7 @@ const INITIAL_NEWS = [
   {
     id: "news-2",
     title: "Koin Meme PEPE & Dogecoin Pimpin Rotasi Likuiditas Kripto dengan Volume Transaksi Menanjak",
-    description: "Pasar altcoin dan token meme mengalami percepatan momentum setelah Bitcoin stabil di atas $82,000, didorong sentimen spekulatif dan aktivitas on-chain tinggi.",
+    description: "Pasar altcoin dan token meme mengalami percepatan momentum setelah Bitcoin stabil di atas $80,800, didorong sentimen spekulatif dan aktivitas on-chain tinggi.",
     source: "CoinDesk Indonesia",
     category: "crypto",
     sentiment: "Bullish",
@@ -186,7 +186,7 @@ const INITIAL_NEWS = [
   },
   {
     id: "news-3",
-    title: "IHSG Bertahan di Zona 7,700 Ditopang Aksi Beli Bersih Asing pada Saham Big Cap Perbankan",
+    title: "IHSG Bertahan di Zona 5,260 Ditopang Aksi Beli Bersih Asing pada Saham Big Cap Perbankan",
     description: "Saham BBCA dan BBRI menjadi motor penggerak indeks domestik di tengah stabilitas kurs rupiah dan antisipasi arah kebijakan moneter Bank Indonesia.",
     source: "Antara Pasar Modal",
     category: "stocks",
@@ -638,7 +638,7 @@ async function fetchMarketData() {
 }
 
 async function fetchLivePublicMarketData() {
-  const usdIdrRate = 15850;
+  const usdIdrRate = 18025;
   const market = {
     timestamp: Date.now(),
     crypto: {},
@@ -646,7 +646,7 @@ async function fetchLivePublicMarketData() {
     precious: JSON.parse(JSON.stringify(PRECIOUS_CATALOG)),
     forex: JSON.parse(JSON.stringify(FOREX_CATALOG)),
     indicators: {
-      fear_and_greed: { value: 68, classification: "Greed" }
+      fear_and_greed: { value: 51, classification: "Neutral" }
     }
   };
 
@@ -663,28 +663,47 @@ async function fetchLivePublicMarketData() {
     };
   }
 
-  // Coba update kurs USD/IDR live via public exchange rates
+  // 1. Update kurs Valas (USD/IDR, EUR/USD, GBP/USD, USD/JPY) live via open.er-api
   try {
     const fxRes = await fetch('https://open.er-api.com/v6/latest/USD', { signal: AbortSignal.timeout(3000) });
     if (fxRes.ok) {
       const fxData = await fxRes.json();
-      if (fxData && fxData.rates && fxData.rates.IDR) {
-        market.forex.usd_idr.price = Math.round(fxData.rates.IDR);
+      if (fxData && fxData.rates) {
+        if (fxData.rates.IDR) market.forex.usd_idr.price = Math.round(fxData.rates.IDR);
+        if (fxData.rates.EUR) market.forex.eur_usd.price = parseFloat((1 / fxData.rates.EUR).toFixed(4));
+        if (fxData.rates.GBP) market.forex.gbp_usd.price = parseFloat((1 / fxData.rates.GBP).toFixed(4));
+        if (fxData.rates.JPY) market.forex.usd_jpy.price = parseFloat(fxData.rates.JPY.toFixed(2));
       }
     }
   } catch (e) {}
 
-  // Coba update harga Crypto & Koin Meme via CoinGecko Public API
+  // 2. Update Fear & Greed Index live
   try {
-    const ids = "bitcoin,ethereum,solana,pepe,dogecoin,shiba-inu,dogwifcoin,bonk,floki,bittensor";
+    const fngRes = await fetch('https://api.alternative.me/fng/?limit=1', { signal: AbortSignal.timeout(2500) });
+    if (fngRes.ok) {
+      const fngData = await fngRes.json();
+      if (fngData && fngData.data && fngData.data.length > 0) {
+        const item = fngData.data[0];
+        market.indicators.fear_and_greed = {
+          value: parseInt(item.value, 10) || 51,
+          classification: item.value_classification || "Neutral"
+        };
+      }
+    }
+  } catch (e) {}
+
+  // 3. Update harga Crypto & Koin Meme via CoinGecko Public API
+  try {
+    const ids = "bitcoin,ethereum,solana,binancecoin,ripple,cardano,avalanche-2,chainlink,sui,near,the-open-network,bittensor,fetch-ai,render-token,pepe,dogecoin,shiba-inu,dogwifcoin,bonk,floki,brett,popcat,book-of-meme,cat-in-a-dogs-world,neiro,turbo,baby-doge-coin,mog-coin,goatseus-maximus,memecoin";
     const cgRes = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`, { signal: AbortSignal.timeout(3500) });
     if (cgRes.ok) {
       const cgData = await cgRes.json();
+      const currentUsdIdr = market.forex.usd_idr.price || 18025;
       for (const [cId, cVal] of Object.entries(cgData)) {
-        if (market.crypto[cId] && cVal.usd) {
+        if (market.crypto[cId] && cVal.usd !== undefined) {
           market.crypto[cId].usd = cVal.usd;
-          market.crypto[cId].idr = Math.round(cVal.usd * market.forex.usd_idr.price);
-          if (cVal.usd_24h_change !== undefined) {
+          market.crypto[cId].idr = Math.round(cVal.usd * currentUsdIdr);
+          if (cVal.usd_24h_change !== undefined && cVal.usd_24h_change !== null) {
             market.crypto[cId].usd_24h_change = parseFloat(cVal.usd_24h_change.toFixed(2));
           }
         }
@@ -692,8 +711,8 @@ async function fetchLivePublicMarketData() {
     }
   } catch (e) {}
 
-  // Simulasi dinamika harga subtle agar dashboard tetap hidup real-time
-  const jitterPct = (Math.random() - 0.5) * 0.2; // +/- 0.1%
+  // Micro-tick untuk visual pergerakan realtime pasar emas
+  const jitterPct = (Math.random() - 0.5) * 0.04;
   market.precious.gold.price = parseFloat((market.precious.gold.price * (1 + jitterPct / 100)).toFixed(2));
 
   state.market = market;
@@ -720,7 +739,7 @@ async function fetchNewsData() {
     bullish_count: 5,
     neutral_count: 2,
     bearish_count: 0,
-    ai_summary: "Sentimen pasar dominan Bullish didorong antisipasi pemangkasan suku bunga FOMC, stabilitas emas XAU/USD di atas $2,735, serta lonjakan likuiditas koin meme & saham perbankan BEI."
+    ai_summary: "Sentimen pasar dominan Bullish didorong antisipasi pemangkasan suku bunga FOMC, stabilitas emas XAU/USD di atas $4,050, serta lonjakan likuiditas koin meme & saham perbankan BEI."
   };
   renderSentimentSummary();
   renderNews();
@@ -836,7 +855,7 @@ function loadTradingViewWidget(symbol, interval) {
 // ===================================================================
 function renderXauAnalysis() {
   const m = state.market;
-  const goldPrice = (m && m.precious && m.precious.gold) ? m.precious.gold.price : 2742.50;
+  const goldPrice = (m && m.precious && m.precious.gold) ? m.precious.gold.price : 4059.40;
 
   // Hitung level dinamis berdasarkan harga spot terkini
   const entryHigh = (goldPrice - 2.50).toFixed(2);
@@ -1155,7 +1174,7 @@ function renderHeroCards() {
     if (el.goldChangeCard) renderChangeBadge(el.goldChangeCard, gold.change_pct);
     if (el.goldNavPrice) el.goldNavPrice.textContent = formatUSD(gold.price);
 
-    const usdIdr = (m.forex && m.forex.usd_idr) ? m.forex.usd_idr.price : 15850;
+    const usdIdr = (m.forex && m.forex.usd_idr) ? m.forex.usd_idr.price : 18025;
     const pricePerGram = (gold.price * usdIdr) / 31.1035;
     if (el.goldGramCard) el.goldGramCard.textContent = formatIDR(pricePerGram) + ' /gr';
 
@@ -1421,9 +1440,9 @@ ${prompt}`
 function generateLocalFinAiResponse(userMsg) {
   const q = userMsg.toLowerCase();
   const m = state.market;
-  const goldPrice = (m && m.precious && m.precious.gold) ? m.precious.gold.price : 2742.50;
-  const btcPrice = (m && m.crypto && m.crypto.bitcoin) ? formatUSD(m.crypto.bitcoin.usd) : '$83,250';
-  const usdIdr = (m && m.forex && m.forex.usd_idr) ? formatIDR(m.forex.usd_idr.price) : 'Rp 15.850';
+  const goldPrice = (m && m.precious && m.precious.gold) ? m.precious.gold.price : 4059.40;
+  const btcPrice = (m && m.crypto && m.crypto.bitcoin) ? formatUSD(m.crypto.bitcoin.usd) : '$80,817';
+  const usdIdr = (m && m.forex && m.forex.usd_idr) ? formatIDR(m.forex.usd_idr.price) : 'Rp 18.025';
 
   if (q.includes('xau') || q.includes('emas') || q.includes('gold')) {
     return `### 🏅 Analisis Institusional Forex XAU/USD (Emas Spot)
@@ -1467,10 +1486,10 @@ function generateLocalFinAiResponse(userMsg) {
 
   if (q.includes('ihsg') || q.includes('saham') || q.includes('bbca') || q.includes('bbri')) {
     return `### 📈 Analisis IHSG & Saham Perbankan Domestik
-* **Posisi IHSG:** Bertahan di level psikologis **7,700 - 7,750**.
+* **Posisi IHSG:** Bertahan di level psikologis **5,260 - 5,300**.
 * **Saham Big Cap:**
-  * **BBCA (Rp 10.450):** Solid ditopang pertumbuhan kredit korporasi dan rasio CASA yang kokoh.
-  * **BBRI (Rp 4.860):** Valuasi atraktif untuk akumulasi dividen yield jangka menengah-panjang.
+  * **BBCA (Rp 4.900):** Solid ditopang pertumbuhan kredit korporasi dan rasio CASA yang kokoh.
+  * **BBRI (Rp 2.900):** Valuasi atraktif untuk akumulasi dividen yield jangka menengah-panjang.
 * **Katalis Pasar:** Stabilitas kurs Rupiah di kisaran **${usdIdr}** dan antisipasi kebijakan moneter domestik Bank Indonesia.`;
   }
 
@@ -1489,7 +1508,7 @@ Untuk menghadapi volatilitas pasar global, formula institusional yang direkomend
 Secara keseluruhan, kondisi pasar saat ini menunjukkan:
 * **Emas XAU/USD** berada di tren bullish solid di **$${goldPrice.toFixed(2)}**.
 * **Bitcoin** stabil di **${btcPrice}** dengan rotasi likuiditas ke koin meme (PEPE, DOGE).
-* **IHSG** mempertahankan area 7,700 dengan kurs **USD/IDR di ${usdIdr}**.
+* **IHSG** mempertahankan area 5,260 dengan kurs **USD/IDR di ${usdIdr}**.
 
 Ada bagian spesifik (seperti entry level emas, prospek koin meme, atau efek berita FOMC/PPI) yang ingin kita perdalam?`;
 }
@@ -1586,8 +1605,8 @@ function handleVoiceSummary() {
   }
 
   const m = state.market;
-  const btcPrice = m && m.crypto && m.crypto.bitcoin ? `$${m.crypto.bitcoin.usd.toLocaleString()}` : 'delapan puluh tiga ribu dolar';
-  const goldPrice = m && m.precious && m.precious.gold ? `$${m.precious.gold.price.toFixed(1)} per troy ounce` : 'dua ribu tujuh ratus empat puluh dolar';
+  const btcPrice = m && m.crypto && m.crypto.bitcoin ? `$${m.crypto.bitcoin.usd.toLocaleString()}` : 'delapan puluh ribu delapan ratus tujuh belas dolar';
+  const goldPrice = m && m.precious && m.precious.gold ? `$${m.precious.gold.price.toFixed(1)} per troy ounce` : 'empat ribu lima puluh sembilan dolar';
   const digest = state.sentimentOverview ? state.sentimentOverview.ai_summary : 'Pasar bergerak positif.';
 
   const speechText = `Laporan intelijen Quantum Asset AI Pro. Harga emas dunia diperdagangkan di ${goldPrice}. Harga Bitcoin berada di kisaran ${btcPrice}. Rangkuman sentimen: ${digest}`;
@@ -1640,8 +1659,8 @@ function calculateGoldConverter() {
   if (!gramInput) return;
   const gram = parseFloat(gramInput.value) || 0;
   const m = state.market;
-  const goldOz = (m && m.precious && m.precious.gold) ? m.precious.gold.price : 2742.50;
-  const usdIdr = (m && m.forex && m.forex.usd_idr) ? m.forex.usd_idr.price : 15850;
+  const goldOz = (m && m.precious && m.precious.gold) ? m.precious.gold.price : 4059.40;
+  const usdIdr = (m && m.forex && m.forex.usd_idr) ? m.forex.usd_idr.price : 18025;
   const pricePerGram = (goldOz * usdIdr) / 31.1035;
   const total = gram * pricePerGram;
 
@@ -1664,10 +1683,10 @@ function calculateCryptoConverter() {
 
   if (m && m.crypto && m.crypto[coinKey]) {
     coinUsd = m.crypto[coinKey].usd || 0;
-    coinIdr = m.crypto[coinKey].idr || (coinUsd * 15850);
+    coinIdr = m.crypto[coinKey].idr || (coinUsd * 18025);
   } else if (CRYPTO_CATALOG[coinKey]) {
     coinUsd = CRYPTO_CATALOG[coinKey].usd;
-    coinIdr = coinUsd * 15850;
+    coinIdr = coinUsd * 18025;
   }
 
   const totalUsd = amount * coinUsd;
