@@ -1,0 +1,8 @@
+# Local cache and temporary files
+.DS_Store
+Thumbs.db
+*.pyc
+__pycache__/
+hermes.txt
+*.log
+.env
