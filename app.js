@@ -41,64 +41,64 @@ const state = {
 
 // Catalogs for Standalone Execution (Vercel Deployments)
 const CRYPTO_CATALOG = {
-  "bitcoin": { sym: "BTC", name: "Bitcoin", cat: "major", usd: 80391, chg: 2.97, icon: "₿" },
-  "ethereum": { sym: "ETH", name: "Ethereum", cat: "major", usd: 2415.88, chg: 5.06, icon: "Ξ" },
-  "solana": { sym: "SOL", name: "Solana", cat: "major", usd: 95.87, chg: 3.06, icon: "◎" },
-  "binancecoin": { sym: "BNB", name: "BNB", cat: "major", usd: 712.22, chg: 1.48, icon: "🟡" },
-  "ripple": { sym: "XRP", name: "XRP (Ripple)", cat: "major", usd: 1.31, chg: 2.81, icon: "✕" },
-  "cardano": { sym: "ADA", name: "Cardano", cat: "major", usd: 0.1972, chg: 3.46, icon: "₳" },
-  "avalanche-2": { sym: "AVAX", name: "Avalanche", cat: "major", usd: 8.74, chg: 2.05, icon: "🔺" },
-  "chainlink": { sym: "LINK", name: "Chainlink", cat: "major", usd: 11.51, chg: 3.6, icon: "🔗" },
-  "sui": { sym: "SUI", name: "Sui Network", cat: "major", usd: 0.9221, chg: 2.35, icon: "💧" },
-  "near": { sym: "NEAR", name: "NEAR Protocol", cat: "major", usd: 4.02, chg: 0.33, icon: "🌐" },
-  "the-open-network": { sym: "TON", name: "Toncoin", cat: "major", usd: 1.16, chg: -0.72, icon: "💎" },
-  "aptos": { sym: "APT", name: "Aptos", cat: "major", usd: 0.6353, chg: 0.51, icon: "⚡" },
-  "celestia": { sym: "TIA", name: "Celestia", cat: "major", usd: 0.4564, chg: 1.26, icon: "✨" },
-  "injective-protocol": { sym: "INJ", name: "Injective", cat: "major", usd: 8.16, chg: 7.5, icon: "💉" },
-  "kaspa": { sym: "KAS", name: "Kaspa", cat: "major", usd: 0.03196, chg: 1.16, icon: "👻" },
-  "sei-network": { sym: "SEI", name: "Sei Network", cat: "major", usd: 0.04856, chg: -0.35, icon: "🚢" },
-  "polkadot": { sym: "DOT", name: "Polkadot", cat: "major", usd: 0.946, chg: 0.31, icon: "🔴" },
-  "polygon-ecosystem-token": { sym: "POL", name: "Polygon (POL)", cat: "major", usd: 0.09669, chg: 3.65, icon: "🟣" },
-  "arbitrum": { sym: "ARB", name: "Arbitrum", cat: "major", usd: 0.1631, chg: 1.93, icon: "🔷" },
-  "optimism": { sym: "OP", name: "Optimism", cat: "major", usd: 0.111, chg: -0.2, icon: "🔴" },
-  "fantom": { sym: "FTM", name: "Sonic / Fantom", cat: "major", usd: 0.03632, chg: 2.49, icon: "👻" },
-  "litecoin": { sym: "LTC", name: "Litecoin", cat: "major", usd: 55.84, chg: 2.5, icon: "Ł" },
-  "bittensor": { sym: "TAO", name: "Bittensor (AI)", cat: "ai", usd: 234.65, chg: 2.56, icon: "🧠" },
-  "fetch-ai": { sym: "FET", name: "ASI / Fetch.ai", cat: "ai", usd: 0.1599, chg: 0.12, icon: "🤖" },
-  "render-token": { sym: "RENDER", name: "Render Network", cat: "ai", usd: 1.6, chg: 4.8, icon: "🎨" },
-  "internet-computer": { sym: "ICP", name: "Internet Computer", cat: "ai", usd: 2.64, chg: 4.22, icon: "♾️" },
-  "the-graph": { sym: "GRT", name: "The Graph", cat: "ai", usd: 0.02052, chg: 3.15, icon: "📊" },
-  "akash-network": { sym: "AKT", name: "Akash Network", cat: "ai", usd: 0.6481, chg: 5.92, icon: "☁️" },
-  "pepe": { sym: "PEPE", name: "Pepe", cat: "meme", usd: 4.93e-06, chg: -1.31, icon: "🐸" },
-  "dogecoin": { sym: "DOGE", name: "Dogecoin", cat: "meme", usd: 0.07635, chg: 2.0, icon: "🐕" },
-  "shiba-inu": { sym: "SHIB", name: "Shiba Inu", cat: "meme", usd: 4.71e-06, chg: 1.1, icon: "🐶" },
-  "dogwifcoin": { sym: "WIF", name: "dogwifhat", cat: "meme", usd: 0.1724, chg: -2.13, icon: "🧢" },
-  "bonk": { sym: "BONK", name: "Bonk", cat: "meme", usd: 3e-06, chg: -0.96, icon: "🔨" },
-  "floki": { sym: "FLOKI", name: "FLOKI", cat: "meme", usd: 2.278e-05, chg: 0.21, icon: "⚔️" },
-  "brett": { sym: "BRETT", name: "Brett (Base)", cat: "meme", usd: 9.344e-05, chg: 3.13, icon: "🔵" },
-  "popcat": { sym: "POPCAT", name: "Popcat (SOL)", cat: "meme", usd: 0.03968, chg: -1.23, icon: "🐱" },
-  "book-of-meme": { sym: "BOME", name: "BOOK OF MEME", cat: "meme", usd: 0.0006386, chg: 2.33, icon: "📖" },
-  "cat-in-a-dogs-world": { sym: "MEW", name: "cat in dogs world", cat: "meme", usd: 0.0003796, chg: -0.91, icon: "😼" },
-  "neiro": { sym: "NEIRO", name: "First Neiro ETH", cat: "meme", usd: 0.0001534, chg: 2.94, icon: "🐾" },
-  "turbo": { sym: "TURBO", name: "Turbo (AI Meme)", cat: "meme", usd: 0.0007555, chg: -2.15, icon: "🐌" },
-  "baby-doge-coin": { sym: "BABYDOGE", name: "Baby Doge Coin", cat: "meme", usd: 3.2e-10, chg: 0.7, icon: "🍼" },
-  "mog-coin": { sym: "MOG", name: "Mog Coin", cat: "meme", usd: 9.82e-08, chg: 2.62, icon: "🕶️" },
-  "goatseus-maximus": { sym: "GOAT", name: "Goatseus Maximus", cat: "meme", usd: 0.01392, chg: 0.39, icon: "🐐" },
-  "memecoin": { sym: "MEME", name: "Memecoin", cat: "meme", usd: 4.51e-08, chg: 0.0, icon: "🏴‍☠️" },
-  "peanut-the-squirrel": { sym: "PNUT", name: "Peanut Squirrel", cat: "meme", usd: 0.03744, chg: -5.26, icon: "🐿️" },
-  "act-i-the-ai-prophecy": { sym: "ACT", name: "Act I AI", cat: "meme", usd: 0.008741, chg: 3.23, icon: "🎭" }
+  "bitcoin": { sym: "BTC", name: "Bitcoin", cat: "major", usd: 80391, chg: 2.97, icon: "₿", sector: "Store of Value (Digital Gold)", desc: "Mata uang kripto pertama di dunia yang berfungsi sebagai penyimpan nilai terdesentralisasi berbasis Proof-of-Work (PoW) dengan batas suplai absolut 21 juta koin." },
+  "ethereum": { sym: "ETH", name: "Ethereum", cat: "major", usd: 2415.88, chg: 5.06, icon: "Ξ", sector: "Smart Contracts & DeFi L1", desc: "Platform komputasi terdesentralisasi global pelopor smart contracts, menjadi fondasi ribuan protokol keuangan terdesentralisasi (DeFi), NFT, dan token ERC-20." },
+  "solana": { sym: "SOL", name: "Solana", cat: "major", usd: 95.87, chg: 3.06, icon: "◎", sector: "High-Throughput Layer-1", desc: "Blockchain Layer-1 berkecepatan tinggi dengan throughput 65.000 TPS dan biaya gas sub-sen, didukung konsensus Proof-of-History (PoH) untuk DeFi dan dApps kilat." },
+  "binancecoin": { sym: "BNB", name: "BNB", cat: "major", usd: 712.22, chg: 1.48, icon: "🟡", sector: "Exchange & Ecosystem Token", desc: "Token utilitas utama ekosistem bursa Binance dan jaringan BNB Chain, digunakan untuk diskon biaya trading, gas fee smart contract, serta partisipasi token launchpad." },
+  "ripple": { sym: "XRP", name: "XRP (Ripple)", cat: "major", usd: 1.31, chg: 2.81, icon: "✕", sector: "Cross-Border Settlement", desc: "Jaringan penyelesaian pembayaran lintas negara (*remittance*) ultra cepat dan hemat biaya yang dirancang khusus untuk menghubungkan sistem perbankan global." },
+  "cardano": { sym: "ADA", name: "Cardano", cat: "major", usd: 0.1972, chg: 3.46, icon: "₳", sector: "Peer-Reviewed Layer-1", desc: "Platform blockchain Layer-1 berbasis riset akademik dan verifikasi formal, menggunakan konsensus Proof-of-Stake Ouroboros untuk skalabilitas dan keamanan tinggi." },
+  "avalanche-2": { sym: "AVAX", name: "Avalanche", cat: "major", usd: 8.74, chg: 2.05, icon: "🔺", sector: "Multi-Subnet Layer-1", desc: "Platform smart contract berkecepatan tinggi dengan arsitektur Subnet khusus yang memungkinkan pembuatan blockchain independen untuk enterprise dan adopsi RWA." },
+  "chainlink": { sym: "LINK", name: "Chainlink", cat: "major", usd: 11.51, chg: 3.6, icon: "🔗", sector: "Decentralized Oracle Network", desc: "Jaringan Oracle terdesentralisasi terbesar dunia yang mengalirkan data eksternal riil (harga pasar, cuaca, API Web2) ke dalam smart contract blockchain secara aman." },
+  "sui": { sym: "SUI", name: "Sui Network", cat: "major", usd: 0.9221, chg: 2.35, icon: "💧", sector: "Next-Gen Move Layer-1", desc: "Blockchain Layer-1 generasi baru yang menggunakan bahasa pemrograman Move dan arsitektur berorientasi objek untuk eksekusi transaksi paralel horizontal berlatensi sub-detik." },
+  "near": { sym: "NEAR", name: "NEAR Protocol", cat: "major", usd: 4.02, chg: 0.33, icon: "🌐", sector: "User-Friendly Sharded L1", desc: "Blockchain Layer-1 sharded (Nightshade) yang mengedepankan kemudahan adopsi pengguna melalui account abstraction dan integrasi infrastruktur komputasi AI terbuka." },
+  "the-open-network": { sym: "TON", name: "Toncoin", cat: "major", usd: 1.16, chg: -0.72, icon: "💎", sector: "Telegram-Integrated L1", desc: "Blockchain Layer-1 berperforma tinggi yang terintegrasi secara native dengan aplikasi perpesanan Telegram untuk melayani transaksi mikro bagi 900+ juta penggunanya." },
+  "aptos": { sym: "APT", name: "Aptos", cat: "major", usd: 0.6353, chg: 0.51, icon: "⚡", sector: "High-Performance Move L1", desc: "Blockchain Layer-1 performa tinggi buatan mantan teknisi Meta Diem, memanfaatkan mesin Move VM dan Block-STM untuk mencapai throughput transaksi paralel tinggi." },
+  "celestia": { sym: "TIA", name: "Celestia", cat: "major", usd: 0.4564, chg: 1.26, icon: "✨", sector: "Modular Data Availability", desc: "Jaringan modular blockchain pertama yang mengkhususkan diri pada lapisan ketersediaan data (Data Availability - DA), memangkas biaya rollup Layer-2 secara drastis." },
+  "injective-protocol": { sym: "INJ", name: "Injective", cat: "major", usd: 8.16, chg: 7.5, icon: "💉", sector: "DeFi & Derivatives L1", desc: "Blockchain Layer-1 yang dioptimalkan khusus untuk sektor keuangan terdesentralisasi, perdagangan derivatif on-chain, pasar prediksi, dan buku order instan." },
+  "kaspa": { sym: "KAS", name: "Kaspa", cat: "major", usd: 0.03196, chg: 1.16, icon: "👻", sector: "BlockDAG Proof-of-Work", desc: "Kripto Proof-of-Work inovatif berbasis arsitektur GHOSTDAG (BlockDAG), memungkinkan konfirmasi transaksi paralel berkecepatan tinggi tanpa pemborosan blok yatim." },
+  "sei-network": { sym: "SEI", name: "Sei Network", cat: "major", usd: 0.04856, chg: -0.35, icon: "🚢", sector: "DEX-Optimized Layer-1", desc: "Blockchain Layer-1 tercepat yang dirancang khusus untuk perdagangan aset digital dengan mesin pencocokan orderbook bawaan dan perlindungan front-running." },
+  "polkadot": { sym: "DOT", name: "Polkadot", cat: "major", usd: 0.946, chg: 0.31, icon: "🔴", sector: "Interoperable Multi-Chain", desc: "Jaringan interoperabilitas multi-chain yang menghubungkan berbagai blockchain independen (Parachains) ke dalam satu ekosistem keamanan bersama via Relay Chain." },
+  "polygon-ecosystem-token": { sym: "POL", name: "Polygon (POL)", cat: "major", usd: 0.09669, chg: 3.65, icon: "🟣", sector: "ZK-Rollup & L2 Scaling", desc: "Ekosistem penskalaan Ethereum terdepan yang memanfaatkan teknologi ZK-Rollup (Zero Knowledge) untuk transaksi berbiaya rendah dan kompatibilitas EVM penuh." },
+  "arbitrum": { sym: "ARB", name: "Arbitrum", cat: "major", usd: 0.1631, chg: 1.93, icon: "🔷", sector: "Optimistic Rollup Layer-2", desc: "Solusi Layer-2 berbasis Optimistic Rollup terbesar di Ethereum yang menyediakan throughput tinggi dan biaya gas murah dengan tetap mewarisi keamanan jaringan Ethereum." },
+  "optimism": { sym: "OP", name: "Optimism", cat: "major", usd: 0.111, chg: -0.2, icon: "🔴", sector: "Optimistic Rollup & Superchain", desc: "Solusi Layer-2 Ethereum berbasis OP Stack yang menjadi standar arsitektur modular untuk jaringan terdesentralisasi dalam ekosistem terpadu Superchain." },
+  "fantom": { sym: "FTM", name: "Sonic / Fantom", cat: "major", usd: 0.03632, chg: 2.49, icon: "👻", sector: "Fast DAG Layer-1 (Sonic)", desc: "Platform smart contract berbasis graf berarah asiklik (DAG Lachesis) yang kini bertransisi ke Sonic dengan kapasitas hingga 10.000 TPS dan finalitas sub-detik." },
+  "litecoin": { sym: "LTC", name: "Litecoin", cat: "major", usd: 55.84, chg: 2.5, icon: "Ł", sector: "Digital Silver P2P Currency", desc: "Mata uang kripto peer-to-peer legendaris yang dirancang sebagai komplemen Bitcoin untuk transaksi harian cepat dengan waktu blok 2,5 menit dan algoritma Scrypt." },
+  "bittensor": { sym: "TAO", name: "Bittensor (AI)", cat: "ai", usd: 234.65, chg: 2.56, icon: "🧠", sector: "Decentralized AI & ML", desc: "Jaringan kecerdasan buatan desentralisasi peer-to-peer yang memberi insentif kepada subnet model machine learning untuk saling bersaing dan berbagi kecerdasan komputasi." },
+  "fetch-ai": { sym: "FET", name: "ASI / Fetch.ai", cat: "ai", usd: 0.1599, chg: 0.12, icon: "🤖", sector: "Autonomous AI Agents (ASI)", desc: "Platform kecerdasan buatan terdesentralisasi penyedia agen otonom (bagian dari aliansi ASI) untuk otomatisasi rantai pasok, layanan web, dan ekosistem data cerdas." },
+  "render-token": { sym: "RENDER", name: "Render Network", cat: "ai", usd: 1.6, chg: 4.8, icon: "🎨", sector: "DePIN GPU Cloud Computing", desc: "Jaringan komputasi GPU desentralisasi terkemuka yang menghubungkan penyedia GPU menganggur dengan kreator yang membutuhkan rendering 3D, animasi, dan pelatihan AI." },
+  "internet-computer": { sym: "ICP", name: "Internet Computer", cat: "ai", usd: 2.64, chg: 4.22, icon: "♾️", sector: "Decentralized Cloud Web3", desc: "Blockchain komputasi awan berdaulat yang memungkinkan pengembang membangun aplikasi web, sistem enterprise, dan media sosial sepenuhnya on-chain tanpa cloud tersentralisasi." },
+  "the-graph": { sym: "GRT", name: "The Graph", cat: "ai", usd: 0.02052, chg: 3.15, icon: "📊", sector: "Blockchain Data Indexing", desc: "Protokol pengindeksan data desentralisasi yang memungkinkan para pengembang melakukan kueri data blockchain secara instan via GraphQL ('Google-nya Web3')." },
+  "akash-network": { sym: "AKT", name: "Akash Network", cat: "ai", usd: 0.6481, chg: 5.92, icon: "☁️", sector: "DePIN Serverless Cloud", desc: "Pasar komputasi awan sumber terbuka terdesentralisasi (DePIN) yang menyewakan server CPU dan GPU enterprise dengan biaya hingga 80% lebih hemat daripada AWS/GCP." },
+  "pepe": { sym: "PEPE", name: "Pepe", cat: "meme", usd: 4.93e-06, chg: -1.31, icon: "🐸", sector: "Viral Culture Meme Coin", desc: "Koin meme paling viral di Ethereum yang terinspirasi dari karakter kultural Pepe the Frog, memiliki likuiditas masif dan komunitas komunitas budaya internet global." },
+  "dogecoin": { sym: "DOGE", name: "Dogecoin", cat: "meme", usd: 0.07635, chg: 2.0, icon: "🐕", sector: "Original Doge P2P Meme", desc: "Koin meme pertama di dunia bertema anjing Shiba Inu dengan blockchain PoW mandiri, didukung komunitas kuat dan kerap digunakan untuk transaksi mikro serta tip internet." },
+  "shiba-inu": { sym: "SHIB", name: "Shiba Inu", cat: "meme", usd: 4.71e-06, chg: 1.1, icon: "🐶", sector: "Meme Ecosystem & Shibarium", desc: "Token meme bertema anjing yang telah berevolusi menjadi ekosistem lengkap, mencakup bursa DEX ShibaSwap, blockchain Layer-2 Shibarium, dan koleksi NFT Shiboshis." },
+  "dogwifcoin": { sym: "WIF", name: "dogwifhat", cat: "meme", usd: 0.1724, chg: -2.13, icon: "🧢", sector: "Solana Viral Meme Coin", desc: "Koin meme paling ikonik di blockchain Solana bertema anak anjing Shiba Inu yang mengenakan topi rajut wol pink, simbol budaya viral komunitas kripto modern." },
+  "bonk": { sym: "BONK", name: "Bonk", cat: "meme", usd: 3e-06, chg: -0.96, icon: "🔨", sector: "Community Dog Utility Meme", desc: "Koin meme anjing pertama di Solana yang didistribusikan secara airdrop ke komunitas Web3 Solana dan kini terintegrasi luas ke berbagai protokol dApps DeFi." },
+  "floki": { sym: "FLOKI", name: "FLOKI", cat: "meme", usd: 2.278e-05, chg: 0.21, icon: "⚔️", sector: "Utility Meme & Metaverse", desc: "Token meme bertema anjing peliharaan Elon Musk yang mengembangkan ekosistem nyata: game metaverse Valhalla, platform edukasi University of Floki, dan protokol FlokiFi." },
+  "brett": { sym: "BRETT", name: "Brett (Base)", cat: "meme", usd: 9.344e-05, chg: 3.13, icon: "🔵", sector: "Base Layer-2 Mascot Meme", desc: "Maskot kultural dan koin meme teratas di jaringan Base (Ethereum Layer-2), karakter sahabat karib Pepe the Frog dari komik legendaris Boy's Club karya Matt Furie." },
+  "popcat": { sym: "POPCAT", name: "Popcat (SOL)", cat: "meme", usd: 0.03968, chg: -1.23, icon: "🐱", sector: "Solana Viral Cat Meme", desc: "Koin meme viral berbasis Solana yang terinspirasi dari klip meme kucing bernama Oatmeal yang membuka dan menutup mulutnya secara lucu dengan efek suara pop." },
+  "book-of-meme": { sym: "BOME", name: "BOOK OF MEME", cat: "meme", usd: 0.0006386, chg: 2.33, icon: "📖", sector: "Digital Culture Meme Archive", desc: "Proyek eksperimen desentralisasi yang diprakarsai seniman Darkfarms untuk mengabadikan karya seni dan sejarah budaya meme internet secara permanen di blockchain." },
+  "cat-in-a-dogs-world": { sym: "MEW", name: "cat in dogs world", cat: "meme", usd: 0.0003796, chg: -0.91, icon: "😼", sector: "Solana Cat Culture Meme", desc: "Koin meme berbasis Solana bertema kucing putih animasi yang hadir untuk mendobrak dominasi koin-koin meme bertema anjing di pasar kripto global." },
+  "neiro": { sym: "NEIRO", name: "First Neiro ETH", cat: "meme", usd: 0.0001534, chg: 2.94, icon: "🐾", sector: "Ethereum Community Meme", desc: "Koin meme berbasis Ethereum yang dinamai dari anjing Shiba Inu baru yang diadopsi oleh pemilik Kabosu (maskot legendaris di balik terciptanya Dogecoin)." },
+  "turbo": { sym: "TURBO", name: "Turbo (AI Meme)", cat: "meme", usd: 0.0007555, chg: -2.15, icon: "🐌", sector: "AI-Generated Pioneer Meme", desc: "Koin meme revolusioner pertama yang diciptakan sepenuhnya menggunakan panduan kecerdasan buatan GPT-4 dengan modal awal $69 oleh seniman digital Rhett Mankind." },
+  "baby-doge-coin": { sym: "BABYDOGE", name: "Baby Doge Coin", cat: "meme", usd: 3.2e-10, chg: 0.7, icon: "🍼", sector: "Hyper-Deflationary Doge Meme", desc: "Koin meme turunan Dogecoin dengan mekanisme hiper-deflasi yang membakar token pada setiap transaksi dan membagikan reward refleksi otomatis kepada para holder." },
+  "mog-coin": { sym: "MOG", name: "Mog Coin", cat: "meme", usd: 9.82e-08, chg: 2.62, icon: "🕶️", sector: "Internet Humor & Mogging", desc: "Koin meme bertema kucing berkacamata hitam yang terinspirasi dari budaya internet 'Mogging' (tampil lebih dominan/percaya diri) dengan komunitas kultural yang aktif." },
+  "goatseus-maximus": { sym: "GOAT", name: "Goatseus Maximus", cat: "meme", usd: 0.01392, chg: 0.39, icon: "🐐", sector: "Autonomous AI Agent Meme", desc: "Koin meme di jaringan Solana yang lahir dari interaksi bot kecerdasan buatan otonom 'Truth Terminal', menjadi pelopor perpaduan narasi meme dan eksperimen AI." },
+  "memecoin": { sym: "MEME", name: "Memecoin", cat: "meme", usd: 4.51e-08, chg: 0.0, icon: "🏴‍☠️", sector: "Web3 Social & Memeland", desc: "Token utilitas resmi dari studio Web3 Memeland yang didirikan oleh platform hiburan viral legendaris 9GAG untuk mendukung ekosistem sosial kreator digital." },
+  "peanut-the-squirrel": { sym: "PNUT", name: "Peanut Squirrel", cat: "meme", usd: 0.03744, chg: -5.26, icon: "🐿️", sector: "Solana Tribute Animal Meme", desc: "Koin meme penghormatan di blockchain Solana untuk Peanut si tupai peliharaan viral yang memicu perhatian media internasional dan perdebatan regulasi di Amerika Serikat." },
+  "act-i-the-ai-prophecy": { sym: "ACT", name: "Act I AI", cat: "meme", usd: 0.008741, chg: 3.23, icon: "🎭", sector: "Multi-Agent AI Research", desc: "Token eksperimental yang menjajaki masa depan kolaborasi multi-agen kecerdasan buatan otonom di ruang desentralisasi dan jejaring sosial Web3." }
 };
 
 const STOCKS_CATALOG = {
-  "ihsg": { name: "IHSG (BEI)", symbol: "^JKSE", price: 5037.05, change_pct: 2.28 },
-  "bbca": { name: "Bank Central Asia", symbol: "BBCA.JK", price: 5075, change_pct: 2.94 },
-  "bbri": { name: "Bank Rakyat Indonesia", symbol: "BBRI.JK", price: 2720, change_pct: 1.12 },
-  "bmri": { name: "Bank Mandiri", symbol: "BMRI.JK", price: 3620, change_pct: 0.56 },
-  "tlkm": { name: "Telkom Indonesia", symbol: "TLKM.JK", price: 1990, change_pct: 5.57 },
-  "asii": { name: "Astra International", symbol: "ASII.JK", price: 4880, change_pct: -0.41 },
-  "sp500": { name: "S&P 500 Index", symbol: "^GSPC", price: 7722.60, change_pct: 1.30 },
-  "nvda": { name: "Nvidia Corporation", symbol: "NVDA", price: 217.94, change_pct: 3.31 },
-  "aapl": { name: "Apple Inc.", symbol: "AAPL", price: 347.10, change_pct: -0.18 }
+  "ihsg": { name: "IHSG (BEI)", symbol: "^JKSE", price: 5037.05, change_pct: 2.28, sector: "Indeks Acuan Nasional", desc: "Indeks acuan pasar modal Indonesia yang mengukur pergerakan seluruh saham tercatat di Bursa Efek Indonesia (BEI/IDX)." },
+  "bbca": { name: "Bank Central Asia", symbol: "BBCA.JK", price: 5075, change_pct: 2.94, sector: "Perbankan Swasta & Transaksional", desc: "Bank swasta terbesar di Indonesia milik Grup Djarum. Berfokus pada perbankan transaksional ritel dan korporasi, memproses miliaran transaksi harian via BCA Mobile/myBCA serta penyaluran kredit konsumer, KPR, dan modal kerja." },
+  "bbri": { name: "Bank Rakyat Indonesia", symbol: "BBRI.JK", price: 2720, change_pct: 1.12, sector: "Perbankan Mikro, UMKM & Agrikultur", desc: "Bank BUMN tertua dan terbesar di segmen pembiayaan mikro dan UMKM. Mengoperasikan program kredit KUR, Kupedes, serta jaringan agen keuangan laku pandai BRILink yang menjangkau jutaan nasabah pelosok." },
+  "bmri": { name: "Bank Mandiri", symbol: "BMRI.JK", price: 3620, change_pct: 0.56, sector: "Perbankan Korporasi & Wholesale", desc: "Bank BUMN terbesar dari sisi total aset. Berfokus pada pembiayaan sindikasi korporasi besar, perdagangan internasional, proyek infrastruktur nasional, serta ekosistem digital terpadu Livin' (ritel) dan Kopra (wholesale)." },
+  "tlkm": { name: "Telkom Indonesia", symbol: "TLKM.JK", price: 1990, change_pct: 5.57, sector: "Telekomunikasi & Infrastruktur Digital", desc: "BUMN penyedia jasa telekomunikasi dan jaringan digital terbesar nasional. Mengoperasikan seluler Telkomsel, broadband fixed IndiHome, jaringan fiber optik bawah laut internasional, satelit, serta data center NeutraDC." },
+  "asii": { name: "Astra International", symbol: "ASII.JK", price: 4880, change_pct: -0.41, sector: "Konglomerat Otomotif & Alat Berat", desc: "Konglomerat multisektor terbesar Indonesia. Beroperasi di industri perakitan dan distribusi otomotif (Toyota, Daihatsu, Isuzu, motor Honda), alat berat tambang (United Tractors), perkebunan kelapa sawit (Astra Agro), dan jasa pembiayaan." },
+  "sp500": { name: "S&P 500 Index", symbol: "^GSPC", price: 7722.60, change_pct: 1.30, sector: "Indeks Saham Utama Wall Street", desc: "Indeks saham yang mencakup 500 perusahaan publik berkapitalisasi pasar terbesar di bursa Amerika Serikat (NYSE & NASDAQ), menjadi barometer utama ekonomi global." },
+  "nvda": { name: "Nvidia Corporation", symbol: "NVDA", price: 217.94, change_pct: 3.31, sector: "Semikonduktor & Hardware Komputasi AI", desc: "Raksasa semikonduktor global perancang GPU dan chip akselerator kecerdasan buatan (Hopper H100 & Blackwell B200) yang menjadi tulang punggung pusat data AI, pelatihan model LLM, dan grafis dunia." },
+  "aapl": { name: "Apple Inc.", symbol: "AAPL", price: 347.10, change_pct: -0.18, sector: "Teknologi Konsumen & Ekosistem Digital", desc: "Perusahaan teknologi terbesar dunia pembuat ekosistem perangkat premium: iPhone, Mac, iPad, Apple Watch, AirPods, serta layanan digital terintegrasi App Store, Apple Pay, dan iCloud." }
 };
 
 const PRECIOUS_CATALOG = {
@@ -430,7 +430,9 @@ function initDefaultMarketState() {
       icon: val.icon,
       usd: val.usd,
       idr: Math.round(val.usd * usdIdrRate),
-      usd_24h_change: val.chg
+      usd_24h_change: val.chg,
+      sector: val.sector,
+      desc: val.desc
     };
   }
 
@@ -1050,7 +1052,7 @@ function renderMatrix() {
   if (!state.market || !el.matrixGrid) return;
   const m = state.market;
   const target = state.matrixCategory || 'm-meme';
-  const query = state.matrixSearchQuery || '';
+  const query = (state.matrixSearchQuery || '').toLowerCase();
 
   let items = [];
 
@@ -1060,11 +1062,14 @@ function renderMatrix() {
       if (coin.category === 'meme') {
         items.push({
           key,
+          type: 'crypto',
           name: `${coin.icon || '🪙'} ${coin.name}`,
           tag: coin.symbol,
           price: formatUSD(coin.usd),
           subPrice: formatIDR(coin.idr),
-          change: coin.usd_24h_change || 0
+          change: coin.usd_24h_change || 0,
+          sector: coin.sector || 'Koin Meme Kultural',
+          desc: coin.desc || ''
         });
       }
     }
@@ -1074,11 +1079,14 @@ function renderMatrix() {
     for (const [key, coin] of Object.entries(m.crypto)) {
       items.push({
         key,
+        type: 'crypto',
         name: `${coin.icon || '🪙'} ${coin.name}`,
         tag: coin.symbol,
         price: formatUSD(coin.usd),
         subPrice: formatIDR(coin.idr),
-        change: coin.usd_24h_change || 0
+        change: coin.usd_24h_change || 0,
+        sector: coin.sector || 'Aset Kripto',
+        desc: coin.desc || ''
       });
     }
   }
@@ -1088,11 +1096,14 @@ function renderMatrix() {
       if (coin.category === 'major') {
         items.push({
           key,
+          type: 'crypto',
           name: `${coin.icon || '🪙'} ${coin.name}`,
           tag: coin.symbol,
           price: formatUSD(coin.usd),
           subPrice: formatIDR(coin.idr),
-          change: coin.usd_24h_change || 0
+          change: coin.usd_24h_change || 0,
+          sector: coin.sector || 'Kripto Utama L1/L2',
+          desc: coin.desc || ''
         });
       }
     }
@@ -1103,11 +1114,14 @@ function renderMatrix() {
       if (coin.category === 'ai') {
         items.push({
           key,
+          type: 'crypto',
           name: `${coin.icon || '🤖'} ${coin.name}`,
           tag: coin.symbol,
           price: formatUSD(coin.usd),
           subPrice: formatIDR(coin.idr),
-          change: coin.usd_24h_change || 0
+          change: coin.usd_24h_change || 0,
+          sector: coin.sector || 'AI & Komputasi DePIN',
+          desc: coin.desc || ''
         });
       }
     }
@@ -1118,11 +1132,14 @@ function renderMatrix() {
       const isIndo = key.endsWith('.JK') || key === 'ihsg' || key === 'bbca' || key === 'bbri' || key === 'bmri' || key === 'tlkm' || key === 'asii';
       items.push({
         key,
+        type: 'stock',
         name: stock.name,
         tag: stock.symbol,
         price: isIndo ? formatIDR(stock.price) : formatUSD(stock.price),
         subPrice: isIndo ? 'Bursa Efek Indonesia' : 'Wall Street US',
-        change: stock.change_pct || 0
+        change: stock.change_pct || 0,
+        sector: stock.sector || 'Ekuitas Saham',
+        desc: stock.desc || ''
       });
     }
   }
@@ -1131,11 +1148,16 @@ function renderMatrix() {
     for (const [key, item] of Object.entries(m.precious)) {
       items.push({
         key,
+        type: 'commodity',
         name: item.name,
         tag: item.symbol,
         price: formatUSD(item.price),
         subPrice: item.unit,
-        change: item.change_pct || 0
+        change: item.change_pct || 0,
+        sector: 'Logam Mulia & Energi',
+        desc: key === 'gold' ? 'Emas murni spot fisik per troy ounce, aset lindung nilai (safe haven) utama dunia.' :
+              key === 'silver' ? 'Perak spot fisik, logam mulia industri dan aset moneter sekunder.' :
+              'Minyak mentah WTI (Crude Oil) patokan energi industri global.'
       });
     }
   }
@@ -1144,11 +1166,17 @@ function renderMatrix() {
     for (const [key, fx] of Object.entries(m.forex)) {
       items.push({
         key,
+        type: 'forex',
         name: fx.name,
         tag: fx.symbol,
         price: key === 'usd_idr' ? formatIDR(fx.price) : fx.price.toFixed(4),
         subPrice: 'Kurs Pasar Spot Valas',
-        change: fx.change_pct || 0
+        change: fx.change_pct || 0,
+        sector: 'Pasar Valuta Asing Antarbank',
+        desc: key === 'usd_idr' ? 'Nilai tukar Dolar AS terhadap Rupiah Indonesia di pasar antarbank spot.' :
+              key === 'eur_usd' ? 'Pasangan mata uang paling likuid di dunia antara Euro dan Dolar AS.' :
+              key === 'gbp_usd' ? 'Pasangan mata uang Pound Sterling Inggris terhadap Dolar AS (Cable).' :
+              'Pasangan mata uang Dolar AS terhadap Yen Jepang.'
       });
     }
   }
@@ -1157,7 +1185,9 @@ function renderMatrix() {
   if (query) {
     items = items.filter(it => 
       it.name.toLowerCase().includes(query) ||
-      it.tag.toLowerCase().includes(query)
+      it.tag.toLowerCase().includes(query) ||
+      (it.desc && it.desc.toLowerCase().includes(query)) ||
+      (it.sector && it.sector.toLowerCase().includes(query))
     );
   }
 
@@ -1174,7 +1204,7 @@ function renderMatrix() {
   el.matrixGrid.innerHTML = items.map(it => {
     const isUp = it.change >= 0;
     return `
-      <div class="matrix-item-card" id="matrix-card-${it.key}">
+      <div class="matrix-item-card cursor-pointer" id="matrix-card-${it.key}" onclick="openAssetDetailModal('${it.key}', '${it.type}')" title="Klik untuk melihat profil bisnis & informasi lengkap">
         <div class="m-item-top">
           <span class="m-item-name">${it.name}</span>
           <div class="m-item-meta">
@@ -1183,6 +1213,7 @@ function renderMatrix() {
           </div>
         </div>
         <div class="m-item-price ${isUp ? 'text-emerald' : 'text-crimson'}" id="matrix-price-${it.key}">${it.price}</div>
+        <div class="m-item-desc" title="${escapeHtml(it.desc)}">${it.desc ? escapeHtml(truncate(it.desc, 78)) : ''}</div>
         <div class="m-item-bottom">
           <span class="text-muted" id="matrix-sub-${it.key}">${it.subPrice}</span>
           <span class="${isUp ? 'text-emerald' : 'text-crimson'} font-bold" id="matrix-chg-${it.key}">
@@ -1567,6 +1598,39 @@ ${prompt}`
 
 function generateLocalFinAiResponse(userMsg) {
   const q = userMsg.toLowerCase();
+
+  // Pencarian Cerdas Profil Saham & Model Bisnis
+  for (const [sKey, sVal] of Object.entries(STOCKS_CATALOG)) {
+    if (q.includes(sKey) || q.includes(sVal.name.toLowerCase()) || q.includes(sVal.symbol.toLowerCase().replace('.jk', ''))) {
+      if (q.includes('kerja') || q.includes('bidang') || q.includes('profil') || q.includes('usaha') || q.includes('apa') || q.includes('bisnis')) {
+        const isIndo = sKey.endsWith('.JK') || sKey === 'ihsg' || sKey === 'bbca' || sKey === 'bbri' || sKey === 'bmri' || sKey === 'tlkm' || sKey === 'asii';
+        const curPrice = (state.market && state.market.stocks && state.market.stocks[sKey]) ? state.market.stocks[sKey].price : sVal.price;
+        const curPriceStr = isIndo ? formatIDR(curPrice) : formatUSD(curPrice);
+        return `### Profil Bisnis & Bidang Usaha: ${sVal.name} (${sVal.symbol})
+* **Sektor Industri**: ${sVal.sector}
+* **Harga Terkini**: ${curPriceStr} (${sVal.change_pct >= 0 ? '+' : ''}${sVal.change_pct}% hari ini)
+* **Bidang Usaha & Model Bisnis**:
+${sVal.desc}
+* **Analisis Fundamental FinAI**: Perusahaan ini memiliki posisi kompetitif (*competitive moat*) yang kuat di segmennya dengan basis pendapatan nyata dan terukur di pasar modal.`;
+      }
+    }
+  }
+
+  // Pencarian Cerdas Profil Kripto & Utilitas Koin
+  for (const [cKey, cVal] of Object.entries(CRYPTO_CATALOG)) {
+    if (q.includes(cKey) || q.includes(cVal.name.toLowerCase()) || q.includes(cVal.sym.toLowerCase())) {
+      if (q.includes('apa') || q.includes('kerja') || q.includes('profil') || q.includes('teknologi') || q.includes('fungsi') || q.includes('utilitas')) {
+        const curPrice = (state.market && state.market.crypto && state.market.crypto[cKey]) ? state.market.crypto[cKey].usd : cVal.usd;
+        return `### Informasi Teknologi & Utilitas: ${cVal.icon || '🪙'} ${cVal.name} (${cVal.sym})
+* **Kategori & Ekosistem**: ${cVal.sector}
+* **Harga Spot Live**: ${formatUSD(curPrice)} (~${formatIDR(curPrice * 18025)})
+* **Fungsi, Teknologi & Utilitas**:
+${cVal.desc}
+* **Karakteristik Aset**: Likuiditas pasar aktif, terhubung langsung ke live streaming Binance WebSocket & CoinGecko.`;
+      }
+    }
+  }
+
   const m = state.market;
   const goldPrice = (m && m.precious && m.precious.gold) ? m.precious.gold.price : 4059.40;
   const goldChg = (m && m.precious && m.precious.gold && m.precious.gold.change_pct !== undefined) ? m.precious.gold.change_pct : 1.45;
@@ -1905,6 +1969,95 @@ function calculateDCA() {
 // ===================================================================
 // SETTINGS PERSISTENCE
 // ===================================================================
+
+// ===================================================================
+// MODAL: DETAIL INFORMASI & PROFIL BISNIS ASET
+// ===================================================================
+window.openAssetDetailModal = function(key, type) {
+  const modal = document.getElementById('assetDetailModal');
+  const body = document.getElementById('assetModalBody');
+  const title = document.getElementById('assetModalTitle');
+  if (!modal || !body) return;
+
+  let asset = null;
+  const isCrypto = (type === 'crypto');
+  const isStock = (type === 'stock');
+  const isCommodity = (type === 'commodity');
+  const isForex = (type === 'forex');
+
+  if (isCrypto && state.market && state.market.crypto) {
+    asset = state.market.crypto[key] || CRYPTO_CATALOG[key];
+  } else if (isStock && state.market && state.market.stocks) {
+    asset = state.market.stocks[key] || STOCKS_CATALOG[key];
+  } else if (isCommodity && state.market && state.market.precious) {
+    asset = state.market.precious[key] || PRECIOUS_CATALOG[key];
+  } else if (isForex && state.market && state.market.forex) {
+    asset = state.market.forex[key] || FOREX_CATALOG[key];
+  }
+
+  if (!asset) return;
+
+  const sym = asset.symbol || asset.sym || key.toUpperCase();
+  const name = asset.name || key;
+  const icon = asset.icon || (isStock ? '🏢' : isCommodity ? '🥇' : '💱');
+  const sector = asset.sector || (isCrypto ? 'Aset Kripto Terdesentralisasi' : 'Instrumen Keuangan');
+  const desc = asset.desc || 'Informasi profil dan fundamental aset pasar keuangan.';
+  const usdPrice = asset.usd !== undefined ? formatUSD(asset.usd) : (isStock && !key.endsWith('.JK') && key !== 'bbca' && key !== 'bbri' && key !== 'bmri' && key !== 'tlkm' && key !== 'asii' && key !== 'ihsg') ? formatUSD(asset.price) : '';
+  const idrPrice = asset.idr !== undefined ? formatIDR(asset.idr) : (isStock && (key.endsWith('.JK') || key === 'bbca' || key === 'bbri' || key === 'bmri' || key === 'tlkm' || key === 'asii' || key === 'ihsg')) ? formatIDR(asset.price) : '';
+  const chg = asset.usd_24h_change !== undefined ? asset.usd_24h_change : (asset.change_pct || 0);
+  const isUp = chg >= 0;
+
+  if (title) {
+    title.innerHTML = `<i class="fa-solid fa-circle-info text-cyan"></i> Detail Profil: ${icon} ${name}`;
+  }
+
+  body.innerHTML = `
+    <div class="asset-detail-card">
+      <div class="asset-detail-header">
+        <div class="asset-badge-group">
+          <span class="badge-pill bg-cyan-subtle">${sector}</span>
+          <span class="badge-pill">${sym}</span>
+          <span class="live-stream-badge"><span class="live-dot-pulse"></span> LIVE 24/7</span>
+        </div>
+        <div class="asset-price-box mt-2">
+          <span class="asset-modal-price ${isUp ? 'text-emerald' : 'text-crimson'}">
+            ${usdPrice || idrPrice}
+          </span>
+          ${(usdPrice && idrPrice) ? `<span class="asset-modal-sub text-muted">(${idrPrice})</span>` : ''}
+          <span class="badge-pill ${isUp ? 'text-emerald' : 'text-crimson'} font-bold">
+            ${isUp ? '+' : ''}${chg.toFixed(2)}% (24 Jam)
+          </span>
+        </div>
+      </div>
+
+      <div class="asset-detail-section mt-3">
+        <h5 class="section-subtitle" style="font-size:0.85rem;font-weight:700;color:#06b6d4;margin-bottom:6px;">
+          <i class="fa-solid fa-briefcase text-cyan"></i> Bidang Kerja, Profil Bisnis & Utilitas
+        </h5>
+        <div class="asset-desc-box">
+          <p>${escapeHtml(desc)}</p>
+        </div>
+      </div>
+
+      <div class="asset-modal-actions mt-4">
+        <button class="btn-primary" onclick="window.askAiAboutArticle('Jelaskan secara mendalam tentang profil bisnis atau teknologi aset ${name} (${sym}), bagaimana menghasilkan nilai, dan prospek pasarnya')">
+          <i class="fa-solid fa-brain"></i> Bedah via FinAI
+        </button>
+        <button class="btn-secondary" onclick="window.closeAssetDetailModal()">
+          Tutup
+        </button>
+      </div>
+    </div>
+  `;
+
+  modal.classList.add('open');
+};
+
+window.closeAssetDetailModal = function() {
+  const modal = document.getElementById('assetDetailModal');
+  if (modal) modal.classList.remove('open');
+};
+
 function saveSettings() {
   const rawKey = el.geminiApiKeyInput?.value.trim() || '';
   // PONDASI 6: Validasi ketat format Google Gemini API Key
@@ -2312,4 +2465,13 @@ try {
   Object.freeze(PRECIOUS_CATALOG);
   Object.freeze(FOREX_CATALOG);
   Object.freeze(BINANCE_SYMBOL_MAP);
-} catch (e) {}
+} catch (e) {}  const btnCloseAsset = document.getElementById('btnCloseAssetModal');
+  const assetModal = document.getElementById('assetDetailModal');
+  if (btnCloseAsset && assetModal) {
+    btnCloseAsset.addEventListener('click', () => assetModal.classList.remove('open'));
+    assetModal.addEventListener('click', (e) => {
+      if (e.target === assetModal) assetModal.classList.remove('open');
+    });
+  }
+
+  
