@@ -272,6 +272,7 @@ const el = {
   fngScoreText: document.getElementById('fngScoreText'),
   cryptoStatusBadge: document.getElementById('cryptoStatusBadge'),
 
+  goldSignalBadge: document.getElementById('goldSignalBadge'),
   goldPriceCard: document.getElementById('goldPriceCard'),
   goldChangeCard: document.getElementById('goldChangeCard'),
   goldGramCard: document.getElementById('goldGramCard'),
@@ -393,7 +394,44 @@ function populateCryptoSelectOptions() {
   }
 }
 
+
+function initDefaultMarketState() {
+  const usdIdrRate = 18025;
+  state.market = {
+    timestamp: Date.now(),
+    crypto: {},
+    stocks: JSON.parse(JSON.stringify(STOCKS_CATALOG)),
+    precious: JSON.parse(JSON.stringify(PRECIOUS_CATALOG)),
+    forex: JSON.parse(JSON.stringify(FOREX_CATALOG)),
+    indicators: {
+      fear_and_greed: { value: 51, classification: "Neutral" }
+    }
+  };
+
+  for (const [key, val] of Object.entries(CRYPTO_CATALOG)) {
+    state.market.crypto[key] = {
+      symbol: val.sym,
+      name: val.name,
+      category: val.cat,
+      icon: val.icon,
+      usd: val.usd,
+      idr: Math.round(val.usd * usdIdrRate),
+      usd_24h_change: val.chg
+    };
+  }
+
+  renderTickerTape();
+  renderHeroCards();
+  renderMatrix();
+  renderXauAnalysis();
+  renderSentimentSummary();
+  renderNews();
+  calculateGoldConverter();
+  calculateCryptoConverter();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  initDefaultMarketState();
   initSettings();
   initEventListeners();
   populateCryptoSelectOptions();
@@ -1145,6 +1183,8 @@ function renderTickerTape() {
     if (m.crypto.bitcoin) items.push({ sym: 'BTC', price: formatUSD(m.crypto.bitcoin.usd), chg: m.crypto.bitcoin.usd_24h_change });
     if (m.crypto.ethereum) items.push({ sym: 'ETH', price: formatUSD(m.crypto.ethereum.usd), chg: m.crypto.ethereum.usd_24h_change });
     if (m.crypto.solana) items.push({ sym: 'SOL', price: formatUSD(m.crypto.solana.usd), chg: m.crypto.solana.usd_24h_change });
+    if (m.crypto.sui) items.push({ sym: '💧 SUI', price: formatUSD(m.crypto.sui.usd), chg: m.crypto.sui.usd_24h_change });
+    if (m.crypto.dogecoin) items.push({ sym: '🐕 DOGE', price: formatUSD(m.crypto.dogecoin.usd), chg: m.crypto.dogecoin.usd_24h_change });
   }
 
   // Precious & Forex
@@ -1186,7 +1226,7 @@ function renderHeroCards() {
     if (m.crypto.ethereum && el.ethPriceCard) el.ethPriceCard.textContent = formatUSD(m.crypto.ethereum.usd);
     if (m.crypto.solana && el.solPriceCard) el.solPriceCard.textContent = formatUSD(m.crypto.solana.usd);
     if (m.crypto.pepe && el.pepePriceCard) el.pepePriceCard.textContent = formatUSD(m.crypto.pepe.usd);
-    if (m.crypto.dogePriceCard && m.crypto.dogecoin) el.dogePriceCard.textContent = formatUSD(m.crypto.dogecoin.usd);
+    if (el.dogePriceCard && m.crypto.dogecoin) el.dogePriceCard.textContent = formatUSD(m.crypto.dogecoin.usd);
   }
 
   // Fear & Greed
@@ -1393,9 +1433,9 @@ async function handleChatSubmit(e) {
 }
 
 window.askAiAboutArticle = function(title) {
-  if (window.innerWidth <= 1180 && el.chatSidebar) {
-    el.chatSidebar.classList.add('open');
-  }
+  if (el.chatSidebar) el.chatSidebar.classList.add('open');
+  if (el.chatBackdrop) el.chatBackdrop.classList.add('active');
+  document.body.style.overflow = window.innerWidth <= 768 ? 'hidden' : '';
   const prompt = `Tolong bedah dan analisis berita ini secara mendalam:
 "${title}"
 
@@ -1640,7 +1680,7 @@ function removeMessageBubble(id) {
 
 function formatChatMessage(text) {
   let html = escapeHtml(text);
-  html = html.replace(/### (.*?)\n/g, '<h4 style="color:#06b6d4;margin:6px 0;">$1</h4>');
+  html = html.replace(/^#{2,4} (.*?)$/gm, '<h4 style="color:#06b6d4;margin:8px 0 4px 0;font-size:0.95rem;">$1</h4>');
   html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
   html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
 
@@ -1882,4 +1922,6 @@ function formatTimeAgo(dateStr) {
   } catch (e) {
     return 'Baru saja';
   }
-}
+}if (el.goldSignalBadge) el.goldSignalBadge.textContent = "Sinyal: STRONG BUY";
+    if (el.goldSignalBadge) el.goldSignalBadge.textContent = "Sinyal: STRONG SELL";
+    
