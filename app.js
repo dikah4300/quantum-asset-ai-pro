@@ -1,5 +1,6 @@
 /**
- * QUANTUM ASSET AI PRO - CLIENT-SIDE INTELLIGENCE & TERMINAL CONTROLLER
+ * QUANTUM ASSET AI PRO
+  isChatProcessing = false; - CLIENT-SIDE INTELLIGENCE & TERMINAL CONTROLLER
  * Full autonomy engine: works with local Python server or standalone on Vercel/CDN.
  */
 
@@ -1425,10 +1426,18 @@ function updateBookmarkCount() {
 // ===================================================================
 // CHATBOT INTERACTION (LOCAL NLP + GOOGLE GEMINI)
 // ===================================================================
-async function handleChatSubmit(e) {
+let lastChatTime = 0;
+let isChatProcessing = false;
+
+function handleChatSubmit(e) {
   if (e) e.preventDefault();
   const text = el.chatInput.value.trim();
   if (!text) return;
+
+  const now = Date.now();
+  if (isChatProcessing || now - lastChatTime < 1000) {
+    return; // Anti-flood: batasi 1 pesan per detik
+  }
 
   el.chatInput.value = '';
   sendChatMessage(text);
@@ -1446,6 +1455,8 @@ Apa dampaknya bagi pasar crypto, saham, atau aset emas XAU/USD? Serta apa mitiga
 };
 
 async function sendChatMessage(promptText) {
+  lastChatTime = Date.now();
+  isChatProcessing = true;
   appendMessage('user', promptText);
 
   const loadingId = 'loading-' + Date.now();
@@ -1846,7 +1857,8 @@ function calculateDCA() {
 // SETTINGS PERSISTENCE
 // ===================================================================
 function saveSettings() {
-  const key = el.geminiApiKeyInput?.value.trim() || '';
+  const rawKey = el.geminiApiKeyInput?.value.trim() || '';
+  const key = rawKey.replace(/[^a-zA-Z0-9_\-]/g, '').slice(0, 100);
   const interval = el.autoRefreshSelect?.value || '45';
   const voice = el.voiceSelect?.value || 'id-ID';
 
