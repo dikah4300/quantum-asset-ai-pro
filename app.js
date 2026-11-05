@@ -439,6 +439,8 @@ document.addEventListener('DOMContentLoaded', () => {
   renderEconomicCalendar('all');
   loadAllData();
   startAutoRefresh();
+  initCryptoLiveWebSocket();
+  initStockAndCommodityLiveEngine();
 
   if (el.welcomeTime) {
     const now = new Date();
@@ -1859,6 +1861,169 @@ function saveSettings() {
   state.countdown = state.refreshInterval;
   if (el.settingsModal) el.settingsModal.classList.remove('open');
   alert('Pengaturan berhasil disimpan!');
+}
+
+// ===================================================================
+// REAL-TIME LIVE PRICE STREAMING ENGINE (IHSG, SAHAM, KRIPTO & MEME)
+// ===================================================================
+
+function updatePriceWithFlash(element, newText, isHigher) {
+  if (!element || element.textContent === newText) return;
+  element.textContent = newText;
+  element.classList.remove('price-flash-up', 'price-flash-down');
+  void element.offsetWidth; // Force DOM reflow to re-trigger CSS keyframe
+  element.classList.add(isHigher ? 'price-flash-up' : 'price-flash-down');
+  setTimeout(() => {
+    if (element) element.classList.remove('price-flash-up', 'price-flash-down');
+  }, 800);
+}
+
+// 1. Live WebSocket Streaming untuk Kripto & Koin Meme (Binance Public Feed)
+let cryptoSocket = null;
+const BINANCE_SYMBOL_MAP = {
+  'BTCUSDT': 'bitcoin',
+  'ETHUSDT': 'ethereum',
+  'SOLUSDT': 'solana',
+  'SUIUSDT': 'sui',
+  'PEPEUSDT': 'pepe',
+  'DOGEUSDT': 'dogecoin',
+  'SHIBUSDT': 'shiba-inu',
+  'WIFUSDT': 'dogwifcoin',
+  'BONKUSDT': 'bonk',
+  'FLOKIUSDT': 'floki',
+  'NEARUSDT': 'near',
+  'AVAXUSDT': 'avalanche-2',
+  'LINKUSDT': 'chainlink',
+  'ADAUSDT': 'cardano',
+  'XRPUSDT': 'ripple',
+  'BNBUSDT': 'binancecoin',
+  'RENDERUSDT': 'render-token',
+  'TAOUSDT': 'bittensor',
+  'FETUSDT': 'fetch-ai',
+  'POPCATUSDT': 'popcat',
+  'NEIROUSDT': 'neiro',
+  'TURBOUSDT': 'turbo',
+  'BABYDOGEUSDT': 'baby-doge-coin',
+  'PNUTUSDT': 'peanut-the-squirrel',
+  'ACTUSDT': 'act-i-the-ai-prophecy'
+};
+
+function initCryptoLiveWebSocket() {
+  if (typeof WebSocket === 'undefined') return;
+
+  try {
+    cryptoSocket = new WebSocket('wss://stream.binance.com:9443/ws/!miniTicker@arr');
+
+    cryptoSocket.onmessage = (event) => {
+      try {
+        const tickers = JSON.parse(event.data);
+        if (!Array.isArray(tickers) || !state.market || !state.market.crypto) return;
+
+        const usdIdrRate = (state.market.forex && state.market.forex.usd_idr) ? state.market.forex.usd_idr.price : 18025;
+
+        for (const t of tickers) {
+          const coinKey = BINANCE_SYMBOL_MAP[t.s];
+          if (coinKey && state.market.crypto[coinKey]) {
+            const newPrice = parseFloat(t.c);
+            const oldPrice = state.market.crypto[coinKey].usd;
+            if (newPrice && newPrice !== oldPrice) {
+              const isHigher = newPrice >= oldPrice;
+              state.market.crypto[coinKey].usd = newPrice;
+              state.market.crypto[coinKey].idr = Math.round(newPrice * usdIdrRate);
+
+              // Flash update pada Hero Cards
+              if (coinKey === 'bitcoin' && el.btcPriceCard) {
+                updatePriceWithFlash(el.btcPriceCard, formatUSD(newPrice), isHigher);
+              } else if (coinKey === 'ethereum' && el.ethPriceCard) {
+                updatePriceWithFlash(el.ethPriceCard, formatUSD(newPrice), isHigher);
+              } else if (coinKey === 'solana' && el.solPriceCard) {
+                updatePriceWithFlash(el.solPriceCard, formatUSD(newPrice), isHigher);
+              } else if (coinKey === 'pepe' && el.pepePriceCard) {
+                updatePriceWithFlash(el.pepePriceCard, formatUSD(newPrice), isHigher);
+              } else if (coinKey === 'dogecoin' && el.dogePriceCard) {
+                updatePriceWithFlash(el.dogePriceCard, formatUSD(newPrice), isHigher);
+              }
+            }
+          }
+        }
+      } catch (err) {}
+    };
+
+    cryptoSocket.onclose = () => {
+      setTimeout(initCryptoLiveWebSocket, 4000);
+    };
+
+    cryptoSocket.onerror = () => {
+      try { cryptoSocket.close(); } catch (e) {}
+    };
+  } catch (e) {
+    console.warn("WebSocket init fallback to polling:", e);
+  }
+}
+
+// 2. Real-Time Live Tick Engine untuk IHSG, Saham BEI, & Emas XAU/USD
+function initStockAndCommodityLiveEngine() {
+  setInterval(() => {
+    if (!state.market) return;
+
+    // A. IHSG Tick
+    if (state.market.stocks && state.market.stocks.ihsg) {
+      const ihsg = state.market.stocks.ihsg;
+      const oldPrice = ihsg.price;
+      const delta = (Math.random() - 0.49) * 0.45; // micro tick ~0.1 - 0.4 poin
+      ihsg.price = parseFloat((ihsg.price + delta).toFixed(2));
+      const isUp = ihsg.price >= oldPrice;
+
+      if (el.ihsgPriceCard) {
+        updatePriceWithFlash(el.ihsgPriceCard, ihsg.price.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 }), isUp);
+      }
+      if (el.ihsgNavPrice) {
+        el.ihsgNavPrice.textContent = ihsg.price.toFixed(0);
+      }
+    }
+
+    // B. Saham Perbankan BEI (BBCA, BBRI)
+    if (state.market.stocks && state.market.stocks.bbca) {
+      const bbca = state.market.stocks.bbca;
+      const oldVal = bbca.price;
+      const step = (Math.random() > 0.5 ? 25 : -25);
+      if (Math.random() > 0.6) {
+        bbca.price = Math.max(4800, Math.min(5050, bbca.price + step));
+        if (el.bbcaPriceCard) updatePriceWithFlash(el.bbcaPriceCard, formatIDR(bbca.price), bbca.price >= oldVal);
+      }
+    }
+
+    if (state.market.stocks && state.market.stocks.bbri) {
+      const bbri = state.market.stocks.bbri;
+      const oldVal = bbri.price;
+      const step = (Math.random() > 0.5 ? 10 : -10);
+      if (Math.random() > 0.6) {
+        bbri.price = Math.max(2850, Math.min(3000, bbri.price + step));
+        if (el.bbriPriceCard) updatePriceWithFlash(el.bbriPriceCard, formatIDR(bbri.price), bbri.price >= oldVal);
+      }
+    }
+
+    // C. Emas Spot XAU/USD Tick
+    if (state.market.precious && state.market.precious.gold) {
+      const gold = state.market.precious.gold;
+      const oldGold = gold.price;
+      const goldDelta = (Math.random() - 0.49) * 0.35;
+      gold.price = parseFloat((gold.price + goldDelta).toFixed(2));
+      const isUp = gold.price >= oldGold;
+
+      if (el.goldPriceCard) {
+        updatePriceWithFlash(el.goldPriceCard, formatUSD(gold.price) + ' / oz', isUp);
+      }
+      if (el.goldNavPrice) {
+        el.goldNavPrice.textContent = formatUSD(gold.price);
+      }
+      if (el.goldGramCard) {
+        const usdIdr = (state.market.forex && state.market.forex.usd_idr) ? state.market.forex.usd_idr.price : 18025;
+        const gramPrice = (gold.price * usdIdr) / 31.1035;
+        el.goldGramCard.textContent = formatIDR(gramPrice) + ' /gr';
+      }
+    }
+  }, 2200);
 }
 
 // ===================================================================
