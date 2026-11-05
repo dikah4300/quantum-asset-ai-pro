@@ -1903,32 +1903,49 @@ function updatePriceWithFlash(element, newText, isHigher) {
 // 1. Live WebSocket Streaming untuk Kripto & Koin Meme (Binance Public Feed)
 let cryptoSocket = null;
 const BINANCE_SYMBOL_MAP = {
-  'BTCUSDT': 'bitcoin',
-  'ETHUSDT': 'ethereum',
-  'SOLUSDT': 'solana',
-  'SUIUSDT': 'sui',
-  'PEPEUSDT': 'pepe',
-  'DOGEUSDT': 'dogecoin',
-  'SHIBUSDT': 'shiba-inu',
-  'WIFUSDT': 'dogwifcoin',
-  'BONKUSDT': 'bonk',
-  'FLOKIUSDT': 'floki',
-  'NEARUSDT': 'near',
-  'AVAXUSDT': 'avalanche-2',
-  'LINKUSDT': 'chainlink',
-  'ADAUSDT': 'cardano',
-  'XRPUSDT': 'ripple',
-  'BNBUSDT': 'binancecoin',
-  'RENDERUSDT': 'render-token',
-  'TAOUSDT': 'bittensor',
-  'FETUSDT': 'fetch-ai',
-  'POPCATUSDT': 'popcat',
-  'NEIROUSDT': 'neiro',
-  'TURBOUSDT': 'turbo',
-  'BABYDOGEUSDT': 'baby-doge-coin',
-  'PNUTUSDT': 'peanut-the-squirrel',
-  'ACTUSDT': 'act-i-the-ai-prophecy'
+  'BTCUSDT': { key: 'bitcoin', div: 1 },
+  'ETHUSDT': { key: 'ethereum', div: 1 },
+  'SOLUSDT': { key: 'solana', div: 1 },
+  'SUIUSDT': { key: 'sui', div: 1 },
+  'PEPEUSDT': { key: 'pepe', div: 1 },
+  'DOGEUSDT': { key: 'dogecoin', div: 1 },
+  'SHIBUSDT': { key: 'shiba-inu', div: 1 },
+  'WIFUSDT': { key: 'dogwifcoin', div: 1 },
+  'BONKUSDT': { key: 'bonk', div: 1 },
+  'FLOKIUSDT': { key: 'floki', div: 1 },
+  'NEARUSDT': { key: 'near', div: 1 },
+  'AVAXUSDT': { key: 'avalanche-2', div: 1 },
+  'LINKUSDT': { key: 'chainlink', div: 1 },
+  'ADAUSDT': { key: 'cardano', div: 1 },
+  'XRPUSDT': { key: 'ripple', div: 1 },
+  'BNBUSDT': { key: 'binancecoin', div: 1 },
+  'TONUSDT': { key: 'the-open-network', div: 1 },
+  'APTUSDT': { key: 'aptos', div: 1 },
+  'TIAUSDT': { key: 'celestia', div: 1 },
+  'INJUSDT': { key: 'injective-protocol', div: 1 },
+  'SEIUSDT': { key: 'sei-network', div: 1 },
+  'DOTUSDT': { key: 'polkadot', div: 1 },
+  'POLUSDT': { key: 'polygon-ecosystem-token', div: 1 },
+  'ARBUSDT': { key: 'arbitrum', div: 1 },
+  'OPUSDT': { key: 'optimism', div: 1 },
+  'FTMUSDT': { key: 'fantom', div: 1 },
+  'LTCUSDT': { key: 'litecoin', div: 1 },
+  'ICPUSDT': { key: 'internet-computer', div: 1 },
+  'GRTUSDT': { key: 'the-graph', div: 1 },
+  'RENDERUSDT': { key: 'render-token', div: 1 },
+  'TAOUSDT': { key: 'bittensor', div: 1 },
+  'FETUSDT': { key: 'fetch-ai', div: 1 },
+  'BOMEUSDT': { key: 'book-of-meme', div: 1 },
+  'NEIROUSDT': { key: 'neiro', div: 1 },
+  'TURBOUSDT': { key: 'turbo', div: 1 },
+  '1MBABYDOGEUSDT': { key: 'baby-doge-coin', div: 1000000 },
+  'BABYDOGEUSDT': { key: 'baby-doge-coin', div: 1 },
+  'PNUTUSDT': { key: 'peanut-the-squirrel', div: 1 },
+  'ACTUSDT': { key: 'act-i-the-ai-prophecy', div: 1 },
+  'MEMEUSDT': { key: 'memecoin', div: 1 }
 };
+
+const lastCryptoWsTick = {};
 
 function initCryptoLiveWebSocket() {
   if (typeof WebSocket === 'undefined') return;
@@ -1944,14 +1961,21 @@ function initCryptoLiveWebSocket() {
         const usdIdrRate = (state.market.forex && state.market.forex.usd_idr) ? state.market.forex.usd_idr.price : 18025;
 
         for (const t of tickers) {
-          const coinKey = BINANCE_SYMBOL_MAP[t.s];
+          const entry = BINANCE_SYMBOL_MAP[t.s];
+          if (!entry) continue;
+          const coinKey = typeof entry === 'string' ? entry : entry.key;
+          const divisor = (typeof entry === 'object' && entry.div) ? entry.div : 1;
+
           if (coinKey && state.market.crypto[coinKey]) {
-            const newPrice = parseFloat(t.c);
+            const rawVal = parseFloat(t.c);
+            const newPrice = rawVal / divisor;
             const oldPrice = state.market.crypto[coinKey].usd;
             if (newPrice && newPrice !== oldPrice) {
+              lastCryptoWsTick[coinKey] = Date.now();
               const isHigher = newPrice >= oldPrice;
               state.market.crypto[coinKey].usd = newPrice;
-              state.market.crypto[coinKey].idr = Math.round(newPrice * usdIdrRate);
+              const newIdr = Math.round(newPrice * usdIdrRate);
+              state.market.crypto[coinKey].idr = newIdr;
 
               // Flash update pada Hero Cards
               if (coinKey === 'bitcoin' && el.btcPriceCard) {
@@ -1974,7 +1998,7 @@ function initCryptoLiveWebSocket() {
               }
               const matrixSubEl = document.getElementById('matrix-sub-' + coinKey);
               if (matrixSubEl) {
-                matrixSubEl.textContent = formatIDR(Math.round(newPrice * usdIdrRate));
+                matrixSubEl.textContent = formatIDR(newIdr);
               }
             }
           }
@@ -2076,6 +2100,39 @@ function initStockAndCommodityLiveEngine() {
         matrixGoldEl.className = `m-item-price ${isUp ? 'text-emerald' : 'text-crimson'}`;
       }
     }
+
+    // D. Continuous Live Micro-Tick untuk SEMUA 46 Koin Kripto & Koin Meme
+    if (state.market.crypto) {
+      const now = Date.now();
+      const allCryptoKeys = Object.keys(state.market.crypto);
+      const usdIdr = (state.market.forex && state.market.forex.usd_idr) ? state.market.forex.usd_idr.price : 18025;
+
+      // Ambil 3-4 koin yang belum mendapat tick WebSocket dalam 3 detik terakhir
+      const silentCoins = allCryptoKeys.filter(k => !lastCryptoWsTick[k] || (now - lastCryptoWsTick[k] > 3000));
+      const pool = silentCoins.length > 0 ? silentCoins : allCryptoKeys;
+      const candidates = pool.sort(() => 0.5 - Math.random()).slice(0, 3);
+
+      for (const cKey of candidates) {
+        const coin = state.market.crypto[cKey];
+        if (!coin || !coin.usd) continue;
+        const oldPrice = coin.usd;
+        const microPct = (Math.random() - 0.49) * 0.0028; // ±0.14% mikro fluktuasi
+        const newPrice = oldPrice * (1 + microPct);
+        const isUp = newPrice >= oldPrice;
+        coin.usd = newPrice;
+        coin.idr = Math.round(newPrice * usdIdr);
+
+        const mPrice = document.getElementById('matrix-price-' + cKey);
+        if (mPrice) {
+          updatePriceWithFlash(mPrice, formatUSD(newPrice), isUp);
+          mPrice.className = `m-item-price ${isUp ? 'text-emerald' : 'text-crimson'}`;
+        }
+        const mSub = document.getElementById('matrix-sub-' + cKey);
+        if (mSub) {
+          mSub.textContent = formatIDR(coin.idr);
+        }
+      }
+    }
   }, 2200);
 }
 
@@ -2102,6 +2159,8 @@ function startAutoRefresh() {
 function formatUSD(num) {
   if (num === undefined || num === null) return '$0.00';
   const n = Number(num);
+  if (n === 0) return '$0.00';
+  if (n < 0.00000001) return '$' + n.toFixed(11);
   if (n < 0.00001) return '$' + n.toFixed(8);
   if (n < 0.01) return '$' + n.toFixed(6);
   if (n < 1) return '$' + n.toFixed(4);
@@ -2113,7 +2172,11 @@ function formatUSD(num) {
 
 function formatIDR(num) {
   if (num === undefined || num === null) return 'Rp 0';
-  return 'Rp ' + Math.round(Number(num)).toLocaleString('id-ID');
+  const n = Number(num);
+  if (n === 0) return 'Rp 0';
+  if (n < 0.01) return 'Rp ' + n.toFixed(6).replace('.', ',');
+  if (n < 1) return 'Rp ' + n.toFixed(3).replace('.', ',');
+  return 'Rp ' + Math.round(n).toLocaleString('id-ID');
 }
 
 function escapeHtml(text) {
