@@ -2615,3 +2615,28 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* Sinyal Buy & Sell Dinamis */
+.confluence-signal-tag.signal-buy {
+  background: var(--accent-emerald-glow);
+  border-color: var(--accent-emerald);
+  color: var(--accent-emerald);
+}
+
+.confluence-signal-tag.signal-sell {
+  background: var(--accent-crimson-glow);
+  border-color: var(--accent-crimson);
+  color: var(--accent-crimson);
+}
+
+.setup-main-badge.setup-buy {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2));
+  border-color: var(--accent-emerald);
+  color: var(--accent-emerald);
+}
+
+.setup-main-badge.setup-sell {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.25), rgba(244, 63, 94, 0.25));
+  border-color: var(--accent-crimson);
+  color: var(--accent-crimson);
+}

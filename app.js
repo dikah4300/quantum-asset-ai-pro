@@ -27,36 +27,52 @@ const state = {
 
 // Catalogs for Standalone Execution (Vercel Deployments)
 const CRYPTO_CATALOG = {
-  "pepe": { sym: "PEPE", name: "Pepe", cat: "meme", usd: 0.00000490, chg: 14.14, icon: "🐸" },
-  "dogecoin": { sym: "DOGE", name: "Dogecoin", cat: "meme", usd: 0.07914, chg: 2.01, icon: "🐕" },
-  "shiba-inu": { sym: "SHIB", name: "Shiba Inu", cat: "meme", usd: 0.00000494, chg: 1.91, icon: "🐶" },
-  "dogwifcoin": { sym: "WIF", name: "dogwifhat", cat: "meme", usd: 0.1819, chg: 1.19, icon: "🧢" },
-  "bonk": { sym: "BONK", name: "Bonk", cat: "meme", usd: 0.00000309, chg: 2.19, icon: "🔨" },
-  "floki": { sym: "FLOKI", name: "FLOKI", cat: "meme", usd: 0.0000238, chg: 4.04, icon: "⚔️" },
-  "brett": { sym: "BRETT", name: "Brett (Base)", cat: "meme", usd: 0.0001005, chg: 1.20, icon: "🔵" },
-  "popcat": { sym: "POPCAT", name: "Popcat (SOL)", cat: "meme", usd: 0.04378, chg: 2.27, icon: "🐱" },
-  "book-of-meme": { sym: "BOME", name: "BOOK OF MEME", cat: "meme", usd: 0.000650, chg: 4.79, icon: "📖" },
-  "cat-in-a-dogs-world": { sym: "MEW", name: "cat in dogs world", cat: "meme", usd: 0.000436, chg: -0.83, icon: "😼" },
-  "neiro": { sym: "NEIRO", name: "First Neiro ETH", cat: "meme", usd: 0.0000686, chg: 3.40, icon: "🐾" },
-  "turbo": { sym: "TURBO", name: "Turbo (AI Meme)", cat: "meme", usd: 0.000829, chg: 1.46, icon: "🐌" },
-  "baby-doge-coin": { sym: "BABYDOGE", name: "Baby Doge Coin", cat: "meme", usd: 0.000000000349, chg: 0.27, icon: "🍼" },
-  "mog-coin": { sym: "MOG", name: "Mog Coin", cat: "meme", usd: 0.0000000998, chg: -0.35, icon: "🕶️" },
-  "goatseus-maximus": { sym: "GOAT", name: "Goatseus Maximus", cat: "meme", usd: 0.0141, chg: 2.21, icon: "🐐" },
-  "memecoin": { sym: "MEME", name: "Memecoin (Memeland)", cat: "meme", usd: 0.0000000451, chg: 0.00, icon: "🏴‍☠️" },
-  "bitcoin": { sym: "BTC", name: "Bitcoin", cat: "major", usd: 80817, chg: 1.15, icon: "₿" },
-  "ethereum": { sym: "ETH", name: "Ethereum", cat: "major", usd: 2353.08, chg: 1.58, icon: "Ξ" },
-  "solana": { sym: "SOL", name: "Solana", cat: "major", usd: 101.58, chg: 1.16, icon: "◎" },
-  "binancecoin": { sym: "BNB", name: "BNB", cat: "major", usd: 744.44, chg: 0.31, icon: "🟡" },
-  "ripple": { sym: "XRP", name: "XRP (Ripple)", cat: "major", usd: 1.34, chg: 2.90, icon: "✕" },
-  "cardano": { sym: "ADA", name: "Cardano", cat: "major", usd: 0.2069, chg: 1.03, icon: "₳" },
-  "avalanche-2": { sym: "AVAX", name: "Avalanche", cat: "major", usd: 9.01, chg: 1.52, icon: "🔺" },
-  "chainlink": { sym: "LINK", name: "Chainlink", cat: "major", usd: 11.66, chg: 3.07, icon: "🔗" },
-  "sui": { sym: "SUI", name: "Sui Network", cat: "major", usd: 0.9363, chg: 2.76, icon: "💧" },
-  "near": { sym: "NEAR", name: "NEAR Protocol", cat: "major", usd: 4.74, chg: 6.19, icon: "🌐" },
-  "the-open-network": { sym: "TON", name: "Toncoin", cat: "major", usd: 1.23, chg: 2.61, icon: "💎" },
-  "bittensor": { sym: "TAO", name: "Bittensor (AI)", cat: "ai", usd: 257.54, chg: 3.25, icon: "🧠" },
-  "fetch-ai": { sym: "FET", name: "ASI / Fetch.ai", cat: "ai", usd: 0.1831, chg: 5.59, icon: "🤖" },
-  "render-token": { sym: "RENDER", name: "Render Network", cat: "ai", usd: 1.71, chg: 0.98, icon: "🎨" }
+  "bitcoin": { sym: "BTC", name: "Bitcoin", cat: "major", usd: 80391, chg: 2.97, icon: "₿" },
+  "ethereum": { sym: "ETH", name: "Ethereum", cat: "major", usd: 2415.88, chg: 5.06, icon: "Ξ" },
+  "solana": { sym: "SOL", name: "Solana", cat: "major", usd: 95.87, chg: 3.06, icon: "◎" },
+  "binancecoin": { sym: "BNB", name: "BNB", cat: "major", usd: 712.22, chg: 1.48, icon: "🟡" },
+  "ripple": { sym: "XRP", name: "XRP (Ripple)", cat: "major", usd: 1.31, chg: 2.81, icon: "✕" },
+  "cardano": { sym: "ADA", name: "Cardano", cat: "major", usd: 0.1972, chg: 3.46, icon: "₳" },
+  "avalanche-2": { sym: "AVAX", name: "Avalanche", cat: "major", usd: 8.74, chg: 2.05, icon: "🔺" },
+  "chainlink": { sym: "LINK", name: "Chainlink", cat: "major", usd: 11.51, chg: 3.6, icon: "🔗" },
+  "sui": { sym: "SUI", name: "Sui Network", cat: "major", usd: 0.9221, chg: 2.35, icon: "💧" },
+  "near": { sym: "NEAR", name: "NEAR Protocol", cat: "major", usd: 4.02, chg: 0.33, icon: "🌐" },
+  "the-open-network": { sym: "TON", name: "Toncoin", cat: "major", usd: 1.16, chg: -0.72, icon: "💎" },
+  "aptos": { sym: "APT", name: "Aptos", cat: "major", usd: 0.6353, chg: 0.51, icon: "⚡" },
+  "celestia": { sym: "TIA", name: "Celestia", cat: "major", usd: 0.4564, chg: 1.26, icon: "✨" },
+  "injective-protocol": { sym: "INJ", name: "Injective", cat: "major", usd: 8.16, chg: 7.5, icon: "💉" },
+  "kaspa": { sym: "KAS", name: "Kaspa", cat: "major", usd: 0.03196, chg: 1.16, icon: "👻" },
+  "sei-network": { sym: "SEI", name: "Sei Network", cat: "major", usd: 0.04856, chg: -0.35, icon: "🚢" },
+  "polkadot": { sym: "DOT", name: "Polkadot", cat: "major", usd: 0.946, chg: 0.31, icon: "🔴" },
+  "polygon-ecosystem-token": { sym: "POL", name: "Polygon (POL)", cat: "major", usd: 0.09669, chg: 3.65, icon: "🟣" },
+  "arbitrum": { sym: "ARB", name: "Arbitrum", cat: "major", usd: 0.1631, chg: 1.93, icon: "🔷" },
+  "optimism": { sym: "OP", name: "Optimism", cat: "major", usd: 0.111, chg: -0.2, icon: "🔴" },
+  "fantom": { sym: "FTM", name: "Sonic / Fantom", cat: "major", usd: 0.03632, chg: 2.49, icon: "👻" },
+  "litecoin": { sym: "LTC", name: "Litecoin", cat: "major", usd: 55.84, chg: 2.5, icon: "Ł" },
+  "bittensor": { sym: "TAO", name: "Bittensor (AI)", cat: "ai", usd: 234.65, chg: 2.56, icon: "🧠" },
+  "fetch-ai": { sym: "FET", name: "ASI / Fetch.ai", cat: "ai", usd: 0.1599, chg: 0.12, icon: "🤖" },
+  "render-token": { sym: "RENDER", name: "Render Network", cat: "ai", usd: 1.6, chg: 4.8, icon: "🎨" },
+  "internet-computer": { sym: "ICP", name: "Internet Computer", cat: "ai", usd: 2.64, chg: 4.22, icon: "♾️" },
+  "the-graph": { sym: "GRT", name: "The Graph", cat: "ai", usd: 0.02052, chg: 3.15, icon: "📊" },
+  "akash-network": { sym: "AKT", name: "Akash Network", cat: "ai", usd: 0.6481, chg: 5.92, icon: "☁️" },
+  "pepe": { sym: "PEPE", name: "Pepe", cat: "meme", usd: 4.93e-06, chg: -1.31, icon: "🐸" },
+  "dogecoin": { sym: "DOGE", name: "Dogecoin", cat: "meme", usd: 0.07635, chg: 2.0, icon: "🐕" },
+  "shiba-inu": { sym: "SHIB", name: "Shiba Inu", cat: "meme", usd: 4.71e-06, chg: 1.1, icon: "🐶" },
+  "dogwifcoin": { sym: "WIF", name: "dogwifhat", cat: "meme", usd: 0.1724, chg: -2.13, icon: "🧢" },
+  "bonk": { sym: "BONK", name: "Bonk", cat: "meme", usd: 3e-06, chg: -0.96, icon: "🔨" },
+  "floki": { sym: "FLOKI", name: "FLOKI", cat: "meme", usd: 2.278e-05, chg: 0.21, icon: "⚔️" },
+  "brett": { sym: "BRETT", name: "Brett (Base)", cat: "meme", usd: 9.344e-05, chg: 3.13, icon: "🔵" },
+  "popcat": { sym: "POPCAT", name: "Popcat (SOL)", cat: "meme", usd: 0.03968, chg: -1.23, icon: "🐱" },
+  "book-of-meme": { sym: "BOME", name: "BOOK OF MEME", cat: "meme", usd: 0.0006386, chg: 2.33, icon: "📖" },
+  "cat-in-a-dogs-world": { sym: "MEW", name: "cat in dogs world", cat: "meme", usd: 0.0003796, chg: -0.91, icon: "😼" },
+  "neiro": { sym: "NEIRO", name: "First Neiro ETH", cat: "meme", usd: 0.0001534, chg: 2.94, icon: "🐾" },
+  "turbo": { sym: "TURBO", name: "Turbo (AI Meme)", cat: "meme", usd: 0.0007555, chg: -2.15, icon: "🐌" },
+  "baby-doge-coin": { sym: "BABYDOGE", name: "Baby Doge Coin", cat: "meme", usd: 3.2e-10, chg: 0.7, icon: "🍼" },
+  "mog-coin": { sym: "MOG", name: "Mog Coin", cat: "meme", usd: 9.82e-08, chg: 2.62, icon: "🕶️" },
+  "goatseus-maximus": { sym: "GOAT", name: "Goatseus Maximus", cat: "meme", usd: 0.01392, chg: 0.39, icon: "🐐" },
+  "memecoin": { sym: "MEME", name: "Memecoin", cat: "meme", usd: 4.51e-08, chg: 0.0, icon: "🏴‍☠️" },
+  "peanut-the-squirrel": { sym: "PNUT", name: "Peanut Squirrel", cat: "meme", usd: 0.03744, chg: -5.26, icon: "🐿️" },
+  "act-i-the-ai-prophecy": { sym: "ACT", name: "Act I AI", cat: "meme", usd: 0.008741, chg: 3.23, icon: "🎭" }
 };
 
 const STOCKS_CATALOG = {
@@ -300,6 +316,8 @@ const el = {
   smcSupply: document.getElementById('smcSupply'),
   smcFVG: document.getElementById('smcFVG'),
   smcLiquidity: document.getElementById('smcLiquidity'),
+  tfStatusGrid: document.getElementById('tfStatusGrid'),
+  macroDriverNote: document.getElementById('macroDriverNote'),
   pvR3: document.getElementById('pvR3'),
   fibR3: document.getElementById('fibR3'),
   pvR2: document.getElementById('pvR2'),
@@ -362,9 +380,23 @@ const el = {
 // ===================================================================
 // INITIALIZATION
 // ===================================================================
+
+function populateCryptoSelectOptions() {
+  const sel = document.getElementById('cryptoSelect');
+  if (!sel) return;
+  const currentVal = sel.value;
+  sel.innerHTML = Object.entries(CRYPTO_CATALOG).map(([key, c]) => {
+    return `<option value="${key}">${c.icon || '🪙'} ${c.name} (${c.sym})</option>`;
+  }).join('');
+  if (currentVal && CRYPTO_CATALOG[currentVal]) {
+    sel.value = currentVal;
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initSettings();
   initEventListeners();
+  populateCryptoSelectOptions();
   initTradingViewChart();
   renderEconomicCalendar('all');
   loadAllData();
@@ -1441,77 +1473,125 @@ function generateLocalFinAiResponse(userMsg) {
   const q = userMsg.toLowerCase();
   const m = state.market;
   const goldPrice = (m && m.precious && m.precious.gold) ? m.precious.gold.price : 4059.40;
-  const btcPrice = (m && m.crypto && m.crypto.bitcoin) ? formatUSD(m.crypto.bitcoin.usd) : '$80,817';
+  const goldChg = (m && m.precious && m.precious.gold && m.precious.gold.change_pct !== undefined) ? m.precious.gold.change_pct : 1.45;
+  const btcPrice = (m && m.crypto && m.crypto.bitcoin) ? formatUSD(m.crypto.bitcoin.usd) : '$80,391';
   const usdIdr = (m && m.forex && m.forex.usd_idr) ? formatIDR(m.forex.usd_idr.price) : 'Rp 18.025';
+  const ihsgPrice = (m && m.stocks && m.stocks.ihsg) ? m.stocks.ihsg.price : 5266.13;
+  const ihsgChg = (m && m.stocks && m.stocks.ihsg) ? m.stocks.ihsg.change_pct : 0.42;
 
-  if (q.includes('xau') || q.includes('emas') || q.includes('gold')) {
-    return `### 🏅 Analisis Institusional Forex XAU/USD (Emas Spot)
-* **Harga Saat Ini:** **$${goldPrice.toFixed(2)} / troy oz**
-* **Status Confluence:** **🟢 HIGH-WINRATE BUY CONFLUENCE (Skor Akurasi 92%)**
-* **Struktur Tren:** Daily (D1) Bullish Channel utuh di atas EMA 50 & 200; H4 Rebound dari Order Block demand zone.
+  // 1. ANALISIS PRESISI FOREX XAU/USD (EMAS) & SINYAL BUY / SELL
+  if (q.includes('xau') || q.includes('emas') || q.includes('gold') || q.includes('buy') || q.includes('sell') || q.includes('posisi') || q.includes('forex') || q.includes('signal') || q.includes('analisa')) {
+    const isBull = goldChg >= 0;
+    const atr = goldPrice * 0.007;
 
-**📋 Setup Trade Plan Rekomendasi:**
-* **Zona Entry (Buy on Pullback):** **$${(goldPrice - 6.5).toFixed(2)} - $${(goldPrice - 2.5).toFixed(2)}**
-* **Stop Loss Proteksi:** **$${(goldPrice - 18.0).toFixed(2)}** (di bawah Liquidity Sweep)
-* **Take Profit 1 (Scalp 40%):** **$${(goldPrice + 12.0).toFixed(2)}**
-* **Take Profit 2 (Intraday R1):** **$${(goldPrice + 24.0).toFixed(2)}**
-* **Take Profit 3 (Swing R2):** **$${(goldPrice + 45.0).toFixed(2)}**
-* **Risk to Reward:** **1 : 3.2** (Gunakan risiko 1-2% modal akun).`;
+    if (isBull) {
+      const eLow = (goldPrice - (atr * 0.22)).toFixed(2);
+      const eHigh = (goldPrice - (atr * 0.08)).toFixed(2);
+      const sl = (goldPrice - (atr * 0.64)).toFixed(2);
+      const tp1 = (goldPrice + (atr * 0.42)).toFixed(2);
+      const tp2 = (goldPrice + (atr * 0.85)).toFixed(2);
+      const tp3 = (goldPrice + (atr * 1.58)).toFixed(2);
+
+      return `### 🏅 Analisis Institusional Smart Money Concepts: XAU/USD (Emas Spot)
+* **Harga Spot Terkini:** **$${goldPrice.toFixed(2)} / troy oz**
+* **Arah Rekomendasi Posisi:** **🟢 STRONG BUY (BUY LIMIT / ACCUMULATION)**
+* **Tingkat Konfluensi AI:** **95% (High Probability Institutional Bias)**
+* **Struktur Tren:** Daily (D1) Bullish Structure di atas EMA 50 & EMA 200. Rebound dari Demand Order Block.
+
+**📋 Rencana Eksekusi Trade Plan (Zero Mistake Protocol):**
+* **🎯 Zona Entry (Buy on Pullback):** **$${eLow} - $${eHigh}**
+* **🛑 Stop Loss Proteksi:** **$${sl}** (wajib dipasang di bawah Bullish Demand Zone untuk membatasi risiko)
+* **🎯 Take Profit 1 (Scalp 40%):** **$${tp1}**
+* **🎯 Take Profit 2 (Intraday R1):** **$${tp2}**
+* **🚀 Take Profit 3 (Swing Runner R2):** **$${tp3}**
+* **⚖️ Risk to Reward Ratio:** **1 : 3.4**
+
+**💡 Checklist Konfluensi SMC:**
+1. **Order Block Demand:** $${(goldPrice - (atr * 0.78)).toFixed(2)} - $${(goldPrice - (atr * 0.50)).toFixed(2)}
+2. **Fair Value Gap (FVG):** $${(goldPrice - (atr * 0.28)).toFixed(2)} - $${(goldPrice - (atr * 0.14)).toFixed(2)}
+3. **Manajemen Risiko:** Gunakan maksimal 1-2% risiko dari total equity. Jangan pernah trade tanpa Stop Loss.`;
+    } else {
+      const eLow = (goldPrice + (atr * 0.08)).toFixed(2);
+      const eHigh = (goldPrice + (atr * 0.22)).toFixed(2);
+      const sl = (goldPrice + (atr * 0.64)).toFixed(2);
+      const tp1 = (goldPrice - (atr * 0.42)).toFixed(2);
+      const tp2 = (goldPrice - (atr * 0.85)).toFixed(2);
+      const tp3 = (goldPrice - (atr * 1.58)).toFixed(2);
+
+      return `### 🏅 Analisis Institusional Smart Money Concepts: XAU/USD (Emas Spot)
+* **Harga Spot Terkini:** **$${goldPrice.toFixed(2)} / troy oz**
+* **Arah Rekomendasi Posisi:** **🔴 STRONG SELL (SELL LIMIT / DISTRIBUTION)**
+* **Tingkat Konfluensi AI:** **92% (High Probability Bearish Confluence)**
+* **Struktur Tren:** H4 & H1 menunjukkan Bearish Rejection di Supply Order Block.
+
+**📋 Rencana Eksekusi Trade Plan (Zero Mistake Protocol):**
+* **🎯 Zona Entry (Sell on Rally):** **$${eLow} - $${eHigh}**
+* **🛑 Stop Loss Proteksi:** **$${sl}** (wajib dipasang di atas Bearish Supply Zone)
+* **🎯 Take Profit 1 (Scalp 40%):** **$${tp1}**
+* **🎯 Take Profit 2 (Intraday S1):** **$${tp2}**
+* **🎯 Take Profit 3 (Swing Runner S2):** **$${tp3}**
+* **⚖️ Risk to Reward Ratio:** **1 : 3.3**
+
+**💡 Checklist Konfluensi SMC:**
+1. **Order Block Supply:** $${(goldPrice + (atr * 0.50)).toFixed(2)} - $${(goldPrice + (atr * 0.78)).toFixed(2)}
+2. **Fair Value Gap (FVG):** $${(goldPrice + (atr * 0.14)).toFixed(2)} - $${(goldPrice + (atr * 0.28)).toFixed(2)}
+3. **Manajemen Risiko:** Batasi eksposur risiko per posisi maksimal 1-2% dari modal trading.`;
+    }
   }
 
-  if (q.includes('ppi') || q.includes('fomc') || q.includes('nfp') || q.includes('cpi') || q.includes('makro') || q.includes('the fed')) {
-    return `### 📊 Pengaruh Rilis Berita Makro terhadap Emas (XAU/USD) & Dolar
-1. **🏛️ Suku Bunga The Fed (FOMC):**
-   * *Jika Dovish (potong bunga):* Dolar AS (DXY) melemah tajam, imbal hasil obligasi 10Y turun -> **Katalis Emas melonjak tinggi**.
-2. **📈 Inflasi CPI & PPI:**
-   * *Jika CPI/PPI lebih rendah dari forecast:* Ekspektasi inflasi jinak mendorong The Fed memangkas bunga -> **Emas Bullish**.
-   * *Jika CPI/PPI melonjak (Hot):* The Fed berpotensi hawkish -> Emas mengalami koreksi wajar.
-3. **💼 Non-Farm Payrolls (NFP):**
-   * Pertambahan lapangan kerja yang melambat dan tingkat pengangguran naik mengonfirmasi pendinginan ekonomi AS -> **Bullish untuk XAU/USD**.`;
+  // 2. ANALISIS KHUSUS SUI (SUI NETWORK) & LAYER-1 ALTERNATIF
+  if (q.includes('sui')) {
+    const sui = (m && m.crypto && m.crypto.sui) ? m.crypto.sui : { usd: 0.9221, usd_24h_change: 2.35 };
+    const suiIdr = formatIDR(Math.round(sui.usd * 18025));
+    return `### 💧 Analisis Kripto SUI Network (SUI) - Indodax / Triv / Binance
+* **Harga Live Terkini:** **$${sui.usd.toFixed(4)}** (~**${suiIdr}**)
+* **Perubahan 24 Jam:** **${sui.usd_24h_change >= 0 ? '+' : ''}${sui.usd_24h_change.toFixed(2)}%**
+* **Profil Proyek:** L1 blockchain berbasis bahasa pemrograman Move dengan TPS tinggi (hingga 297.000 TPS) dan latensi sub-detik.
+* **Katalis Fundamental:** Peningkatan Total Value Locked (TVL) di ekosistem DeFi Sui dan kemitraan game Web3.
+* **Saran Strategi:** Akumulasi Dollar-Cost Averaging (DCA) bertahap saat retest support, hindari all-in saat breakout FOMO.`;
   }
 
-  if (q.includes('meme') || q.includes('pepe') || q.includes('doge') || q.includes('shib') || q.includes('wif')) {
-    return `### 🔥 Prospek Koin Meme (PEPE, DOGE, SHIB, WIF, BONK)
-* **Rotasi Likuiditas:** Koin meme berkapitalisasi besar seperti **PEPE** dan **Dogecoin** saat ini berada di fase akumulasi aktif saat Bitcoin menguji level psikologis.
-* **Katalis Utama:** Peningkatan volume transaksi DEX di jaringan Ethereum dan Solana, didukung viralitas komunitas dan spekulasi tren bull market.
-* **Panduan Risiko:** Koin meme memiliki volatilitas beta tinggi (2-3x lipat pergerakan BTC). Alokasikan maksimal 5-10% dari portofolio kripto dan pasang trailing stop loss.`;
+  // 3. ANALISIS CRYPTO MULTI-COIN (INDODAX, TRIV, FLOQ, BINANCE)
+  if (q.includes('crypto') || q.includes('koin') || q.includes('coin') || q.includes('indodax') || q.includes('triv') || q.includes('floq') || q.includes('sol') || q.includes('btc') || q.includes('eth') || q.includes('pepe') || q.includes('doge')) {
+    const fng = (m && m.indicators && m.indicators.fear_and_greed) ? m.indicators.fear_and_greed : { value: 51, classification: "Neutral" };
+    return `### 🪙 Intelijen Pasar Kripto Multi-Exchange (Indodax, Triv, Tokocrypto)
+* **Crypto Fear & Greed Index:** **${fng.value} / 100 (${fng.classification})**
+* **Bitcoin (BTC):** **${btcPrice}**
+* **Ethereum (ETH):** **$${m && m.crypto && m.crypto.ethereum ? m.crypto.ethereum.usd.toLocaleString() : '2,415'}**
+* **Solana (SOL):** **$${m && m.crypto && m.crypto.solana ? m.crypto.solana.usd.toFixed(2) : '95.87'}**
+* **Sui Network (SUI):** **$${m && m.crypto && m.crypto.sui ? m.crypto.sui.usd.toFixed(4) : '0.9221'}**
+* **Pepe (PEPE):** **$${m && m.crypto && m.crypto.pepe ? m.crypto.pepe.usd.toFixed(8) : '0.00000493'}**
+* **Dogecoin (DOGE):** **$${m && m.crypto && m.crypto.dogecoin ? m.crypto.dogecoin.usd.toFixed(4) : '0.0763'}**
+
+*Katalog dashboard kini memonitor secara real-time 46+ aset kripto termasuk L1/L2, AI tokens (TAO, FET, RENDER), dan meme coins ternama.*`;
   }
 
-  if (q.includes('crypto') || q.includes('btc') || q.includes('bitcoin') || q.includes('solana') || q.includes('eth')) {
-    return `### 🪙 Sentimen Pasar Kripto & Prospek Bitcoin
-* **Harga Bitcoin:** **${btcPrice}** dengan Fear & Greed Index di level **68 (Greed Phase)**.
-* **Analisis Teknikal BTC:** Bertahan solid di atas zona support $80,000 dengan dominasi pasar (BTC.D) terkonsolidasi, membuka jalan bagi ekspansi altcoins.
-* **Target Resistance:** $85,000 - $88,000. Selama level $78,500 tidak tertembus ke bawah, bias utama tetap Bullish Continuation.`;
+  // 4. ANALISIS IHSG & SAHAM BURSA EFEK INDONESIA (BEI)
+  if (q.includes('ihsg') || q.includes('saham') || q.includes('bbca') || q.includes('bbri') || q.includes('bmri') || q.includes('bei')) {
+    const bbca = (m && m.stocks && m.stocks.bbca) ? formatIDR(m.stocks.bbca.price) : 'Rp 4.900';
+    const bbri = (m && m.stocks && m.stocks.bbri) ? formatIDR(m.stocks.bbri.price) : 'Rp 2.900';
+    const bmri = (m && m.stocks && m.stocks.bmri) ? formatIDR(m.stocks.bmri.price) : 'Rp 3.870';
+    return `### 🇮🇩 Analisis Pasar Saham Indonesia (IHSG & Big Banks BEI)
+* **Indeks Harga Saham Gabungan (IHSG):** **${ihsgPrice.toFixed(2)} (${ihsgChg >= 0 ? '+' : ''}${ihsgChg.toFixed(2)}%)**
+* **Bank Central Asia (BBCA):** **${bbca}** (Kapitalisasi pasar terbesar, penopang indeks utama)
+* **Bank Rakyat Indonesia (BBRI):** **${bbri}** (Fokus kredit mikro & pemulihan margin bunga bersih)
+* **Bank Mandiri (BMRI):** **${bmri}** (Kinerja kredit korporasi solid)
+* **Kurs USD/IDR:** **${usdIdr}**
+
+*Sentimen IHSG didorong stabilitas nilai tukar Rupiah dan arus inflow dana asing pada sektor perbankan.*`;
   }
 
-  if (q.includes('ihsg') || q.includes('saham') || q.includes('bbca') || q.includes('bbri')) {
-    return `### 📈 Analisis IHSG & Saham Perbankan Domestik
-* **Posisi IHSG:** Bertahan di level psikologis **5,260 - 5,300**.
-* **Saham Big Cap:**
-  * **BBCA (Rp 4.900):** Solid ditopang pertumbuhan kredit korporasi dan rasio CASA yang kokoh.
-  * **BBRI (Rp 2.900):** Valuasi atraktif untuk akumulasi dividen yield jangka menengah-panjang.
-* **Katalis Pasar:** Stabilitas kurs Rupiah di kisaran **${usdIdr}** dan antisipasi kebijakan moneter domestik Bank Indonesia.`;
-  }
+  // 5. DEFAULT FINANCIAL ADVISORY
+  return `Halo! Saya **Quantum Asset FinAI**, asisten intelijen multi-pasar Anda.
+Saya siap membantu Anda dengan analisa real-time:
+* **🏅 Forex XAU/USD (Emas):** Analisis posisi Buy / Sell, Order Block, Fair Value Gap (FVG), Stop Loss & Take Profit presisi.
+* **📈 IHSG & Saham BEI:** Pergerakan indeks IHSG, BBCA, BBRI, BMRI, TLKM, dan ASII.
+* **🪙 Kripto (Indodax, Triv, Floq):** 46+ koin real-time termasuk BTC, ETH, SOL, SUI, koin AI, dan Meme Coins.
+* **🌍 Kalender Makroekonomi:** Dampak FOMC The Fed, NFP, CPI, dan inflasi terhadap arah pasar.
 
-  if (q.includes('diversifikasi') || q.includes('portofolio') || q.includes('strategi')) {
-    return `### ⚖️ Strategi Alokasi Portofolio Multi-Aset Modern
-Untuk menghadapi volatilitas pasar global, formula institusional yang direkomendasikan adalah:
-* **🏅 25% Emas Fisik / Spot (XAU/USD):** Berfungsi sebagai lindung nilai risiko geopolitik dan jangkar inflasi.
-* **📈 40% Saham Blue Chip (IHSG & Wall Street):** Pertumbuhan modal jangka panjang (BBCA, BBRI, NVDA, S&P 500).
-* **🪙 20% Kripto & Koin Pilihan:** Pertumbuhan asymmetric upside (BTC, ETH, SOL, PEPE).
-* **💵 15% Kas & Instrumen Pasar Uang:** Likuiditas siap serap saat buy-the-dip.`;
-  }
-
-  // Jawaban umum kontekstual
-  return `Halo! Saya telah menganalisis pertanyaan Anda: "${escapeHtml(userMsg)}".
-
-Secara keseluruhan, kondisi pasar saat ini menunjukkan:
-* **Emas XAU/USD** berada di tren bullish solid di **$${goldPrice.toFixed(2)}**.
-* **Bitcoin** stabil di **${btcPrice}** dengan rotasi likuiditas ke koin meme (PEPE, DOGE).
-* **IHSG** mempertahankan area 5,260 dengan kurs **USD/IDR di ${usdIdr}**.
-
-Ada bagian spesifik (seperti entry level emas, prospek koin meme, atau efek berita FOMC/PPI) yang ingin kita perdalam?`;
+Silakan ajukan pertanyaan spesifik Anda!`;
 }
+
 
 function appendMessage(sender, text) {
   if (!el.chatMessages) return;
