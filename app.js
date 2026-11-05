@@ -77,12 +77,12 @@ const CRYPTO_CATALOG = {
 };
 
 const STOCKS_CATALOG = {
-  "ihsg": { name: "IHSG (BEI)", symbol: "^JKSE", price: 5266.13, change_pct: 0.00 },
-  "bbca": { name: "Bank Central Asia", symbol: "BBCA.JK", price: 4900, change_pct: 0.00 },
-  "bbri": { name: "Bank Rakyat Indonesia", symbol: "BBRI.JK", price: 2900, change_pct: 0.00 },
-  "bmri": { name: "Bank Mandiri", symbol: "BMRI.JK", price: 3870, change_pct: 0.00 },
-  "tlkm": { name: "Telkom Indonesia", symbol: "TLKM.JK", price: 2140, change_pct: 0.00 },
-  "asii": { name: "Astra International", symbol: "ASII.JK", price: 4630, change_pct: 0.00 },
+  "ihsg": { name: "IHSG (BEI)", symbol: "^JKSE", price: 5037.05, change_pct: 2.28 },
+  "bbca": { name: "Bank Central Asia", symbol: "BBCA.JK", price: 5075, change_pct: 2.94 },
+  "bbri": { name: "Bank Rakyat Indonesia", symbol: "BBRI.JK", price: 2720, change_pct: 1.12 },
+  "bmri": { name: "Bank Mandiri", symbol: "BMRI.JK", price: 3620, change_pct: 0.56 },
+  "tlkm": { name: "Telkom Indonesia", symbol: "TLKM.JK", price: 1990, change_pct: 5.57 },
+  "asii": { name: "Astra International", symbol: "ASII.JK", price: 4880, change_pct: -0.41 },
   "sp500": { name: "S&P 500 Index", symbol: "^GSPC", price: 7722.60, change_pct: 1.30 },
   "nvda": { name: "Nvidia Corporation", symbol: "NVDA", price: 217.94, change_pct: 3.31 },
   "aapl": { name: "Apple Inc.", symbol: "AAPL", price: 347.10, change_pct: -0.18 }
@@ -1529,8 +1529,8 @@ function generateLocalFinAiResponse(userMsg) {
   const goldChg = (m && m.precious && m.precious.gold && m.precious.gold.change_pct !== undefined) ? m.precious.gold.change_pct : 1.45;
   const btcPrice = (m && m.crypto && m.crypto.bitcoin) ? formatUSD(m.crypto.bitcoin.usd) : '$80,391';
   const usdIdr = (m && m.forex && m.forex.usd_idr) ? formatIDR(m.forex.usd_idr.price) : 'Rp 18.025';
-  const ihsgPrice = (m && m.stocks && m.stocks.ihsg) ? m.stocks.ihsg.price : 5266.13;
-  const ihsgChg = (m && m.stocks && m.stocks.ihsg) ? m.stocks.ihsg.change_pct : 0.42;
+  const ihsgPrice = (m && m.stocks && m.stocks.ihsg) ? m.stocks.ihsg.price : 5037.05;
+  const ihsgChg = (m && m.stocks && m.stocks.ihsg) ? m.stocks.ihsg.change_pct : 2.28;
 
   // 1. ANALISIS PRESISI FOREX XAU/USD (EMAS) & SINYAL BUY / SELL
   if (q.includes('xau') || q.includes('emas') || q.includes('gold') || q.includes('buy') || q.includes('sell') || q.includes('posisi') || q.includes('forex') || q.includes('signal') || q.includes('analisa')) {
@@ -1621,9 +1621,9 @@ function generateLocalFinAiResponse(userMsg) {
 
   // 4. ANALISIS IHSG & SAHAM BURSA EFEK INDONESIA (BEI)
   if (q.includes('ihsg') || q.includes('saham') || q.includes('bbca') || q.includes('bbri') || q.includes('bmri') || q.includes('bei')) {
-    const bbca = (m && m.stocks && m.stocks.bbca) ? formatIDR(m.stocks.bbca.price) : 'Rp 4.900';
-    const bbri = (m && m.stocks && m.stocks.bbri) ? formatIDR(m.stocks.bbri.price) : 'Rp 2.900';
-    const bmri = (m && m.stocks && m.stocks.bmri) ? formatIDR(m.stocks.bmri.price) : 'Rp 3.870';
+    const bbca = (m && m.stocks && m.stocks.bbca) ? formatIDR(m.stocks.bbca.price) : 'Rp 5.075';
+    const bbri = (m && m.stocks && m.stocks.bbri) ? formatIDR(m.stocks.bbri.price) : 'Rp 2.720';
+    const bmri = (m && m.stocks && m.stocks.bmri) ? formatIDR(m.stocks.bmri.price) : 'Rp 3.620';
     return `### 🇮🇩 Analisis Pasar Saham Indonesia (IHSG & Big Banks BEI)
 * **Indeks Harga Saham Gabungan (IHSG):** **${ihsgPrice.toFixed(2)} (${ihsgChg >= 0 ? '+' : ''}${ihsgChg.toFixed(2)}%)**
 * **Bank Central Asia (BBCA):** **${bbca}** (Kapitalisasi pasar terbesar, penopang indeks utama)
@@ -2000,7 +2000,7 @@ function initStockAndCommodityLiveEngine() {
       const oldVal = bbca.price;
       const step = (Math.random() > 0.5 ? 25 : -25);
       if (Math.random() > 0.6) {
-        bbca.price = Math.max(4800, Math.min(5050, bbca.price + step));
+        bbca.price = Math.max(4950, Math.min(5200, bbca.price + step));
         if (el.bbcaPriceCard) updatePriceWithFlash(el.bbcaPriceCard, formatIDR(bbca.price), bbca.price >= oldVal);
       }
     }
@@ -2010,7 +2010,7 @@ function initStockAndCommodityLiveEngine() {
       const oldVal = bbri.price;
       const step = (Math.random() > 0.5 ? 10 : -10);
       if (Math.random() > 0.6) {
-        bbri.price = Math.max(2850, Math.min(3000, bbri.price + step));
+        bbri.price = Math.max(2650, Math.min(2850, bbri.price + step));
         if (el.bbriPriceCard) updatePriceWithFlash(el.bbriPriceCard, formatIDR(bbri.price), bbri.price >= oldVal);
       }
     }
