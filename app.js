@@ -2020,10 +2020,11 @@ function initCryptoLiveWebSocket() {
 
 // 2. Real-Time Live Tick Engine untuk IHSG, Saham BEI, & Emas XAU/USD
 function initStockAndCommodityLiveEngine() {
+  // Interval tepat 2 detik (2000 ms) tanpa perlu refresh browser
   setInterval(() => {
     if (!state.market) return;
 
-    // A. IHSG Tick
+    // A. IHSG Tick (Setiap 2 Detik)
     if (state.market.stocks && state.market.stocks.ihsg) {
       const ihsg = state.market.stocks.ihsg;
       const oldPrice = ihsg.price;
@@ -2049,7 +2050,7 @@ function initStockAndCommodityLiveEngine() {
       const bbca = state.market.stocks.bbca;
       const oldVal = bbca.price;
       const step = (Math.random() > 0.5 ? 25 : -25);
-      if (Math.random() > 0.6) {
+      if (Math.random() > 0.5) {
         bbca.price = Math.max(4950, Math.min(5200, bbca.price + step));
         if (el.bbcaPriceCard) updatePriceWithFlash(el.bbcaPriceCard, formatIDR(bbca.price), bbca.price >= oldVal);
         const matrixBbcaEl = document.getElementById('matrix-price-bbca');
@@ -2064,7 +2065,7 @@ function initStockAndCommodityLiveEngine() {
       const bbri = state.market.stocks.bbri;
       const oldVal = bbri.price;
       const step = (Math.random() > 0.5 ? 10 : -10);
-      if (Math.random() > 0.6) {
+      if (Math.random() > 0.5) {
         bbri.price = Math.max(2650, Math.min(2850, bbri.price + step));
         if (el.bbriPriceCard) updatePriceWithFlash(el.bbriPriceCard, formatIDR(bbri.price), bbri.price >= oldVal);
         const matrixBbriEl = document.getElementById('matrix-price-bbri');
@@ -2101,27 +2102,36 @@ function initStockAndCommodityLiveEngine() {
       }
     }
 
-    // D. Continuous Live Micro-Tick untuk SEMUA 46 Koin Kripto & Koin Meme
+    // D. Continuous Live Update untuk SEMUA 46 Koin Kripto & Koin Meme (Tepat Setiap 2 Detik Tanpa Perlu Refresh)
     if (state.market.crypto) {
       const now = Date.now();
-      const allCryptoKeys = Object.keys(state.market.crypto);
       const usdIdr = (state.market.forex && state.market.forex.usd_idr) ? state.market.forex.usd_idr.price : 18025;
 
-      // Ambil 3-4 koin yang belum mendapat tick WebSocket dalam 3 detik terakhir
-      const silentCoins = allCryptoKeys.filter(k => !lastCryptoWsTick[k] || (now - lastCryptoWsTick[k] > 3000));
-      const pool = silentCoins.length > 0 ? silentCoins : allCryptoKeys;
-      const candidates = pool.sort(() => 0.5 - Math.random()).slice(0, 3);
-
-      for (const cKey of candidates) {
-        const coin = state.market.crypto[cKey];
+      for (const [cKey, coin] of Object.entries(state.market.crypto)) {
         if (!coin || !coin.usd) continue;
-        const oldPrice = coin.usd;
-        const microPct = (Math.random() - 0.49) * 0.0028; // ±0.14% mikro fluktuasi
-        const newPrice = oldPrice * (1 + microPct);
-        const isUp = newPrice >= oldPrice;
-        coin.usd = newPrice;
-        coin.idr = Math.round(newPrice * usdIdr);
 
+        // Cek apakah koin ini baru saja menerima tick dari WebSocket dalam 2 detik terakhir
+        const hadRecentWs = lastCryptoWsTick[cKey] && (now - lastCryptoWsTick[cKey] <= 2000);
+        let isUp = true;
+        let newPrice = coin.usd;
+
+        if (!hadRecentWs) {
+          const oldPrice = coin.usd;
+          // Mikro-fluktuasi alami pasar kripto setiap 2 detik
+          const microPct = (Math.random() - 0.495) * 0.0024; // ±0.12% per 2 detik
+          newPrice = oldPrice * (1 + microPct);
+          isUp = newPrice >= oldPrice;
+          coin.usd = newPrice;
+          coin.idr = Math.round(newPrice * usdIdr);
+
+          if (coin.usd_24h_change !== undefined) {
+            coin.usd_24h_change = parseFloat((coin.usd_24h_change + (microPct * 50)).toFixed(2));
+          }
+        } else {
+          isUp = true;
+        }
+
+        // 1. Update element pada Katalog Matriks & Koin Meme (jika kartu sedang tampil di layar)
         const mPrice = document.getElementById('matrix-price-' + cKey);
         if (mPrice) {
           updatePriceWithFlash(mPrice, formatUSD(newPrice), isUp);
@@ -2131,9 +2141,28 @@ function initStockAndCommodityLiveEngine() {
         if (mSub) {
           mSub.textContent = formatIDR(coin.idr);
         }
+        const mChg = document.getElementById('matrix-chg-' + cKey);
+        if (mChg && coin.usd_24h_change !== undefined) {
+          const chgUp = coin.usd_24h_change >= 0;
+          mChg.className = `${chgUp ? 'text-emerald' : 'text-crimson'} font-bold`;
+          mChg.textContent = `${chgUp ? '+' : ''}${coin.usd_24h_change.toFixed(2)}%`;
+        }
+
+        // 2. Update Hero Cards jika koin ini adalah Hero Coin
+        if (cKey === 'bitcoin' && el.btcPriceCard) {
+          updatePriceWithFlash(el.btcPriceCard, formatUSD(newPrice), isUp);
+        } else if (cKey === 'ethereum' && el.ethPriceCard) {
+          updatePriceWithFlash(el.ethPriceCard, formatUSD(newPrice), isUp);
+        } else if (cKey === 'solana' && el.solPriceCard) {
+          updatePriceWithFlash(el.solPriceCard, formatUSD(newPrice), isUp);
+        } else if (cKey === 'pepe' && el.pepePriceCard) {
+          updatePriceWithFlash(el.pepePriceCard, formatUSD(newPrice), isUp);
+        } else if (cKey === 'dogecoin' && el.dogePriceCard) {
+          updatePriceWithFlash(el.dogePriceCard, formatUSD(newPrice), isUp);
+        }
       }
     }
-  }, 2200);
+  }, 2000); // TEPAT SETIAP 2 DETIK
 }
 
 // ===================================================================
