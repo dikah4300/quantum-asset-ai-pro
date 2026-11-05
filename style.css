@@ -2697,3 +2697,20 @@ body {
   50% { transform: scale(1.4); opacity: 1; }
   100% { transform: scale(0.8); opacity: 0.6; }
 }
+
+/* Matrix live badges */
+.m-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.m-live-tag {
+  display: inline-flex;
+  align-items: center;
+}
+
+.m-live-tag .live-dot-pulse {
+  width: 5px;
+  height: 5px;
+}

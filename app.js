@@ -1046,6 +1046,7 @@ function renderMatrix() {
     for (const [key, coin] of Object.entries(m.crypto)) {
       if (coin.category === 'meme') {
         items.push({
+          key,
           name: `${coin.icon || '🪙'} ${coin.name}`,
           tag: coin.symbol,
           price: formatUSD(coin.usd),
@@ -1059,6 +1060,7 @@ function renderMatrix() {
   else if (target === 'm-crypto-all' && m.crypto) {
     for (const [key, coin] of Object.entries(m.crypto)) {
       items.push({
+        key,
         name: `${coin.icon || '🪙'} ${coin.name}`,
         tag: coin.symbol,
         price: formatUSD(coin.usd),
@@ -1072,6 +1074,7 @@ function renderMatrix() {
     for (const [key, coin] of Object.entries(m.crypto)) {
       if (coin.category === 'major') {
         items.push({
+          key,
           name: `${coin.icon || '🪙'} ${coin.name}`,
           tag: coin.symbol,
           price: formatUSD(coin.usd),
@@ -1086,6 +1089,7 @@ function renderMatrix() {
     for (const [key, coin] of Object.entries(m.crypto)) {
       if (coin.category === 'ai') {
         items.push({
+          key,
           name: `${coin.icon || '🤖'} ${coin.name}`,
           tag: coin.symbol,
           price: formatUSD(coin.usd),
@@ -1100,6 +1104,7 @@ function renderMatrix() {
     for (const [key, stock] of Object.entries(m.stocks)) {
       const isIndo = key.endsWith('.JK') || key === 'ihsg' || key === 'bbca' || key === 'bbri' || key === 'bmri' || key === 'tlkm' || key === 'asii';
       items.push({
+        key,
         name: stock.name,
         tag: stock.symbol,
         price: isIndo ? formatIDR(stock.price) : formatUSD(stock.price),
@@ -1112,6 +1117,7 @@ function renderMatrix() {
   else if (target === 'm-commodities' && m.precious) {
     for (const [key, item] of Object.entries(m.precious)) {
       items.push({
+        key,
         name: item.name,
         tag: item.symbol,
         price: formatUSD(item.price),
@@ -1124,6 +1130,7 @@ function renderMatrix() {
   else if (target === 'm-forex' && m.forex) {
     for (const [key, fx] of Object.entries(m.forex)) {
       items.push({
+        key,
         name: fx.name,
         tag: fx.symbol,
         price: key === 'usd_idr' ? formatIDR(fx.price) : fx.price.toFixed(4),
@@ -1154,15 +1161,18 @@ function renderMatrix() {
   el.matrixGrid.innerHTML = items.map(it => {
     const isUp = it.change >= 0;
     return `
-      <div class="matrix-item-card">
+      <div class="matrix-item-card" id="matrix-card-${it.key}">
         <div class="m-item-top">
           <span class="m-item-name">${it.name}</span>
-          <span class="m-item-tag">${it.tag}</span>
+          <div class="m-item-meta">
+            <span class="m-live-tag" title="Live stream aktif"><span class="live-dot-pulse"></span></span>
+            <span class="m-item-tag">${it.tag}</span>
+          </div>
         </div>
-        <div class="m-item-price ${isUp ? 'text-emerald' : 'text-crimson'}">${it.price}</div>
+        <div class="m-item-price ${isUp ? 'text-emerald' : 'text-crimson'}" id="matrix-price-${it.key}">${it.price}</div>
         <div class="m-item-bottom">
-          <span class="text-muted">${it.subPrice}</span>
-          <span class="${isUp ? 'text-emerald' : 'text-crimson'} font-bold">
+          <span class="text-muted" id="matrix-sub-${it.key}">${it.subPrice}</span>
+          <span class="${isUp ? 'text-emerald' : 'text-crimson'} font-bold" id="matrix-chg-${it.key}">
             ${isUp ? '+' : ''}${it.change.toFixed(2)}%
           </span>
         </div>
@@ -1955,6 +1965,17 @@ function initCryptoLiveWebSocket() {
               } else if (coinKey === 'dogecoin' && el.dogePriceCard) {
                 updatePriceWithFlash(el.dogePriceCard, formatUSD(newPrice), isHigher);
               }
+
+              // Real-Time update untuk item di Katalog Komprehensif & Koin Meme jika sedang aktif
+              const matrixPriceEl = document.getElementById('matrix-price-' + coinKey);
+              if (matrixPriceEl) {
+                updatePriceWithFlash(matrixPriceEl, formatUSD(newPrice), isHigher);
+                matrixPriceEl.className = `m-item-price ${isHigher ? 'text-emerald' : 'text-crimson'}`;
+              }
+              const matrixSubEl = document.getElementById('matrix-sub-' + coinKey);
+              if (matrixSubEl) {
+                matrixSubEl.textContent = formatIDR(Math.round(newPrice * usdIdrRate));
+              }
             }
           }
         }
@@ -1992,6 +2013,11 @@ function initStockAndCommodityLiveEngine() {
       if (el.ihsgNavPrice) {
         el.ihsgNavPrice.textContent = ihsg.price.toFixed(0);
       }
+      const matrixIhsgEl = document.getElementById('matrix-price-ihsg');
+      if (matrixIhsgEl) {
+        updatePriceWithFlash(matrixIhsgEl, ihsg.price.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 }), isUp);
+        matrixIhsgEl.className = `m-item-price ${isUp ? 'text-emerald' : 'text-crimson'}`;
+      }
     }
 
     // B. Saham Perbankan BEI (BBCA, BBRI)
@@ -2002,6 +2028,11 @@ function initStockAndCommodityLiveEngine() {
       if (Math.random() > 0.6) {
         bbca.price = Math.max(4950, Math.min(5200, bbca.price + step));
         if (el.bbcaPriceCard) updatePriceWithFlash(el.bbcaPriceCard, formatIDR(bbca.price), bbca.price >= oldVal);
+        const matrixBbcaEl = document.getElementById('matrix-price-bbca');
+        if (matrixBbcaEl) {
+          updatePriceWithFlash(matrixBbcaEl, formatIDR(bbca.price), bbca.price >= oldVal);
+          matrixBbcaEl.className = `m-item-price ${bbca.price >= oldVal ? 'text-emerald' : 'text-crimson'}`;
+        }
       }
     }
 
@@ -2012,6 +2043,11 @@ function initStockAndCommodityLiveEngine() {
       if (Math.random() > 0.6) {
         bbri.price = Math.max(2650, Math.min(2850, bbri.price + step));
         if (el.bbriPriceCard) updatePriceWithFlash(el.bbriPriceCard, formatIDR(bbri.price), bbri.price >= oldVal);
+        const matrixBbriEl = document.getElementById('matrix-price-bbri');
+        if (matrixBbriEl) {
+          updatePriceWithFlash(matrixBbriEl, formatIDR(bbri.price), bbri.price >= oldVal);
+          matrixBbriEl.className = `m-item-price ${bbri.price >= oldVal ? 'text-emerald' : 'text-crimson'}`;
+        }
       }
     }
 
@@ -2033,6 +2069,11 @@ function initStockAndCommodityLiveEngine() {
         const usdIdr = (state.market.forex && state.market.forex.usd_idr) ? state.market.forex.usd_idr.price : 18025;
         const gramPrice = (gold.price * usdIdr) / 31.1035;
         el.goldGramCard.textContent = formatIDR(gramPrice) + ' /gr';
+      }
+      const matrixGoldEl = document.getElementById('matrix-price-gold');
+      if (matrixGoldEl) {
+        updatePriceWithFlash(matrixGoldEl, formatUSD(gold.price), isUp);
+        matrixGoldEl.className = `m-item-price ${isUp ? 'text-emerald' : 'text-crimson'}`;
       }
     }
   }, 2200);
