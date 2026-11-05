@@ -1,3 +1,16 @@
+// ===================================================================
+// PONDASI 8: RUNTIME ANTI-CLICKJACKING & FRAME-BUSTING DEFENSE
+// ===================================================================
+(function enforceRuntimeFrameBusting() {
+  try {
+    if (window.top !== window.self) {
+      window.top.location = window.self.location;
+    }
+  } catch (e) {
+    document.documentElement.innerHTML = '<div style="background:#0b0f19;color:#f43f5e;padding:40px;text-align:center;font-family:sans-serif;"><h2>Akses Ditolak (Security Alert)</h2><p>Quantum Asset AI Pro tidak diizinkan dimuat di dalam frame pihak ketiga.</p></div>';
+  }
+})();
+
 /**
  * QUANTUM ASSET AI PRO
   isChatProcessing = false; - CLIENT-SIDE INTELLIGENCE & TERMINAL CONTROLLER
@@ -1388,7 +1401,7 @@ function renderNews() {
           <span class="time-badge"><i class="fa-regular fa-clock"></i> ${formatTimeAgo(article.pubDate)}</span>
         </div>
 
-        <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="news-title">
+        <a href="${sanitizeUrl(article.link)}" target="_blank" rel="noopener noreferrer nofollow" class="news-title">
           ${escapeHtml(article.title)}
         </a>
 
@@ -1403,7 +1416,7 @@ function renderNews() {
             <button class="btn-bookmark ${isBookmarked ? 'active' : ''}" onclick="toggleBookmark(${JSON.stringify(article.id || article.link).replace(/"/g, '&quot;')})" title="Simpan Berita">
               <i class="fa-${isBookmarked ? 'solid' : 'regular'} fa-bookmark"></i>
             </button>
-            <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="btn-open-link" title="Buka Sumber Berita">
+            <a href="${sanitizeUrl(article.link)}" target="_blank" rel="noopener noreferrer nofollow" class="btn-open-link" title="Buka Sumber Berita">
               <i class="fa-solid fa-arrow-up-right-from-square"></i>
             </a>
           </div>
@@ -1437,7 +1450,10 @@ function updateBookmarkCount() {
 // ===================================================================
 // CHATBOT INTERACTION (LOCAL NLP + GOOGLE GEMINI)
 // ===================================================================
+// PONDASI 5: RATE LIMITER & TOKEN BUCKET (Max 1 pesan per 1.5 detik, maks 25 pesan/menit)
 let lastChatTime = 0;
+let chatWindowStart = Date.now();
+let chatRequestCount = 0;
 let isChatProcessing = false;
 
 function handleChatSubmit(e) {
@@ -1446,8 +1462,24 @@ function handleChatSubmit(e) {
   if (!text) return;
 
   const now = Date.now();
-  if (isChatProcessing || now - lastChatTime < 1000) {
-    return; // Anti-flood: batasi 1 pesan per detik
+  if (now - chatWindowStart > 60000) {
+    chatWindowStart = now;
+    chatRequestCount = 0;
+  }
+  chatRequestCount++;
+  if (chatRequestCount > 25) {
+    alert('Batas frekuensi pesan tercapai (maks 25 pesan per menit). Harap tunggu sejenak demi keamanan.');
+    return;
+  }
+
+  if (isChatProcessing || now - lastChatTime < 1500) {
+    return;
+  }
+
+  // PONDASI 4: Batasi panjang input demi mencegah payload overflow
+  if (text.length > 500) {
+    alert('Pesan terlalu panjang (maksimal 500 karakter).');
+    return;
   }
 
   el.chatInput.value = '';
@@ -1875,7 +1907,15 @@ function calculateDCA() {
 // ===================================================================
 function saveSettings() {
   const rawKey = el.geminiApiKeyInput?.value.trim() || '';
-  const key = rawKey.replace(/[^a-zA-Z0-9_\-]/g, '').slice(0, 100);
+  // PONDASI 6: Validasi ketat format Google Gemini API Key
+  let key = '';
+  if (rawKey) {
+    if (!/^[A-Za-z0-9_\-]{20,100}$/.test(rawKey)) {
+      alert('Format API Key tidak valid. Kunci harus 20-100 karakter alfanumerik aman.');
+      return;
+    }
+    key = rawKey;
+  }
   const interval = el.autoRefreshSelect?.value || '45';
   const voice = el.voiceSelect?.value || 'id-ID';
 
@@ -1883,13 +1923,15 @@ function saveSettings() {
   state.refreshInterval = parseInt(interval, 10);
   state.voiceLang = voice;
 
-  localStorage.setItem('finai_gemini_key', key);
-  localStorage.setItem('finai_refresh_interval', interval);
-  localStorage.setItem('finai_voice_lang', voice);
+  try {
+    localStorage.setItem('finai_gemini_key', key);
+    localStorage.setItem('finai_refresh_interval', interval);
+    localStorage.setItem('finai_voice_lang', voice);
+  } catch (err) {}
 
   state.countdown = state.refreshInterval;
   if (el.settingsModal) el.settingsModal.classList.remove('open');
-  alert('Pengaturan berhasil disimpan!');
+  alert('Pengaturan dan perisai keamanan berhasil disimpan!');
 }
 
 // ===================================================================
@@ -1964,6 +2006,8 @@ function initCryptoLiveWebSocket() {
 
     cryptoSocket.onmessage = (event) => {
       try {
+        // PONDASI 10: Validasi integritas payload WebSocket Binance
+        if (!event || typeof event.data !== 'string' || event.data.length > 150000) return;
         const tickers = JSON.parse(event.data);
         if (!Array.isArray(tickers) || !state.market || !state.market.crypto) return;
 
@@ -1977,6 +2021,8 @@ function initCryptoLiveWebSocket() {
 
           if (coinKey && state.market.crypto[coinKey]) {
             const rawVal = parseFloat(t.c);
+            // PONDASI 10: Validasi numerik harga (cegah NaN, Infinity, nilai negatif/anomali)
+            if (isNaN(rawVal) || !isFinite(rawVal) || rawVal <= 0 || rawVal > 1e12) continue;
             const newPrice = rawVal / divisor;
             const oldPrice = state.market.crypto[coinKey].usd;
             if (newPrice && newPrice !== oldPrice) {
@@ -2221,8 +2267,18 @@ function formatIDR(num) {
 
 function escapeHtml(text) {
   if (!text) return '';
-  const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
-  return String(text).replace(/[&<>"']/g, m => map[m]);
+  const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;', '`': '&#96;' };
+  return String(text).replace(/[&<>"'`]/g, m => map[m]);
+}
+
+// PONDASI 4 & 7: Anti-XSS and Safe URL Validator
+function sanitizeUrl(url) {
+  if (!url || typeof url !== 'string') return '#';
+  const clean = url.trim();
+  if (clean.startsWith('https://') || clean.startsWith('http://')) {
+    return clean.replace(/[<>"'`]/g, '');
+  }
+  return '#';
 }
 
 function truncate(str, max) {
@@ -2246,3 +2302,14 @@ function formatTimeAgo(dateStr) {
 }if (el.goldSignalBadge) el.goldSignalBadge.textContent = "Sinyal: STRONG BUY";
     if (el.goldSignalBadge) el.goldSignalBadge.textContent = "Sinyal: STRONG SELL";
     
+
+// ===================================================================
+// PONDASI 9: OBJECT IMMUTABILITY & PROTOTYPE POLLUTION DEFENSE
+// ===================================================================
+try {
+  Object.freeze(CRYPTO_CATALOG);
+  Object.freeze(STOCKS_CATALOG);
+  Object.freeze(PRECIOUS_CATALOG);
+  Object.freeze(FOREX_CATALOG);
+  Object.freeze(BINANCE_SYMBOL_MAP);
+} catch (e) {}
