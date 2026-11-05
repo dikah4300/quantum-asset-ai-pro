@@ -432,10 +432,10 @@ function initDefaultMarketState() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  populateCryptoSelectOptions();
   initDefaultMarketState();
   initSettings();
   initEventListeners();
-  populateCryptoSelectOptions();
   initTradingViewChart();
   renderEconomicCalendar('all');
   loadAllData();
@@ -1197,7 +1197,8 @@ function renderTickerTape() {
     if (m.crypto.ethereum) items.push({ sym: 'ETH', price: formatUSD(m.crypto.ethereum.usd), chg: m.crypto.ethereum.usd_24h_change });
     if (m.crypto.solana) items.push({ sym: 'SOL', price: formatUSD(m.crypto.solana.usd), chg: m.crypto.solana.usd_24h_change });
     if (m.crypto.sui) items.push({ sym: '💧 SUI', price: formatUSD(m.crypto.sui.usd), chg: m.crypto.sui.usd_24h_change });
-    if (m.crypto.dogecoin) items.push({ sym: '🐕 DOGE', price: formatUSD(m.crypto.dogecoin.usd), chg: m.crypto.dogecoin.usd_24h_change });
+    if (m.crypto['shiba-inu']) items.push({ sym: '🐶 SHIB', price: formatUSD(m.crypto['shiba-inu'].usd), chg: m.crypto['shiba-inu'].usd_24h_change });
+    if (m.crypto.dogwifcoin) items.push({ sym: '🧢 WIF', price: formatUSD(m.crypto.dogwifcoin.usd), chg: m.crypto.dogwifcoin.usd_24h_change });
   }
 
   // Precious & Forex
@@ -1724,7 +1725,13 @@ function formatChatMessage(text) {
         result.push('</ul>');
         inList = false;
       }
-      if (line) result.push(`<p>${line}</p>`);
+      if (line) {
+        if (line.startsWith('<h4') || line.startsWith('<ul') || line.startsWith('<div')) {
+          result.push(line);
+        } else {
+          result.push(`<p>${line}</p>`);
+        }
+      }
     }
   }
   if (inList) result.push('</ul>');
@@ -1892,12 +1899,14 @@ function saveSettings() {
 function updatePriceWithFlash(element, newText, isHigher) {
   if (!element || element.textContent === newText) return;
   element.textContent = newText;
+  if (element._flashTimer) clearTimeout(element._flashTimer);
   element.classList.remove('price-flash-up', 'price-flash-down');
   void element.offsetWidth; // Force DOM reflow to re-trigger CSS keyframe
   element.classList.add(isHigher ? 'price-flash-up' : 'price-flash-down');
-  setTimeout(() => {
+  element._flashTimer = setTimeout(() => {
     if (element) element.classList.remove('price-flash-up', 'price-flash-down');
-  }, 800);
+    element._flashTimer = null;
+  }, 750);
 }
 
 // 1. Live WebSocket Streaming untuk Kripto & Koin Meme (Binance Public Feed)
@@ -2000,6 +2009,11 @@ function initCryptoLiveWebSocket() {
               if (matrixSubEl) {
                 matrixSubEl.textContent = formatIDR(newIdr);
               }
+
+              const cryptoSelectEl = document.getElementById('cryptoSelect');
+              if (cryptoSelectEl && cryptoSelectEl.value === coinKey) {
+                calculateCryptoConverter();
+              }
             }
           }
         }
@@ -2100,6 +2114,7 @@ function initStockAndCommodityLiveEngine() {
         updatePriceWithFlash(matrixGoldEl, formatUSD(gold.price), isUp);
         matrixGoldEl.className = `m-item-price ${isUp ? 'text-emerald' : 'text-crimson'}`;
       }
+      calculateGoldConverter();
     }
 
     // D. Continuous Live Update untuk SEMUA 46 Koin Kripto & Koin Meme (Tepat Setiap 2 Detik Tanpa Perlu Refresh)
@@ -2110,25 +2125,21 @@ function initStockAndCommodityLiveEngine() {
       for (const [cKey, coin] of Object.entries(state.market.crypto)) {
         if (!coin || !coin.usd) continue;
 
-        // Cek apakah koin ini baru saja menerima tick dari WebSocket dalam 2 detik terakhir
-        const hadRecentWs = lastCryptoWsTick[cKey] && (now - lastCryptoWsTick[cKey] <= 2000);
-        let isUp = true;
-        let newPrice = coin.usd;
+        // Jika koin ini baru saja menerima tick dari WebSocket dalam 2 detik terakhir, lewati agar tidak menimpa arah harga riil
+        if (lastCryptoWsTick[cKey] && (now - lastCryptoWsTick[cKey] <= 2000)) {
+          continue;
+        }
 
-        if (!hadRecentWs) {
-          const oldPrice = coin.usd;
-          // Mikro-fluktuasi alami pasar kripto setiap 2 detik
-          const microPct = (Math.random() - 0.495) * 0.0024; // ±0.12% per 2 detik
-          newPrice = oldPrice * (1 + microPct);
-          isUp = newPrice >= oldPrice;
-          coin.usd = newPrice;
-          coin.idr = Math.round(newPrice * usdIdr);
+        const oldPrice = coin.usd;
+        // Mikro-fluktuasi alami pasar kripto setiap 2 detik
+        const microPct = (Math.random() - 0.495) * 0.0024; // ±0.12% per 2 detik
+        const newPrice = oldPrice * (1 + microPct);
+        const isUp = newPrice >= oldPrice;
+        coin.usd = newPrice;
+        coin.idr = Math.round(newPrice * usdIdr);
 
-          if (coin.usd_24h_change !== undefined) {
-            coin.usd_24h_change = parseFloat((coin.usd_24h_change + (microPct * 50)).toFixed(2));
-          }
-        } else {
-          isUp = true;
+        if (coin.usd_24h_change !== undefined) {
+          coin.usd_24h_change = parseFloat((coin.usd_24h_change + (microPct * 50)).toFixed(2));
         }
 
         // 1. Update element pada Katalog Matriks & Koin Meme (jika kartu sedang tampil di layar)
